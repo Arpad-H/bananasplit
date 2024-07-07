@@ -10,7 +10,7 @@ public class JourneyWithExpensesAndPersons {
     @Embedded public Journey journey;
     @Relation(
             parentColumn = "journeyID",
-            entityColumn = "expenseID"
+            entityColumn = "id"
     )
     public List<Expense> expenses;
 

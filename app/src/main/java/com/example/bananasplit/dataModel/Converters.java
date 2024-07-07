@@ -2,7 +2,6 @@ package com.example.bananasplit.dataModel;
 
 import androidx.room.TypeConverter;
 
-import com.example.bananasplit.dataModel.Journey;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,6 +25,15 @@ public class Converters {
     @TypeConverter
     public static String personListToString(List<Person> someObjects) {
         return gson.toJson(someObjects);
+    }
+    @TypeConverter
+    public static Currency fromFloat(Float value) {
+        return value == null ? null : new Currency(value);
+    }
+
+    @TypeConverter
+    public static Float currencyToFloat(Currency currency) {
+        return currency == null ? null : currency.valueInEur;
     }
 
 //

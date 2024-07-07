@@ -140,15 +140,7 @@ public class ScannerActivity extends AppCompatActivity {
         // Example: Split each line by spaces and try to identify patterns for items, quantities, and prices
     }
 
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (isGranted) {
-                    startCamera();
-                } else {
-                    // Handle permission denial
-                    Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
-                }
-            });
+
 
 
     @Override
