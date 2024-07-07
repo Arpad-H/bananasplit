@@ -52,9 +52,7 @@ public class ScannerActivity extends AppCompatActivity {
         previewView = findViewById(R.id.previewView);
 
         Button captureButton = findViewById(R.id.captureButton);
-        captureButton.setOnClickListener(view -> {
-            takePhoto();
-        });
+        captureButton.setOnClickListener(view -> takePhoto());
         cameraExecutor = Executors.newSingleThreadExecutor();
         startCamera();
 
@@ -138,6 +136,12 @@ public class ScannerActivity extends AppCompatActivity {
     private void parseReceiptLines(List<String> lines) {
         // Implement your parsing logic here
         // Example: Split each line by spaces and try to identify patterns for items, quantities, and prices
+        for (String line : lines) {
+            String[] words = line.split(" ");
+            for (String word : words) {
+                Log.d("Receipt", word);
+            }
+        }
     }
 
 
