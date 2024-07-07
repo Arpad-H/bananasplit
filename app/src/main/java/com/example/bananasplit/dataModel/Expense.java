@@ -4,6 +4,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import com.example.bananasplit.util.Currency;
+
 import java.io.Serializable;
 
 @Entity(foreignKeys =   {
@@ -22,9 +24,13 @@ public class Expense implements Serializable {
     public int id = 0;
     public int spenderID;
     public int journeyID;
+    public int amount;
+    public Currency currency;
 
-    public Expense(int spenderID, int journeyID) {
+    public Expense(int spenderID, int journeyID, int amount, Currency currency) {
         this.spenderID = spenderID;
         this.journeyID = journeyID;
+        this.amount = amount;
+        this.currency = currency;
     }
 }
