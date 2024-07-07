@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">bananasplit</string>
+    <string name="capture">Capture</string>
+    <string name="test_camera">test camera</string>
 </resources>
