@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_groups"
         android:icon="@drawable/logo"
         android:title="@string/groups" />
     <item
-        android:id="@+id/nav_dashboard"
+        android:id="@+id/nav_friends"
         android:icon="@drawable/logo"
         android:title="@string/Friends" />
     <item
-        android:id="@+id/nav_notifications"
+        android:id="@+id/nav_activities"
         android:icon="@drawable/logo"
         android:title="@string/Activity" />
 </menu>
