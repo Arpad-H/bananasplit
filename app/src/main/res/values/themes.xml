@@ -1,9 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Bananasplit" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="android:windowSplashScreenBackground">@color/darkyellow</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_logo2</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/group_51_3_</item>
+
     </style>
 
     <style name="Theme.Bananasplit" parent="Base.Theme.Bananasplit" />
+
 </resources>
