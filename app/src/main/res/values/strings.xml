@@ -2,4 +2,7 @@
     <string name="app_name">bananasplit</string>
     <string name="capture">Capture</string>
     <string name="test_camera">test camera</string>
+    <string name="groups">Groups</string>
+    <string name="Friends">Friends</string>
+    <string name="Activity">Activity</string>
 </resources>

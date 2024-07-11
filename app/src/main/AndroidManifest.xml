@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bananasplit">
         <activity
+            android:name=".FriendsActiviy"
+            android:exported="false" />
+        <activity
+            android:name=".GroupsActiviy"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
