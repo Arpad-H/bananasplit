@@ -5,7 +5,7 @@
         <item name="android:windowSplashScreenBackground">@color/darkyellow</item>
         <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_logo2</item>
         <item name="android:windowSplashScreenBrandingImage">@drawable/group_51_3_</item>
-
+<!--TODO increse anim length-->
     </style>
 
     <style name="Theme.Bananasplit" parent="Base.Theme.Bananasplit" />
