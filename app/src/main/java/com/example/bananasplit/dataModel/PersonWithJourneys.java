@@ -10,8 +10,8 @@ public class PersonWithJourneys {
     @Embedded public Person person;
     @Relation(
             parentColumn = "personID",
-            entityColumn = "journeyID",
-            associateBy = @Junction(PersonJourneyCrossRef.class)
+            entityColumn = "groupID",
+            associateBy = @Junction(PersonGroupCrossRef.class)
     )
-    public List<Journey> journeys;
+    public List<Group> groups;
 }

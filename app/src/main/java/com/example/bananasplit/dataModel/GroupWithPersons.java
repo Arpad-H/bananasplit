@@ -6,12 +6,12 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class JourneyWithPersons {
-    @Embedded public Journey journey;
+public class GroupWithPersons {
+    @Embedded public Group group;
     @Relation(
-            parentColumn = "journeyID",
+            parentColumn = "groupID",
             entityColumn = "personID",
-            associateBy = @Junction(PersonJourneyCrossRef.class)
+            associateBy = @Junction(PersonGroupCrossRef.class)
     )
     public List<Person> persons;
 }

@@ -11,18 +11,18 @@ import androidx.room.Transaction;
 import java.util.List;
 
 @Dao
-public interface JourneyInDao {
+public interface GroupInDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Journey journey);
+    void insert(Group group);
 
     @Delete
-    void delete(Journey journey);
+    void delete(Group group);
 
     @Transaction
-    @Query("SELECT * FROM Journey WHERE journeyID = :ID")
-    LiveData<List<JourneyWithExpensesAndPersons>> getJourneyWithExpensesAndPersonsByID(int ID);
+    @Query("SELECT * FROM `Group` WHERE groupID = :ID")
+    LiveData<List<GroupWithExpensesAndPersons>> getGroupWithExpensesAndPersonsByID(int ID);
 
-    @Query("SELECT * FROM Journey")
-    LiveData<List<Journey>> getAllJourneys();
+    @Query("SELECT * FROM `Group`")
+    LiveData<List<Group>> getAllGroups();
 }

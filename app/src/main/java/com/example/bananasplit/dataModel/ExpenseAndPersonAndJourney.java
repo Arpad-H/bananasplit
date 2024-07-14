@@ -15,5 +15,5 @@ public class ExpenseAndPersonAndJourney {
             parentColumn = "journeyID",
             entityColumn = "journeyID"
     )
-    public Journey journey;
+    public Group group;
 }

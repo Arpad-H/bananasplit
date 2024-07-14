@@ -12,22 +12,22 @@ import java.io.Serializable;
             childColumns = "spenderID",
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE),
-        @ForeignKey(entity = Journey.class,
-            parentColumns = "journeyID",
-            childColumns = "journeyID",
+        @ForeignKey(entity = Group.class,
+            parentColumns = "groupID",
+            childColumns = "groupID",
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE)})
 public class Expense implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int id = 0;
     public int spenderID;
-    public int journeyID;
+    public int groupID;
     public int amount;
     public Currency currency;
 
-    public Expense(int spenderID, int journeyID, int amount, Currency currency) {
+    public Expense(int spenderID, int groupID, int amount, Currency currency) {
         this.spenderID = spenderID;
-        this.journeyID = journeyID;
+        this.groupID = groupID;
         this.amount = amount;
         this.currency = currency;
     }

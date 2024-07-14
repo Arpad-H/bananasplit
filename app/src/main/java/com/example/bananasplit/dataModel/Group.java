@@ -6,14 +6,14 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class Journey implements Serializable {
+public class Group implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public int journeyID = 0;
+    public int groupID = 0;
     public String name;
     public String date; //TODO: eventuell als Date Object mit Converter?
     public int duration;
 
-    public Journey(String name, String date, int duration) {
+    public Group(String name, String date, int duration) {
         this.name = name;
         this.date = date;
         this.duration = duration;
