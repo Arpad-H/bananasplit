@@ -4,12 +4,8 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-//@Module
-//@InstallIn(SingletonComponent.class)
 public class DatabaseModule {
     static AppDatabase appDatabase;
-    // @Provides
-    //  @Singleton
     private static AppDatabase instance;
 
     public static synchronized AppDatabase getInstance(Context context) {

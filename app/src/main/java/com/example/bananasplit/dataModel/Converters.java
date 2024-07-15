@@ -26,6 +26,7 @@ public class Converters {
     public static String personListToString(List<Person> someObjects) {
         return gson.toJson(someObjects);
     }
+
     @TypeConverter
     public static Currency fromFloat(Float value) {
         return value == null ? null : new Currency(value);

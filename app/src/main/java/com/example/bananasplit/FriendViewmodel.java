@@ -1,0 +1,51 @@
+package com.example.bananasplit;
+
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import com.example.bananasplit.dataModel.AppDatabase;
+import com.example.bananasplit.dataModel.DatabaseModule;
+import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.dataModel.PersonInDao;
+
+import java.util.List;
+
+public class FriendViewmodel extends AndroidViewModel {
+    private AppDatabase appDatabase;
+    private LiveData<List<Person>> allFriends;
+    private PersonInDao personInDao;
+    private Person person;
+
+    public FriendViewmodel(@NonNull Application application) {
+        super(application);
+        appDatabase = DatabaseModule.getInstance(application);
+        personInDao = appDatabase.personInDao();
+        allFriends = personInDao.getFriends();
+    }
+
+    public void insert(Person person) {
+        new Thread(() -> {
+            personInDao.insert(person);
+        }).start();
+    }
+
+    public void delete(Person person) {
+        new Thread(() -> {
+            personInDao.delete(person);
+        }).start();
+    }
+
+    public void update(Person person) {
+        new Thread(() -> {
+            personInDao.update(person);
+        }).start();
+    }
+
+
+    public LiveData<List<Person>> getAllFriends() {
+        return allFriends;
+    }
+}
