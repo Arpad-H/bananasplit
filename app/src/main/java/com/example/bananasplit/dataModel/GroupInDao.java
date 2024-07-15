@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -19,10 +20,17 @@ public interface GroupInDao {
     @Delete
     void delete(Group group);
 
+    @Update
+    void update(Group group);
+
     @Transaction
     @Query("SELECT * FROM `Group` WHERE groupID = :ID")
     LiveData<List<GroupWithExpensesAndPersons>> getGroupWithExpensesAndPersonsByID(int ID);
 
+    @Transaction
     @Query("SELECT * FROM `Group`")
     LiveData<List<Group>> getAllGroups();
+
+
+
 }

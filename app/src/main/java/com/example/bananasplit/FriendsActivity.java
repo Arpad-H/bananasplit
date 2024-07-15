@@ -11,7 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class FriendsActivity extends BaseActivity implements ListItem {
+public class FriendsActivity extends BaseActivity implements ListItemHolder {
     private RecyclerView recyclerView;
     private FriendsAdapter adapter;
     private FriendViewmodel friendViewmodel;
@@ -20,7 +20,6 @@ public class FriendsActivity extends BaseActivity implements ListItem {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutResourceId());
 
         recyclerView = findViewById(R.id.recyclerFriends);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

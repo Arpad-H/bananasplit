@@ -14,9 +14,9 @@ import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
     private List<Person> friends;
-    private ListItem items;
+    private ListItemHolder items;
 
-    public FriendsAdapter(List<Person> friends, ListItem items) {
+    public FriendsAdapter(List<Person> friends, ListItemHolder items) {
         this.friends = friends;
         this.items = items;
     }

@@ -18,26 +18,30 @@ private GroupInDao groupInDao;
     public GroupViewModel(@NonNull Application application) {
         super(application);
 
-
         appDatabase = DatabaseModule.getInstance(application);
         groupInDao = appDatabase.groupInDao();
+        updateAllGroups();
+    }
+
+    private void updateAllGroups() {
         allGroups = groupInDao.getAllGroups();
     }
 
-//TODO insert, update, delete
+    //TODO insert, update, delete
     public void insert(Group group) {
         new Thread(() -> {
             groupInDao.insert(group);
         }).start();
     }
 
-//    public void update(Group group) {
-//        new Thread(() -> GroupInDao.update(group)).start();
-//    }
-//
-//    public void delete(Group group) {
-//        new Thread(() -> GroupInDao.delete(group)).start();
-//    }
+    public void update(Group group) {
+        new Thread(() -> groupInDao.update(group)).start();
+
+    }
+
+    public void delete(Group group) {
+        new Thread(() -> groupInDao.delete(group)).start();
+    }
 
     public LiveData<List<Group>> getAllGroups() {
         return allGroups;

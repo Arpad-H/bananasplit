@@ -14,9 +14,9 @@ import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
     private List<Group> groups;
-    private ListItem listener;
+    private ListItemHolder listener;
 
-    public GroupAdapter(List<Group> groups, ListItem listener) {
+    public GroupAdapter(List<Group> groups, ListItemHolder listener) {
         this.groups = groups;
         this.listener = listener;
     }
@@ -44,7 +44,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         return groups.get(position);
     }
 
-    public void updateJourneys(List<Group> groups) {
+    public void updateGroups(List<Group> groups) {
         this.groups = groups;
         notifyDataSetChanged();
     }
@@ -61,6 +61,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
             itemView.setOnClickListener(this);
             itemView.findViewById(R.id.editButton).setOnClickListener(this);
             itemView.findViewById(R.id.deleteButton).setOnClickListener(this);
+        }
+
+        public Group getGroupAt(int position) {
+            return groups.get(position);
         }
 
         @Override
