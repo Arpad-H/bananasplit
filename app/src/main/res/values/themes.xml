@@ -10,4 +10,8 @@
 
     <style name="Theme.Bananasplit" parent="Base.Theme.Bananasplit" />
 
+<!--    <style name="Button.green" parent="ThemeOverlay.AppCompat">-->
+<!--        <item name="colorAccent">@color/btn_color</item>-->
+<!--    </style>-->
+
 </resources>

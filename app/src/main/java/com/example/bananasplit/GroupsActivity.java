@@ -2,6 +2,7 @@ package com.example.bananasplit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -56,7 +57,10 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
     }
     @Override
     public void onItemClicked(int position) {
-        Log.d("GroupsActivity", "onItemClicked: " + position);
+        Group groupToView = adapter.getGroupAt(position);
+        Intent intent = new Intent(GroupsActivity.this, GroupDetailsActivity.class);
+        intent.putExtra("group", (Parcelable) groupToView);
+        startActivity(intent);
     }
 
     @Override
@@ -68,6 +72,7 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
 
     @Override
     public void onEdit(int position) {
+        //TODO change to parcelable
         Group groupToEdit = adapter.getGroupAt(position);
         Intent intent = new Intent(GroupsActivity.this, CreateGroupActivity.class);
         intent.putExtra(CreateGroupActivity.EXTRA_GROUP_ID, groupToEdit.getGroupID());

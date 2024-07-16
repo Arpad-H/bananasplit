@@ -5,4 +5,10 @@
     <string name="groups">Groups</string>
     <string name="Friends">Friends</string>
     <string name="Activity">Activity</string>
+    <string name="you_are_owed">You are owed</string>
+    <string name="you_owe">You owe</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="settle_up">Settle Up</string>
+    <string name="balances">Balances</string>
+    <string name="convert_currency">Convert Currency</string>
 </resources>

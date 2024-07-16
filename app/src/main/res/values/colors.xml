@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkyellow">#FFB512</color>
+    <color name="topAccentBar">#FEC443</color>
+    <color name="btn_color">#29846A</color>
 </resources>
