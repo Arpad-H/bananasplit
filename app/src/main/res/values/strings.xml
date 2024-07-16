@@ -11,4 +11,11 @@
     <string name="settle_up">Settle Up</string>
     <string name="balances">Balances</string>
     <string name="convert_currency">Convert Currency</string>
+    <string name="description">Description</string>
+    <string name="amount">Amount</string>
+    <string name="expense">expense</string>
+    <string name="date">date</string>
+    <string name="person">Person</string>
+    <string name="name_of_the_expense">Name of the Expense</string>
+    <string name="done">Done</string>
 </resources>

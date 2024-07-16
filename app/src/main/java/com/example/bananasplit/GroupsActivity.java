@@ -37,7 +37,7 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
 
         FloatingActionButton fab = findViewById(R.id.btn_add_group);
         fab.setOnClickListener(v -> {
-            // Open the new activity or create a group
+
             Intent intent = new Intent(GroupsActivity.this, CreateGroupActivity.class);
             startActivity(intent);
         });

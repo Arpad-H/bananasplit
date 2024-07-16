@@ -2,11 +2,23 @@ package com.example.bananasplit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.widget.Adapter;
 import android.widget.TextView;
 
-import com.example.bananasplit.dataModel.Group;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class GroupDetailsActivity extends BaseActivity{
+import com.example.bananasplit.dataModel.Group;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+
+public class GroupDetailsActivity extends BaseActivity {
+    private RecyclerView recyclerView;
+    ExpenseAdapter adapter;
+    ExpenseViewModel expenseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +35,24 @@ public class GroupDetailsActivity extends BaseActivity{
             groupDateTextView.setText(group.getDate());
             groupDurationTextView.setText(String.valueOf(group.getDuration()));
         }
+
+        recyclerView = findViewById(R.id.recyclerViewExpenses);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new ExpenseAdapter(new ArrayList<>());
+        recyclerView.setAdapter(adapter);
+
+        expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
+        expenseViewModel.getExpensesByGroupId(group.getGroupID()).observe(this, expenses -> {
+            adapter.updateExpenses(expenses);
+        });
+
+        FloatingActionButton fab = findViewById(R.id.btn_add_expense);
+        fab.setOnClickListener(v -> {
+
+            Intent intent = new Intent(this, CreateExpenseActivity.class);
+            intent.putExtra("group", (Parcelable) group);
+            startActivity(intent);
+        });
     }
 
 

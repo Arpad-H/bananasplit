@@ -112,7 +112,7 @@
         android:backgroundTint="@color/btn_color"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/grp_expenses_view"
+        android:id="@+id/recyclerViewExpenses"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"

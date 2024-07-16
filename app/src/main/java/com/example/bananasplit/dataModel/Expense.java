@@ -22,13 +22,16 @@ public class Expense implements Serializable {
     public int id = 0;
     public int spenderID;
     public int groupID;
-    public int amount;
+    public float amount;
     public Currency currency;
 
-    public Expense(int spenderID, int groupID, int amount, Currency currency) {
+    public Expense(int spenderID, int groupID, float amount, Currency currency) {
         this.spenderID = spenderID;
         this.groupID = groupID;
         this.amount = amount;
         this.currency = currency;
+    }
+    public float getAmount() {
+        return amount;
     }
 }

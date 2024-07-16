@@ -43,14 +43,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             return false;
         });
 
-        // Set the current selected item
-//        if (this instanceof GroupsActivity) {
-//            bottomNavigationView.setSelectedItemId(R.id.nav_groups);
-//        } else if (this instanceof FriendsActivity) {
-//            bottomNavigationView.setSelectedItemId(R.id.nav_friends);
-//        } else if (this instanceof ActivitiesActivity) {
-//            bottomNavigationView.setSelectedItemId(R.id.nav_activities);
-//        }
+//         Set the current selected item
+        if (this instanceof GroupsActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_groups);
+        } else if (this instanceof FriendsActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_friends);
+        } else if (this instanceof ActivitiesActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_activities);
+        }
     }
 
     protected abstract int getLayoutResourceId();
