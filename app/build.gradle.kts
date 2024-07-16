@@ -46,14 +46,12 @@ dependencies {
     implementation(libs.play.services.mlkit.text.recognition)
     implementation(libs.gson)
     implementation(libs.core.splashscreen)
-    // implementation(libs.stanford.corenlp)
-//    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar", "*.jar"), "exclude" to listOf(""))))
-
-
+    implementation(libs.imagepicker)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.junit)
     annotationProcessor(libs.room.compiler)
+
 
 }

@@ -18,4 +18,8 @@
     <string name="person">Person</string>
     <string name="name_of_the_expense">Name of the Expense</string>
     <string name="done">Done</string>
+    <string name="group_cover_image">group cover image\n</string>
+    <string name="pick_image">Pick Image</string>
+    <string name="duration">Duration</string>
+    <string name="name">Name</string>
 </resources>

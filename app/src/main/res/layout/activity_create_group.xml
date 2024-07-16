@@ -9,24 +9,38 @@
         android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:hint="@string/name" />
 
     <EditText
         android:id="@+id/dateEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date" />
+        android:hint="@string/date" />
 
     <EditText
         android:id="@+id/durationEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Duration" />
+        android:hint="@string/duration" />
+    <ImageView
+        android:id="@+id/groupCoverImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@string/group_cover_image"
+        android:src="@drawable/logo" />
+
+    <Button
+        android:id="@+id/pickImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_image" />
 
     <Button
         android:id="@+id/createButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create" />
+
 
 </LinearLayout>

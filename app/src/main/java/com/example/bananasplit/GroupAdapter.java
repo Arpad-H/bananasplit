@@ -1,8 +1,10 @@
 package com.example.bananasplit;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         holder.nameTextView.setText(group.name);
         holder.dateTextView.setText(group.date);
         holder.durationTextView.setText(String.valueOf(group.duration));
+        if (group.getImageUri() != null) {
+            holder.groupCoverImageView.setImageURI(Uri.parse(group.getImageUri()));
+        }
+        else {
+            holder.groupCoverImageView.setImageResource(R.drawable.logo);
+        }
     }
 
     @Override
@@ -52,12 +60,15 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         TextView nameTextView;
         TextView dateTextView;
         TextView durationTextView;
+        ImageView groupCoverImageView;
 
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
             durationTextView = itemView.findViewById(R.id.durationTextView);
+            groupCoverImageView = itemView.findViewById(R.id.group_cover_image_view);
+
             itemView.setOnClickListener(this);
             itemView.findViewById(R.id.editButton).setOnClickListener(this);
             itemView.findViewById(R.id.deleteButton).setOnClickListener(this);

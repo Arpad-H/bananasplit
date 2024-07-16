@@ -37,7 +37,6 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
 
         FloatingActionButton fab = findViewById(R.id.btn_add_group);
         fab.setOnClickListener(v -> {
-
             Intent intent = new Intent(GroupsActivity.this, CreateGroupActivity.class);
             startActivity(intent);
         });
@@ -50,8 +49,10 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
             String name = data.getStringExtra("name");
             String date = data.getStringExtra("date");
             int duration = data.getIntExtra("duration", 0);
+            String imageUri = data.getStringExtra("imageUri");
 
-            Group newGroup = new Group(name, date, duration);
+            Group newGroup = new Group(name, date, duration, imageUri);
+
             groupViewModel.insert(newGroup);
         }
     }
@@ -75,10 +76,11 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         //TODO change to parcelable
         Group groupToEdit = adapter.getGroupAt(position);
         Intent intent = new Intent(GroupsActivity.this, CreateGroupActivity.class);
-        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_ID, groupToEdit.getGroupID());
-        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_NAME, groupToEdit.getName());
-        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_DATE, groupToEdit.getDate());
-        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_DURATION, groupToEdit.getDuration());
+//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_ID, groupToEdit.getGroupID());
+//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_NAME, groupToEdit.getName());
+//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_DATE, groupToEdit.getDate());
+//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_DURATION, groupToEdit.getDuration());
+        intent.putExtra("group", (Parcelable) groupToEdit);
         startActivity(intent);
     }
     @Override

@@ -17,6 +17,7 @@ cameraView = "1.4.0-beta02"
 playServicesMlkitTextRecognition = "19.0.0"
 gson = "2.11.0"
 coreSplashscreen = "1.2.0-alpha01"
+imagepicker = "2.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -36,6 +37,7 @@ camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "
 play-services-mlkit-text-recognition = { group = "com.google.android.gms", name = "play-services-mlkit-text-recognition", version.ref = "playServicesMlkitTextRecognition" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
+imagepicker = { group = "com.github.dhaval2404", name = "imagepicker", version.ref = "imagepicker" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
