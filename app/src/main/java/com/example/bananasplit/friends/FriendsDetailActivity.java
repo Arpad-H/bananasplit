@@ -37,7 +37,7 @@ public class FriendsDetailActivity extends BaseActivity {
         Person friend = getIntent().getParcelableExtra("friend", Person.class);
 
         if (friend != null) {
-            friendNameTV.setText(friend.name);
+            friendNameTV.setText(friend.getName());
 
             recyclerView = findViewById(R.id.recyclerViewExpensesFriend);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -45,7 +45,7 @@ public class FriendsDetailActivity extends BaseActivity {
             recyclerView.setAdapter(adapter);
 
             expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
-            expenseViewModel.getExpensesByFriendId(1, friend.personID).observe(this, expenses -> {
+            expenseViewModel.getExpensesByFriendId(1, friend.getPersonID()).observe(this, expenses -> {
                 adapter.updateExpenses(expenses);
             });
         }

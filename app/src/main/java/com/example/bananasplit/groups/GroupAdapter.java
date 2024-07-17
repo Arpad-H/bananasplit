@@ -35,9 +35,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
         Group group = groups.get(position);
-        holder.nameTextView.setText(group.name);
-        holder.dateTextView.setText(group.date);
-        holder.durationTextView.setText(String.valueOf(group.duration));
+        holder.nameTextView.setText(group.getName());
+        holder.dateTextView.setText(group.getDate());
+        holder.durationTextView.setText(String.valueOf(group.getDuration()));
         if (group.getImageUri() != null) {
             holder.groupCoverImageView.setImageURI(Uri.parse(group.getImageUri()));
         }

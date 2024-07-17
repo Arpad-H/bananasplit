@@ -12,10 +12,10 @@ import java.io.Serializable;
 @Entity
 public class Group implements Serializable, Parcelable {
     @PrimaryKey(autoGenerate = true)
-    public int groupID = 0;
-    public String name;
-    public String date; //TODO: eventuell als Date Object mit Converter?
-    public int duration;
+    private int groupID = 0;
+    private String name;
+    private String date; //TODO: eventuell als Date Object mit Converter?
+    private int duration;
     private String imageUri;
 
     public void setImageUri(String imageUri) {
@@ -23,6 +23,21 @@ public class Group implements Serializable, Parcelable {
     }
 
 
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 
     public int getGroupID() {
         return groupID;

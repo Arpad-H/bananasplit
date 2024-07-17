@@ -19,11 +19,11 @@ import java.io.Serializable;
             onUpdate = ForeignKey.CASCADE)})
 public class Expense implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    public int id = 0;
-    public int spenderID;
-    public int groupID;
-    public float amount;
-    public Currency currency;
+    private int id = 0;
+    private int spenderID;
+    private int groupID;
+    private float amount;
+    private Currency currency;
 
     public Expense(int spenderID, int groupID, float amount, Currency currency) {
         this.spenderID = spenderID;
@@ -32,6 +32,43 @@ public class Expense implements Serializable {
         this.currency = currency;
     }
     public float getAmount() {
-        return amount;
+        return this.amount;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public int getSpenderID() {
+        return spenderID;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public int getGroupID() {
+        return groupID;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
+    }
+
+    public void setSpenderID(int spenderID) {
+        this.spenderID = spenderID;
     }
 }

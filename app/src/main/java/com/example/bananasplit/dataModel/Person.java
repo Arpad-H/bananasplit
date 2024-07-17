@@ -13,11 +13,27 @@ import java.util.List;
 @Entity
 public class Person implements Serializable, Parcelable {
     @PrimaryKey(autoGenerate = true)
-    public int personID = 0;
-    public String name;
+    private int personID = 0;
+    private String name;
     List<Person> friends;
 
     public Person(String name) {
+        this.name = name;
+    }
+
+    public int getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(int personID) {
+        this.personID = personID;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 

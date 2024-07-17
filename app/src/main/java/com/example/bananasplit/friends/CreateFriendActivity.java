@@ -34,7 +34,7 @@ public class CreateFriendActivity extends AppCompatActivity {
             Person friend = intent.getParcelableExtra("friend", Person.class);
             createFriend.setText("Update");
             if (friend != null) {
-                friendName.setText(friend.name);
+                friendName.setText(friend.getName());
             }
 
         }
@@ -44,7 +44,7 @@ public class CreateFriendActivity extends AppCompatActivity {
             Person friend = new Person(name);
 
             if (update) {
-                friend.personID = Objects.requireNonNull(intent.getParcelableExtra("friend", Person.class)).personID;
+                friend.setPersonID(Objects.requireNonNull(intent.getParcelableExtra("friend", Person.class)).getPersonID());
                 friendViewmodel.update(friend);
             } else {
                 friendViewmodel.insert(friend);

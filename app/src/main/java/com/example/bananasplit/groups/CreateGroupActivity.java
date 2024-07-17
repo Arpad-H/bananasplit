@@ -78,7 +78,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
 //            newGroup.setId(intent.getIntExtra(String.valueOf(id), -1));
             if (intent.getParcelableExtra("group", Group.class) != null) {
-                int id = Objects.requireNonNull(intent.getParcelableExtra("group", Group.class)).groupID;
+                int id = Objects.requireNonNull(intent.getParcelableExtra("group", Group.class)).getGroupID();
                 newGroup.setId(intent.getIntExtra(String.valueOf(id), -1));
                 groupViewModel.update(newGroup);
             } else {

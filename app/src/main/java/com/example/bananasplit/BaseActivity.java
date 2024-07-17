@@ -57,6 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else if (this instanceof ActivitiesActivity) {
             bottomNavigationView.setSelectedItemId(R.id.nav_activities);
         }
+        // TODO: update for FirendsDetailActivity and GroupDetailsActivity
 
     }
 

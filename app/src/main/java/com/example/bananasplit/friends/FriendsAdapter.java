@@ -40,7 +40,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getFriendName().setText(friends.get(position).name);
+        viewHolder.getFriendName().setText(friends.get(position).getName());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
