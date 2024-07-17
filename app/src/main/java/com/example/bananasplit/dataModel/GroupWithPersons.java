@@ -16,4 +16,3 @@ public class GroupWithPersons {
     public List<Person> persons;
 }
 
-// Unused for now

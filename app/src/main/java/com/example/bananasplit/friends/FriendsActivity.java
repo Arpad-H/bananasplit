@@ -28,7 +28,7 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
 
         recyclerView = findViewById(R.id.recyclerFriends);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new FriendsAdapter(new ArrayList<>(), this);
+        adapter = new FriendsAdapter(new ArrayList<>(),  this);
         recyclerView.setAdapter(adapter);
 
         friendViewmodel = new ViewModelProvider(this).get(FriendViewModel.class);

@@ -55,7 +55,7 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
 
             Group newGroup = new Group(name, date, duration, imageUri);
 
-            groupViewModel.insert(newGroup);
+            groupViewModel.insert(newGroup, new ArrayList<>()); //TODO: selectedFriends, currently just empty list as placeholder
         }
     }
     @Override
@@ -75,13 +75,8 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
 
     @Override
     public void onEdit(int position) {
-        //TODO change to parcelable
         Group groupToEdit = adapter.getGroupAt(position);
         Intent intent = new Intent(GroupsActivity.this, CreateGroupActivity.class);
-//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_ID, groupToEdit.getGroupID());
-//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_NAME, groupToEdit.getName());
-//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_DATE, groupToEdit.getDate());
-//        intent.putExtra(CreateGroupActivity.EXTRA_GROUP_DURATION, groupToEdit.getDuration());
         intent.putExtra("group", (Parcelable) groupToEdit);
         startActivity(intent);
     }

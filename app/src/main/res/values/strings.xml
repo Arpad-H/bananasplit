@@ -25,6 +25,9 @@
     <string name="friendName" >(Placeholder)</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="add_friends">Add Friends</string>
+    <string name="update">Update</string>
+    <string name="friend_name">Friend Name</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

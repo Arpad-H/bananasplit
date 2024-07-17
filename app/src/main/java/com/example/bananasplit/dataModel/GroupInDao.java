@@ -15,11 +15,14 @@ import java.util.List;
 public interface GroupInDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Group group);
-
+    long insert(Group group);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertPersonGroupCrossRef(PersonGroupCrossRef crossRef);
     @Delete
     void delete(Group group);
 
+    @Query("DELETE FROM PersonGroupCrossRef WHERE groupID = :groupId")
+    void deletePersonGroupCrossRefsForGroup(int groupId);
     @Update
     void update(Group group);
 
@@ -31,6 +34,13 @@ public interface GroupInDao {
     @Query("SELECT * FROM `Group`")
     LiveData<List<Group>> getAllGroups();
 
-
+    @Transaction
+    default void insertGroupWithPersons(Group group, List<Person> persons) {
+        int grpID = (int) insert(group);
+        for (Person person : persons) {
+            insertPersonGroupCrossRef(new PersonGroupCrossRef(person.getPersonID(), grpID));
+        }
+//        return grpID;
+    }
 
 }

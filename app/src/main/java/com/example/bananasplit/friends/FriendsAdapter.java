@@ -12,12 +12,13 @@ import com.example.bananasplit.ListItemHolder;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
     private List<Person> friends;
     private ListItemHolder items;
-
+    private List<Person> selectedFriends = new ArrayList<>();
     public FriendsAdapter(List<Person> friends, ListItemHolder items) {
         this.friends = friends;
         this.items = items;
@@ -38,9 +39,18 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.getFriendName().setText(friends.get(position).getName());
+        Person friend = friends.get(position);
+        viewHolder.getFriendName().setText(friend.getName());
+        viewHolder.itemView.setSelected(selectedFriends.contains(friend));
+
+        viewHolder.itemView.setOnClickListener(v -> {
+            if (selectedFriends.contains(friend)) {
+                selectedFriends.remove(friend);
+            } else {
+                selectedFriends.add(friend);
+            }
+            notifyDataSetChanged();
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -58,6 +68,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         return friends.get(position);
     }
 
+    public List<Person> getSelectedFriends() {
+        return selectedFriends;
+    }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder)
@@ -67,7 +81,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
 
         public ViewHolder(View view) {
             super(view);
-            friendName = view.findViewById(R.id.friendNameTV);
+            friendName = view.findViewById(R.id.friend_name);
             // Define click listener for the ViewHolder's View
             view.findViewById(R.id.friendDelete).setOnClickListener(this);
             view.findViewById(R.id.friendEdit).setOnClickListener(this);
@@ -93,5 +107,6 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             }
         }
     }
+
 
 }

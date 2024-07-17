@@ -9,6 +9,8 @@ import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.GroupInDao;
 import com.example.bananasplit.dataModel.AppDatabase;
+import com.example.bananasplit.dataModel.Person;
+
 import java.util.List;
 
 public class GroupViewModel extends AndroidViewModel {
@@ -28,11 +30,16 @@ private GroupInDao groupInDao;
     }
 
     //TODO insert, update, delete
-    public void insert(Group group) {
+    public void insert(Group group, List<Person> persons) {
         new Thread(() -> {
-            groupInDao.insert(group);
+            groupInDao.insertGroupWithPersons(group, persons);
         }).start();
     }
+//    public void insert(Group group) {
+//        new Thread(() -> {
+//            groupInDao.insert(group);
+//        }).start();
+//    }
 
     public void update(Group group) {
         new Thread(() -> groupInDao.update(group)).start();
@@ -41,6 +48,8 @@ private GroupInDao groupInDao;
 
     public void delete(Group group) {
         new Thread(() -> groupInDao.delete(group)).start();
+        new Thread(() -> groupInDao.deletePersonGroupCrossRefsForGroup(group.getGroupID())).start();
+
     }
 
     public LiveData<List<Group>> getAllGroups() {
