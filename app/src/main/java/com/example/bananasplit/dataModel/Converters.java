@@ -28,13 +28,13 @@ public class Converters {
     }
 
     @TypeConverter
-    public static Currency fromFloat(Float value) {
-        return value == null ? null : new Currency(value);
+    public static Currency fromDouble(Double value) {
+        return value == null ? null : Currency.from(value);
     }
 
     @TypeConverter
-    public static Float currencyToFloat(Currency currency) {
-        return currency == null ? null : currency.valueInEur;
+    public static Double currencyToDouble(Currency currency) {
+        return currency == null ? null : currency.getValueInEur();
     }
 
 //

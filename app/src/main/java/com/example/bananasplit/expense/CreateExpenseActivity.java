@@ -34,7 +34,7 @@ public class CreateExpenseActivity  extends BaseActivity {
             String name = nameEditText.getText().toString();
             float amount = Float.parseFloat(amountEditText.getText().toString());
 
-            Expense newExpense = new Expense(1, group.getGroupID(), amount, new Currency(1));
+            Expense newExpense = new Expense(1, group.getGroupID(), amount, Currency.EUR);
             expenseViewModel.insert(newExpense);
 
             finish();
