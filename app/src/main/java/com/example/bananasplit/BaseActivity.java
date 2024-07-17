@@ -55,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else if (this instanceof ActivitiesActivity) {
             bottomNavigationView.setSelectedItemId(R.id.nav_activities);
         }
+
     }
 
     protected abstract int getLayoutResourceId();

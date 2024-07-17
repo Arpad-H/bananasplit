@@ -22,7 +22,6 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutResourceId());
 
         recyclerView = findViewById(R.id.recyclerFriends);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

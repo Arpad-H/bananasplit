@@ -29,4 +29,8 @@ public interface ExpenseInDao {
     @Transaction
     @Query("SELECT * FROM Expense WHERE groupID = :groupID")
     LiveData<List<Expense>> getExpensesByGroupId(int groupID);
+
+    @Transaction
+    @Query("SELECT * FROM Expense WHERE SpenderID = :ownID OR SpenderID = :friendID")
+    LiveData<List<Expense>> getExpensesByFriendId(int ownID, int friendID);
 }

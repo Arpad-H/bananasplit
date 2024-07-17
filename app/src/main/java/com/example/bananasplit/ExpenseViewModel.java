@@ -26,6 +26,10 @@ public class ExpenseViewModel extends AndroidViewModel {
         return expenseInDao.getExpensesByGroupId(groupId);
     }
 
+    public LiveData<List<Expense>> getExpensesByFriendId(int ownID, int friendID) {
+        return expenseInDao.getExpensesByFriendId(ownID, friendID);
+    }
+
     public void insert(Expense expense) {
         new Thread(() -> expenseInDao.insert(expense)).start();
     }
