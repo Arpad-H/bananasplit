@@ -25,11 +25,11 @@ public interface PersonInDao {
 
     @Transaction
     @Query("SELECT * FROM Person WHERE personID = :id")
-    LiveData<List<PersonWithJourneys>> getPersonWithJourneys(int id);
+    LiveData<List<PersonWithGroups>> getPersonWithGroupsByID(int id);
 
     @Transaction
     @Query("SELECT * FROM Person WHERE Person.name LIKE :name")
-    LiveData<List<PersonWithJourneys>> getPersonWithJourneysByName(String name);
+    LiveData<List<PersonWithGroups>> getPersonWithGroupsByName(String name);
 
     @Query("SELECT * FROM Person")
     LiveData<List<Person>> getFriends();

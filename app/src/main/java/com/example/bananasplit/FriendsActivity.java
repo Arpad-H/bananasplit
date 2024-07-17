@@ -46,7 +46,6 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
 
     @Override
     public void onItemClicked(int position) {
-        // TODO: handle on ItemClicked
         Person personDetails = adapter.getPersonAt(position);
         Intent intent = new Intent(FriendsActivity.this, FriendsDetailActivity.class);
         intent.putExtra("friend", (Parcelable) personDetails);
@@ -62,7 +61,10 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
 
     @Override
     public void onEdit(int position) {
-        // TODO: handle on ItemEdit
+        Person personDetails = adapter.getPersonAt(position);
+        Intent intent = new Intent(FriendsActivity.this, CreateFriendActivity.class);
+        intent.putExtra("friend", (Parcelable) personDetails);
+        startActivity(intent);
 
     }
 }

@@ -6,7 +6,7 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class PersonWithJourneys {
+public class PersonWithGroups {
     @Embedded public Person person;
     @Relation(
             parentColumn = "personID",
