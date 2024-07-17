@@ -52,6 +52,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public Person getPersonAt(int position) {
+        return friends.get(position);
+    }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder)
