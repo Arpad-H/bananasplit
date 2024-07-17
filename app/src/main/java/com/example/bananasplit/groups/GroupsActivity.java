@@ -1,15 +1,17 @@
-package com.example.bananasplit;
+package com.example.bananasplit.groups;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bananasplit.BaseActivity;
+import com.example.bananasplit.ListItemHolder;
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Group;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

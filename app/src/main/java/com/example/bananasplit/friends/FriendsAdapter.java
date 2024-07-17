@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.friends;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bananasplit.ListItemHolder;
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 
 import java.util.List;

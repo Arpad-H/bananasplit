@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.groups;
 
 import android.app.Application;
 import androidx.annotation.NonNull;

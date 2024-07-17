@@ -20,29 +20,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bananasplit">
         <activity
-            android:name=".FriendsDetailActivity"
+            android:name=".friends.FriendsDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.Bananasplit" />
         <activity
             android:name=".BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".FriendsActivity"
+            android:name=".friends.FriendsActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateGroupActivity"
+            android:name=".groups.CreateGroupActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateFriendActivity"
+            android:name=".friends.CreateFriendActivity"
             android:exported="false" />
         <activity
-            android:name=".GroupDetailsActivity"
+            android:name=".groups.GroupDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateExpenseActivity"
+            android:name=".expense.CreateExpenseActivity"
             android:exported="false" />
         <activity
-            android:name=".GroupsActivity"
+            android:name=".groups.GroupsActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->
@@ -65,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ScannerActivity"
+            android:name=".scanner.ScannerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.expense;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Expense;
 
 import java.util.List;

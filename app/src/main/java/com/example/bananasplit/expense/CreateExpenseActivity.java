@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.expense;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -6,11 +6,13 @@ import android.widget.EditText;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.bananasplit.BaseActivity;
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Currency;
 import com.example.bananasplit.dataModel.Expense;
 import com.example.bananasplit.dataModel.Group;
 
-public class CreateExpenseActivity  extends BaseActivity{
+public class CreateExpenseActivity  extends BaseActivity {
     private EditText nameEditText;
     private EditText amountEditText;
     ExpenseViewModel expenseViewModel;

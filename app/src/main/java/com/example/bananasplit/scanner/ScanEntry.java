@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.scanner;
 
 public class ScanEntry {
     private String name;

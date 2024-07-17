@@ -1,7 +1,11 @@
-package com.example.bananasplit;
+package com.example.bananasplit.friends;
 
 import android.os.Bundle;
 
+import com.example.bananasplit.BaseActivity;
+import com.example.bananasplit.expense.ExpenseAdapter;
+import com.example.bananasplit.expense.ExpenseViewModel;
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 
 import android.widget.TextView;

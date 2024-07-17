@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 
 import java.util.Objects;

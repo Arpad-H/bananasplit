@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.groups;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bananasplit.ListItemHolder;
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Group;
 
 import java.util.List;

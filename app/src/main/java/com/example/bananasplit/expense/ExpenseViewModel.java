@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.expense;
 
 import android.app.Application;
 

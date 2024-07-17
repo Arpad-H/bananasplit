@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.friends;
 
 import android.app.Application;
 

@@ -1,4 +1,4 @@
-package com.example.bananasplit;
+package com.example.bananasplit.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bananasplit.BaseActivity;
+import com.example.bananasplit.ListItemHolder;
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

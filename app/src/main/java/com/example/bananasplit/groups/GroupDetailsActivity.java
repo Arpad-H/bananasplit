@@ -1,16 +1,20 @@
-package com.example.bananasplit;
+package com.example.bananasplit.groups;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.widget.Adapter;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bananasplit.BaseActivity;
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Group;
+import com.example.bananasplit.expense.CreateExpenseActivity;
+import com.example.bananasplit.expense.ExpenseAdapter;
+import com.example.bananasplit.expense.ExpenseViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
