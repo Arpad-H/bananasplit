@@ -2,6 +2,7 @@ package com.example.bananasplit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,6 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_groups) {
+                Log.d("NAV-GROUPS", "Wechsel zu Groups");
                 if (!(BaseActivity.this instanceof GroupsActivity)) {
                     startActivity(new Intent(this, GroupsActivity.class));
 
@@ -26,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
                 return true;
             } else if (itemId == R.id.nav_friends) {
+                Log.d("NAV-FRIENDS", "Wechsel zu Friends");
                 if (!(BaseActivity.this instanceof FriendsActivity)) {
                     startActivity(new Intent(this, FriendsActivity.class));
 
@@ -33,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
                 return true;
             } else if (itemId == R.id.nav_activities) {
+                Log.d("NAV-ACTIVITIES", "Wechsel zu Activities");
                 if (!(BaseActivity.this instanceof ActivitiesActivity)) {
                     startActivity(new Intent(this, ActivitiesActivity.class));
 
@@ -43,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             return false;
         });
 
-//         Set the current selected item
+        // Set the current selected item
         if (this instanceof GroupsActivity) {
             bottomNavigationView.setSelectedItemId(R.id.nav_groups);
         } else if (this instanceof FriendsActivity) {

@@ -18,6 +18,8 @@ playServicesMlkitTextRecognition = "19.0.0"
 gson = "2.11.0"
 coreSplashscreen = "1.2.0-alpha01"
 imagepicker = "2.1"
+navigationFragment = "2.7.7"
+navigationUi = "2.7.7"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -38,6 +40,8 @@ play-services-mlkit-text-recognition = { group = "com.google.android.gms", name 
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "coreSplashscreen" }
 imagepicker = { group = "com.github.dhaval2404", name = "imagepicker", version.ref = "imagepicker" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
