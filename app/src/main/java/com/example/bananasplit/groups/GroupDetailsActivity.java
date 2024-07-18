@@ -15,6 +15,7 @@ import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.expense.CreateExpenseActivity;
 import com.example.bananasplit.expense.ExpenseAdapter;
 import com.example.bananasplit.expense.ExpenseViewModel;
+import com.example.bananasplit.friends.MemberView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public class GroupDetailsActivity extends BaseActivity {
     private RecyclerView recyclerView;
     ExpenseAdapter adapter;
     ExpenseViewModel expenseViewModel;
+
+    GroupViewModel groupViewModel;
+    MemberView memberView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,13 @@ public class GroupDetailsActivity extends BaseActivity {
         expenseViewModel.getExpensesByGroupId(group.getGroupID()).observe(this, expenses -> {
             adapter.updateExpenses(expenses);
         });
+
+        memberView = findViewById(R.id.memberView);
+        groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
+        groupViewModel.getMembersByGroupId(group.getGroupID()).observe(this, members -> {
+            memberView.setMembers(members);
+        });
+
 
         FloatingActionButton fab = findViewById(R.id.btn_add_expense);
         fab.setOnClickListener(v -> {

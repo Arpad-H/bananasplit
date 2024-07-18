@@ -10,7 +10,8 @@ public enum Currency implements Serializable {
     CNY(0.126), // China
     CHF(1.035), // Schweiz
     GBP(1.190), // Großbrittanien
-    TRY(0.02765); // Türkey
+    TRY(0.02765), // Türkey
+    JPY(0.0058); // Japan
 
     private final double valueInEur;
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -26,6 +27,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.bananasplit.friends.MemberView
+        android:id="@+id/memberView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btn_settle_up"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top"
+        app:layout_constraintStart_toEndOf="@+id/groupNameTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/groupNameTextView"
         android:layout_width="wrap_content"
@@ -37,17 +47,19 @@
         app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top"
         app:layout_constraintStart_toEndOf="@+id/img_grp_profile_picture"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
+<!--    https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml-->
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_grp_profile_picture"
-        android:layout_width="103dp"
-        android:layout_height="99dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:contentDescription="profile picture of the group"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+        app:srcCompat="@drawable/ic_launcher_background"
+        app:strokeColor="@color/white"
+        app:strokeWidth="5dp" />
 
     <TextView
         android:id="@+id/groupDateTextView"
@@ -105,11 +117,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
+        android:backgroundTint="@color/btn_color"
         android:text="@string/settle_up"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_grp_profile_picture"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle_at_the_top"
-        android:backgroundTint="@color/btn_color"/>
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_at_the_top" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewExpenses"

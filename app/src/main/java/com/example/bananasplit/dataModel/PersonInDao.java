@@ -31,6 +31,10 @@ public interface PersonInDao {
     @Query("SELECT * FROM Person WHERE Person.name LIKE :name")
     LiveData<List<PersonWithGroups>> getPersonWithGroupsByName(String name);
 
+    @Transaction
+    @Query("SELECT * FROM Person WHERE Person.personID LIKE :personID")
+    LiveData<Person> getPersonForID(int personID);
+
     @Query("SELECT * FROM Person")
     LiveData<List<Person>> getFriends();
 }

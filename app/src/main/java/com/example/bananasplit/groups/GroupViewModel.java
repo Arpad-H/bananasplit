@@ -16,6 +16,7 @@ import java.util.List;
 public class GroupViewModel extends AndroidViewModel {
     private AppDatabase appDatabase;
     private LiveData<List<Group>> allGroups;
+//    private LiveData<List<Person>> allPersons;
 private GroupInDao groupInDao;
     public GroupViewModel(@NonNull Application application) {
         super(application);
@@ -23,11 +24,15 @@ private GroupInDao groupInDao;
         appDatabase = DatabaseModule.getInstance(application);
         groupInDao = appDatabase.groupInDao();
         updateAllGroups();
+//        updateAllPersons();
     }
 
     private void updateAllGroups() {
         allGroups = groupInDao.getAllGroups();
     }
+//    private void updateAllPersons() {
+//        allPersons = groupInDao.getPersonIDsForGroup();
+//    }
 
     //TODO insert, update, delete
     public void insert(Group group, List<Person> persons) {
@@ -52,6 +57,9 @@ private GroupInDao groupInDao;
 
     }
 
+    public LiveData<List<Person>> getMembersByGroupId(int groupId) {
+        return groupInDao.getMembersByGroupId(groupId);
+    }
     public LiveData<List<Group>> getAllGroups() {
         return allGroups;
     }

@@ -24,12 +24,14 @@ public class Expense implements Serializable {
     private int groupID;
     private float amount;
     private Currency currency;
+    private String description;
 
-    public Expense(int spenderID, int groupID, float amount, Currency currency) {
+    public Expense(String description, int spenderID, int groupID, float amount, Currency currency) {
         this.spenderID = spenderID;
         this.groupID = groupID;
         this.amount = amount;
         this.currency = currency;
+        this.description = description;
     }
     public float getAmount() {
         return this.amount;
@@ -70,5 +72,12 @@ public class Expense implements Serializable {
 
     public void setSpenderID(int spenderID) {
         this.spenderID = spenderID;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

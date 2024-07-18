@@ -33,6 +33,9 @@ public interface GroupInDao {
     @Transaction
     @Query("SELECT * FROM `Group`")
     LiveData<List<Group>> getAllGroups();
+    @Transaction
+    @Query("SELECT * FROM Person INNER JOIN PersonGroupCrossRef ON Person.personID = PersonGroupCrossRef.personID WHERE PersonGroupCrossRef.groupID = :groupId")
+    LiveData<List<Person>> getMembersByGroupId(int groupId);
 
     @Transaction
     default void insertGroupWithPersons(Group group, List<Person> persons) {
