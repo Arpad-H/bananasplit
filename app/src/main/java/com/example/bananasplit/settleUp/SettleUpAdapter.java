@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bananasplit.friends.FriendsAdapter;
 
-public class SettleUpAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
+public class SettleUpAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendViewHolder> {
     @NonNull
     @Override
-    public FriendsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FriendsAdapter.FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FriendsAdapter.FriendViewHolder holder, int position) {
 
     }
 

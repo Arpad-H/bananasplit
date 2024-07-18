@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.util.ImageUtils;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.util.ArrayList;
@@ -125,12 +126,11 @@ public class CreateGroupActivity extends AppCompatActivity {
         for (Person friend : selectedFriends) {
             View friendView = inflater.inflate(R.layout.friend_with_picture_list_item, selectedFriendsContainer, false);
 
-            TextView friendNameTextView = friendView.findViewById(R.id.friend_name);
+            TextView friendNameTextView = friendView.findViewById(R.id.person_name);
             ImageView friendImageView = friendView.findViewById(R.id.friend_profile_picture);
 
             friendNameTextView.setText(friend.getName());
-            // Assuming you have a method to get the friend's picture Uri
-            // friendImageView.setImageURI(friend.getPictureUri());
+            ImageUtils.setProfileImage(friendImageView, friend.getName());
 
             selectedFriendsContainer.addView(friendView);
         }

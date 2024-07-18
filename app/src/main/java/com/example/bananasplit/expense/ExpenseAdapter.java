@@ -31,8 +31,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     @Override
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         Expense expense = expenses.get(position);
-        holder.descriptionTextView.setText("Expense"); //TODO PLACEHOLDER
+        holder.descriptionTextView.setText(expense.getDescription());
         holder.amountTextView.setText(String.valueOf(expense.getAmount()));
+        holder.byPersonTextView.setText(expense.getPersonWhoPaid().getName());
     }
 
     @Override
@@ -49,11 +50,13 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     static class ExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView descriptionTextView;
         TextView amountTextView;
+        TextView byPersonTextView;
 
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
             descriptionTextView = itemView.findViewById(R.id.txt_expense);
             amountTextView = itemView.findViewById(R.id.txt_expense_amount);
+            byPersonTextView = itemView.findViewById(R.id.txt_by_person);
         }
     }
 }

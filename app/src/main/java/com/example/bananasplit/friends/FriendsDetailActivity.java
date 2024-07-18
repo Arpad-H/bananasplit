@@ -25,7 +25,7 @@ public class FriendsDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TextView friendNameTV = findViewById(R.id.friend_name);
+        TextView friendNameTV = findViewById(R.id.person_name);
         TextView friendOwedTV = findViewById(R.id.friendOwedTV);
         TextView friendOweTV = findViewById(R.id.friendOweTV);
         TextView balance = findViewById(R.id.friendBalanceTV);
