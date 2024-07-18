@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bananasplit">
         <activity
+            android:name=".settleUp.SettleUp"
+            android:exported="false" />
+        <activity
             android:name=".friends.FriendsDetailActivity"
             android:exported="false"
             android:theme="@style/Theme.Bananasplit" />
@@ -43,12 +46,10 @@
             android:exported="false" />
         <activity
             android:name=".groups.GroupsActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".groups.SelectFriendsActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ActivitiesActivity"
             android:exported="true" />

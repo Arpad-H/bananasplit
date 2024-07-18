@@ -1,5 +1,6 @@
 package com.example.bananasplit.friends;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,11 @@ import java.util.List;
 
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
     private List<Person> friends;
-    private ListItemHolder items;
-    private List<Person> selectedFriends = new ArrayList<>();
-    public FriendsAdapter(List<Person> friends, ListItemHolder items) {
+    private final ListItemHolder listener;
+    private final List<Person> selectedFriends = new ArrayList<>();
+    public FriendsAdapter(List<Person> friends, ListItemHolder listener) {
         this.friends = friends;
-        this.items = items;
+        this.listener = listener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -77,7 +78,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
      * (custom ViewHolder)
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView friendName;
+        private final TextView friendName;
 
         public ViewHolder(View view) {
             super(view);
@@ -98,11 +99,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
             if (pos != RecyclerView.NO_POSITION) {
                 int id = view.getId();
                 if (id == R.id.friendEdit) {
-                    items.onEdit(pos);
+                    listener.onEdit(pos);
                 } else if (id == R.id.friendDelete) {
-                    items.onDelete(pos);
+                    listener.onDelete(pos);
                 } else {
-                    items.onItemClicked(pos);
+                    listener.onItemClicked(pos);
                 }
             }
         }

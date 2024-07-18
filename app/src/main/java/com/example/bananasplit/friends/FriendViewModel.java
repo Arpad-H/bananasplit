@@ -14,14 +14,13 @@ import com.example.bananasplit.dataModel.PersonInDao;
 import java.util.List;
 
 public class FriendViewModel extends AndroidViewModel {
-    private AppDatabase appDatabase;
-    private LiveData<List<Person>> allFriends;
-    private PersonInDao personInDao;
+    private final LiveData<List<Person>> allFriends;
+    private final PersonInDao personInDao;
     private Person person;
 
     public FriendViewModel(@NonNull Application application) {
         super(application);
-        appDatabase = DatabaseModule.getInstance(application);
+        AppDatabase appDatabase = DatabaseModule.getInstance(application);
         personInDao = appDatabase.personInDao();
         allFriends = personInDao.getFriends();
     }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 
 public class FriendsDetailActivity extends BaseActivity {
-    private RecyclerView recyclerView;
     ExpenseAdapter adapter;
     ExpenseViewModel expenseViewModel;
 
@@ -30,16 +29,13 @@ public class FriendsDetailActivity extends BaseActivity {
         TextView friendOwedTV = findViewById(R.id.friendOwedTV);
         TextView friendOweTV = findViewById(R.id.friendOweTV);
         TextView balance = findViewById(R.id.friendBalanceTV);
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-//        bottomNavigationView.setSelectedItemId(R.id.nav_friends);
-// funktioniert aus irgendeinem Grund nicht, lädt dann die Activity nicht
 
         Person friend = getIntent().getParcelableExtra("friend", Person.class);
 
         if (friend != null) {
             friendNameTV.setText(friend.getName());
 
-            recyclerView = findViewById(R.id.recyclerViewExpensesFriend);
+            RecyclerView recyclerView = findViewById(R.id.recyclerViewExpensesFriend);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new ExpenseAdapter(new ArrayList<>());
             recyclerView.setAdapter(adapter);

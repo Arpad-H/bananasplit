@@ -15,10 +15,12 @@ public class Person implements Serializable, Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int personID = 0;
     private String name;
+    private String email;
     List<Person> friends;
 
-    public Person(String name) {
+    public Person(String name, String email) {
         this.name = name;
+        this.email = email;
     }
 
     public int getPersonID() {
@@ -37,9 +39,18 @@ public class Person implements Serializable, Parcelable {
         this.name = name;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     protected Person(Parcel in) {
         personID = in.readInt();
         name = in.readString();
+        email = in.readString();
         friends = in.createTypedArrayList(Person.CREATOR);
     }
 
@@ -64,6 +75,7 @@ public class Person implements Serializable, Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(personID);
         dest.writeString(name);
+        dest.writeString(email);
         dest.writeTypedList(friends);
     }
 }

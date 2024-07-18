@@ -22,12 +22,17 @@
     <string name="pick_image">Pick Image</string>
     <string name="duration">Duration</string>
     <string name="name">Name</string>
-    <string name="friendName" >(Placeholder)</string>
+    <string name="friendName">(Placeholder)</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="add_friends">Add Friends</string>
     <string name="update">Update</string>
     <string name="friend_name">Friend Name</string>
+    <string name="create_friend">Create Friend</string>
+    <string name="my_friends">My Friends</string>
+    <string name="email">E-Mail</string>
+    <string name="backButton">Back</string>
+    <string name="save">Save</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

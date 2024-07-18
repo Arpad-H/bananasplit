@@ -5,52 +5,41 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".friends.FriendsActivity">
+    tools:context=".settleUp.SettleUp">
 
-    <View
-        android:id="@+id/rectangle_at_the_top4"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/topAccentBar"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/topAccentBar"
+        android:contentDescription="@string/backButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 
     <TextView
-        android:id="@+id/myFriendsTV"
+        android:id="@+id/settleUpTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:text="@string/my_friends"
-        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        android:text="@string/settle_up"
+        android:textColor="@color/topAccentBar"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top4"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageButton"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/add_friends"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/topAccentBar"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFriends"
+        android:id="@+id/recyclerSettleUp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle_at_the_top4" />
+        app:layout_constraintTop_toBottomOf="@+id/settleUpTV" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
