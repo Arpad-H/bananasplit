@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.util.ImageUtils;
 
 import java.util.List;
 
@@ -46,7 +47,12 @@ public class MemberView extends LinearLayout {
                 params.setMargins(-30, 0, 0, 0);  // Overlapping effect
             }
             imageView.setLayoutParams(params);
-            imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.logo)); // TODO Use a placeholder or actual image
+//            if (members.get(i).getProfilePicture() != null) {
+//                imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), members.get(i).getProfilePicture()));
+//            } else {
+//                imageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.logo)); // TODO Use a placeholder or actual image
+//            }
+            ImageUtils.setProfileImage(imageView,members.get(i).getName()); // TODO Use a placeholder or actual image
             addView(imageView);
         }
 

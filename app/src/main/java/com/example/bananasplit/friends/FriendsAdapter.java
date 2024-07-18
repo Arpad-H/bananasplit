@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bananasplit.ListItemHolder;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.util.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
         Person friend = friends.get(position);
         viewHolder.getFriendName().setText(friend.getName());
         viewHolder.itemView.setSelected(selectedFriends.contains(friend));
-
+ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
         viewHolder.itemView.setOnClickListener(v -> {
             if (selectedFriends.contains(friend)) {
                 selectedFriends.remove(friend);

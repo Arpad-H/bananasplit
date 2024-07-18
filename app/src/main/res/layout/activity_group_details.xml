@@ -45,11 +45,11 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top"
-        app:layout_constraintStart_toEndOf="@+id/img_grp_profile_picture"
+        app:layout_constraintStart_toEndOf="@+id/groupCoverImageView"
         app:layout_constraintTop_toTopOf="parent" />
 <!--    https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml-->
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_grp_profile_picture"
+        android:id="@+id/groupCoverImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -88,7 +88,7 @@
         android:outlineProvider="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_grp_profile_picture">
+        app:layout_constraintTop_toBottomOf="@+id/groupCoverImageView">
 
         <TextView
             android:id="@+id/txt_owedAmount"

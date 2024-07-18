@@ -18,6 +18,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/groupCoverImageView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:adjustViewBounds="true"
+
+                    android:maxWidth="100dp"
+                    android:maxHeight="100dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    app:srcCompat="@drawable/ic_launcher_background"/>
+<!--                    app:strokeColor="@color/btn_color"-->
+<!--                    app:strokeWidth="5dp" />-->
+
+                <Button
+                    android:id="@+id/pickImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:text="@string/pick_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/groupCoverImageView"
+                    app:layout_constraintTop_toTopOf="@+id/groupCoverImageView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <EditText
                 android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
@@ -49,19 +84,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add_friends" />
-
-            <ImageView
-                android:id="@+id/groupCoverImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/group_cover_image"
-                android:src="@drawable/logo" />
-
-            <Button
-                android:id="@+id/pickImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pick_image" />
 
             <Button
                 android:id="@+id/createButton"
