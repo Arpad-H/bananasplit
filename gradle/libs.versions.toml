@@ -21,6 +21,7 @@ imagepicker = "2.1"
 navigationFragment = "2.7.7"
 navigationUi = "2.7.7"
 
+
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -42,6 +43,7 @@ core-splashscreen = { group = "androidx.core", name = "core-splashscreen", versi
 imagepicker = { group = "com.github.dhaval2404", name = "imagepicker", version.ref = "imagepicker" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

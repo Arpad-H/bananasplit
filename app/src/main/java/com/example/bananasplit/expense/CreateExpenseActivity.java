@@ -1,13 +1,21 @@
 package com.example.bananasplit.expense;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,11 +28,16 @@ import com.example.bananasplit.dataModel.ExpenseCategory;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.GroupInDao;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.friends.BaseSelectFriendsActivity;
+import com.example.bananasplit.groups.CreateGroupActivity;
 import com.example.bananasplit.groups.GroupViewModel;
-
+import com.example.bananasplit.groups.SelectFriendsActivity;
+import com.example.bananasplit.util.ImageUtils;
+//import com.pratikbutani.multiselectspinner.MultiSelectSpinner;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CreateExpenseActivity extends BaseActivity {
+public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     private EditText nameEditText;
     private EditText amountEditText;
     ExpenseViewModel expenseViewModel;
@@ -33,7 +46,8 @@ public class CreateExpenseActivity extends BaseActivity {
     private Spinner changeCurrencySpinner;
     private Button changeSplitRatioButton;
     GroupViewModel groupViewModel;
-
+    private List<Person> participantsInExpense = new ArrayList<>();
+//    private MultiSelectSpinner selectParticipantsSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +58,7 @@ public class CreateExpenseActivity extends BaseActivity {
         amountEditText = findViewById(R.id.edit_text_amount);
         personWhoPaidSpinner = findViewById(R.id.spinner_change_person_who_paid);
         changeCategorySpinner = findViewById(R.id.spinner_change_category);
+//        selectParticipantsSpinner = findViewById(R.id.spinner_select_participants);
 
         expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
@@ -62,6 +77,8 @@ public class CreateExpenseActivity extends BaseActivity {
             showSplitRatioDialog();
         });
 
+
+
         setupChangeCategorySpinner();
         setupChangeCurrencySpinner();
 
@@ -69,6 +86,11 @@ public class CreateExpenseActivity extends BaseActivity {
         bindCreateExpenseButton(group);
 
 
+    }
+
+    @Override
+    protected ViewGroup getSelectedFriendsContainer() {
+        return findViewById(R.id.selected_friends_layout);
     }
 
     private void setupChangeCategorySpinner() {
@@ -82,7 +104,9 @@ public class CreateExpenseActivity extends BaseActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         changeCategorySpinner.setAdapter(adapter);
-    } private void setupChangeCurrencySpinner() {
+    }
+
+    private void setupChangeCurrencySpinner() {
         Currency[] categories = Currency.values();
 
         String[] currencySymbol = new String[categories.length];
@@ -101,7 +125,11 @@ public class CreateExpenseActivity extends BaseActivity {
 
         CheckBox equalSplitCheckBox = dialog.findViewById(R.id.checkbox_equal_split);
         Button confirmButton = dialog.findViewById(R.id.btn_confirm_split);
-
+        Button selectParticipantsButton = dialog.findViewById(R.id.btn_select_expense_participating_people);
+        selectParticipantsButton.setOnClickListener(v -> {
+            Intent newIntent = new Intent(this, SelectFriendsActivity.class);
+            selectFriendsLauncher.launch(newIntent);
+        });
         confirmButton.setOnClickListener(v -> {
             // Handle the logic for splitting the bill
             if (equalSplitCheckBox.isChecked()) {

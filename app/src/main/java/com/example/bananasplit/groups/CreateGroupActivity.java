@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.friends.BaseSelectFriendsActivity;
 import com.example.bananasplit.util.ImageUtils;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CreateGroupActivity extends BaseActivity {
+public class CreateGroupActivity extends  BaseSelectFriendsActivity {
 
     private EditText nameEditText;
 //    private EditText dateEditText;
@@ -39,7 +41,7 @@ public class CreateGroupActivity extends BaseActivity {
     private Button pickImageButton;
     private Uri imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
     private ImageView groupCoverImageView;
-    private List<Person> selectedFriends = new ArrayList<>();
+//    private List<Person> selectedFriends = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,27 +88,28 @@ public class CreateGroupActivity extends BaseActivity {
         createButton.setOnClickListener(v -> {
             // Get the input data
             String name = nameEditText.getText().toString();
-//            String date = dateEditText.getText().toString();
-//            int duration = Integer.parseInt(durationEditText.getText().toString());
             if (imageUri == null) {
-                imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
+                imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo"); //default image spaeter ein dediziertes bild
             }
             String imageUriString = imageUri.toString();
 
 
             Group newGroup = new Group(name, imageUriString);
-//            Group newGroup = new Group(name, date, duration, imageUriString);
 
-//            newGroup.setId(intent.getIntExtra(String.valueOf(id), -1));
             if (currentIntent.getParcelableExtra("group", Group.class) != null) {
                 int id = Objects.requireNonNull(currentIntent.getParcelableExtra("group", Group.class)).getGroupID();
                 newGroup.setId(currentIntent.getIntExtra(String.valueOf(id), -1));
                 groupViewModel.update(newGroup);
             } else {
-                groupViewModel.insert(newGroup, selectedFriends); //TODO falsche grp id. immer 0
+                groupViewModel.insert(newGroup, selectedFriends);
             }
             finish();
         });
+    }
+
+    @Override
+    protected ViewGroup getSelectedFriendsContainer() {
+        return findViewById(R.id.selected_friends_layout);
     }
 
     @Override
@@ -114,34 +117,34 @@ public class CreateGroupActivity extends BaseActivity {
         return R.layout.activity_create_group;
     }
 
-    private ActivityResultLauncher<Intent> selectFriendsLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    List<Person> friends = result.getData().getParcelableArrayListExtra("selectedFriends", Person.class);
-                    if (friends != null) {
-                        selectedFriends = friends;
-                        displaySelectedFriends();
-                    }
-                }
-            }
-    );
-    private void displaySelectedFriends() {
-        selectedFriendsContainer.removeAllViews();
-        LayoutInflater inflater = LayoutInflater.from(this);
-
-        for (Person friend : selectedFriends) {
-            View friendView = inflater.inflate(R.layout.friend_with_picture_list_item, selectedFriendsContainer, false);
-
-            TextView friendNameTextView = friendView.findViewById(R.id.person_name);
-            ImageView friendImageView = friendView.findViewById(R.id.friend_profile_picture);
-
-            friendNameTextView.setText(friend.getName());
-            ImageUtils.setProfileImage(friendImageView, friend.getName());
-
-            selectedFriendsContainer.addView(friendView);
-        }
-    }
+//    private ActivityResultLauncher<Intent> selectFriendsLauncher = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            result -> {
+//                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+//                    List<Person> friends = result.getData().getParcelableArrayListExtra("selectedFriends", Person.class);
+//                    if (friends != null) {
+//                        selectedFriends = friends;
+//                        displaySelectedFriends();
+//                    }
+//                }
+//            }
+//    );
+//    private void displaySelectedFriends() {
+//        selectedFriendsContainer.removeAllViews();
+//        LayoutInflater inflater = LayoutInflater.from(this);
+//
+//        for (Person friend : selectedFriends) {
+//            View friendView = inflater.inflate(R.layout.friend_with_picture_list_item, selectedFriendsContainer, false);
+//
+//            TextView friendNameTextView = friendView.findViewById(R.id.person_name);
+//            ImageView friendImageView = friendView.findViewById(R.id.friend_profile_picture);
+//
+//            friendNameTextView.setText(friend.getName());
+//            ImageUtils.setProfileImage(friendImageView, friend.getName());
+//
+//            selectedFriendsContainer.addView(friendView);
+//        }
+//    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
