@@ -1,5 +1,6 @@
 package com.example.bananasplit.friends;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,15 +44,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         Person friend = friends.get(position);
         viewHolder.getFriendName().setText(friend.getName());
         viewHolder.itemView.setSelected(selectedFriends.contains(friend));
-        ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
-        viewHolder.itemView.setOnClickListener(v -> {
-            if (selectedFriends.contains(friend)) {
-                selectedFriends.remove(friend);
-            } else {
-                selectedFriends.add(friend);
-            }
-            notifyDataSetChanged();
-        });
+//        ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
+//        viewHolder.itemView.setOnClickListener(v -> {
+//            if (selectedFriends.contains(friend)) {
+//                selectedFriends.remove(friend);
+//            } else {
+//                selectedFriends.add(friend);
+//            }
+//            notifyDataSetChanged();
+//        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

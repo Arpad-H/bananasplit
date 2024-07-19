@@ -36,6 +36,19 @@ public class Converters {
     public static Double currencyToDouble(Currency currency) {
         return currency == null ? null : currency.getValueInEur();
     }
+    @TypeConverter
+    public static Person stringToPerson(String data) {
+        if (data == null) {
+            return null;
+        }
+
+        Type listType = new TypeToken<Person>() {}.getType();
+        return gson.fromJson(data, listType);
+    }
+    @TypeConverter
+    public static String personToString(Person person) {
+        return gson.toJson(person);
+    }
 
 //
 //    @TypeConverter

@@ -25,13 +25,17 @@ public class Expense implements Serializable {
     private float amount;
     private Currency currency;
     private String description;
+    private Person personWhoPaid;
+    //TODO: Add date
 
-    public Expense(String description, int spenderID, int groupID, float amount, Currency currency) {
-        this.spenderID = spenderID;
+    public Expense(String description, Person personWhoPaid, int groupID, float amount, Currency currency) {
+        this.spenderID = personWhoPaid.getPersonID();
         this.groupID = groupID;
         this.amount = amount;
         this.currency = currency;
         this.description = description;
+        this.personWhoPaid = personWhoPaid;
+
     }
     public float getAmount() {
         return this.amount;
@@ -79,5 +83,13 @@ public class Expense implements Serializable {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Person getPersonWhoPaid() {
+        return personWhoPaid;
+    }
+
+    public void setPersonWhoPaid(Person personWhoPaid) {
+        this.personWhoPaid = personWhoPaid;
     }
 }

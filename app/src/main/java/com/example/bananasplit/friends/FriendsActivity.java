@@ -50,7 +50,7 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
     @Override
     public void onItemClicked(int position) {
         Person personDetails = adapter.getPersonAt(position);
-        Intent intent = new Intent(FriendsActivity.this, FriendsDetailActivity.class);
+        Intent intent = new Intent(this, FriendsDetailActivity.class);
         intent.putExtra("friend", (Parcelable) personDetails);
         startActivity(intent);
     }

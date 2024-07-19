@@ -80,7 +80,7 @@ public class SelectFriendsAdapter extends RecyclerView.Adapter<SelectFriendsAdap
 
         public ViewHolder(View view) {
             super(view);
-            friendName = view.findViewById(R.id.friend_name);
+            friendName = view.findViewById(R.id.person_name);
             friendCheckBox = view.findViewById(R.id.friendCheckBox);
         }
 

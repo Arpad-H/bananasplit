@@ -33,6 +33,10 @@
     <string name="email">E-Mail</string>
     <string name="backButton">Back</string>
     <string name="save">Save</string>
+    <string name="scan_receipt">Scan Receipt</string>
+    <string name="or">-or-</string>
+    <string name="split">, split</string>
+    <string name="paid_by">paid by</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
