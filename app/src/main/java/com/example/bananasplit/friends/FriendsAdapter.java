@@ -1,5 +1,6 @@
 package com.example.bananasplit.friends;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         Person friend = friends.get(position);
         viewHolder.getFriendName().setText(friend.getName());
         viewHolder.itemView.setSelected(selectedFriends.contains(friend));
-        ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
+//        ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
 //        viewHolder.itemView.setOnClickListener(v -> {
 //            if (selectedFriends.contains(friend)) {
 //                selectedFriends.remove(friend);
@@ -80,12 +81,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
     public class FriendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView friendName;
 
-        public FriendViewHolder(@NonNull View view) {
+        public FriendViewHolder(View view) {
             super(view);
-            friendName = view.findViewById(R.id.person_name);
+            friendName = view.findViewById(R.id.friend_name);
             // Define click listener for the ViewHolder's View
             view.findViewById(R.id.friendDelete).setOnClickListener(this);
             view.findViewById(R.id.friendEdit).setOnClickListener(this);
+            friendName.setOnClickListener(this);
             view.setOnClickListener(this);
         }
 
