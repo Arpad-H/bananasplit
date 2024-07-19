@@ -36,10 +36,11 @@
     <string name="scan_receipt">Scan Receipt</string>
     <string name="or">-or-</string>
     <string name="split">, split</string>
-    <string name="paid_by">paid by</string>
+    <string name="paid_by">Paid by</string>
     <string name="added_by">Added by</string>
     <string name="create_expense">Create Expense</string>
     <string name="create_group">Create Group</string>
+    <string name="settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

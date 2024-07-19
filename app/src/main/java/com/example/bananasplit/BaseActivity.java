@@ -1,18 +1,15 @@
 package com.example.bananasplit;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bananasplit.settings.SettingsActivity;
 import com.example.bananasplit.friends.FriendsActivity;
 import com.example.bananasplit.groups.GroupsActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.lang.reflect.Field;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -49,6 +46,14 @@ public abstract class BaseActivity extends AppCompatActivity {
                     finish();
                 }
                 return true;
+            } else if (itemId == R.id.nav_settings) {
+                Log.d("NAV-ACTIVITIES", "Wechsel zu Settings");
+                if (!(BaseActivity.this instanceof SettingsActivity)) {
+                    startActivity(new Intent(this, SettingsActivity.class));
+
+                    finish();
+                }
+                return true;
             }
             return false;
         });
@@ -60,7 +65,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.nav_friends);
         } else if (this instanceof ActivitiesActivity) {
             bottomNavigationView.setSelectedItemId(R.id.nav_activities);
-        }else{
+        } else if (this instanceof SettingsActivity) {
+            bottomNavigationView.setSelectedItemId(R.id.nav_settings);
+        } else{
            bottomNavigationView.setSelectedItemId(R.id.nav_ghost);
         }
         // TODO: update for FirendsDetailActivity and GroupDetailsActivity

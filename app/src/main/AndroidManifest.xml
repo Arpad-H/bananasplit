@@ -49,7 +49,11 @@
             android:exported="true" />
         <activity
             android:name=".groups.SelectFriendsActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".ActivitiesActivity"
             android:exported="true" />
