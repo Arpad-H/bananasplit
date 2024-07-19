@@ -11,10 +11,9 @@
         android:layout_width="49dp"
         android:layout_height="55dp"
         android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/friendEdit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@tools:sample/avatars[0]" />
+        app:srcCompat="@drawable/people" />
 
     <LinearLayout
         android:id="@+id/linearLayout6"
