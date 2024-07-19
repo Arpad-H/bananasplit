@@ -12,9 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/buttonHolderLayout"
         app:layout_constraintStart_toEndOf="@+id/group_cover_image_view"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <TextView
             android:id="@+id/nameTextView"
@@ -23,30 +24,17 @@
             android:text="Name"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/durationTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Duration"
-            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/buttonHolderLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
         <Button
             android:id="@+id/editButton"
             android:layout_width="wrap_content"

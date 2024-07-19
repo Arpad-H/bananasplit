@@ -4,7 +4,9 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +21,7 @@ import java.util.List;
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
     private List<Group> groups;
     private ListItemHolder listener;
-
+    private boolean areButtonsVisible = false;
     public GroupAdapter(List<Group> groups, ListItemHolder listener) {
         this.groups = groups;
         this.listener = listener;
@@ -36,16 +38,24 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     public void onBindViewHolder(@NonNull GroupViewHolder holder, int position) {
         Group group = groups.get(position);
         holder.nameTextView.setText(group.getName());
-        holder.dateTextView.setText(group.getDate());
-        holder.durationTextView.setText(String.valueOf(group.getDuration()));
+//        holder.dateTextView.setText(group.getDate());
+//        holder.durationTextView.setText(String.valueOf(group.getDuration()));
         if (group.getImageUri() != null) {
             holder.groupCoverImageView.setImageURI(Uri.parse(group.getImageUri()));
         }
         else {
             holder.groupCoverImageView.setImageResource(R.drawable.logo);
         }
-    }
+        holder.editButton.setVisibility(areButtonsVisible ? View.VISIBLE : View.GONE);
+        holder.deleteButton.setVisibility(areButtonsVisible ? View.VISIBLE : View.GONE);
 
+        holder.editButton.setOnClickListener(v -> listener.onEdit(position));
+        holder.deleteButton.setOnClickListener(v -> listener.onDelete(position));
+    }
+    public void toggleButtonsVisibility() {
+        areButtonsVisible = !areButtonsVisible;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return groups.size();
@@ -60,20 +70,23 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     }
     class GroupViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nameTextView;
-        TextView dateTextView;
-        TextView durationTextView;
+        Button editButton ;
+        Button deleteButton ;
         ImageView groupCoverImageView;
-
+        private final LinearLayout linearLayout;
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
-            dateTextView = itemView.findViewById(R.id.dateTextView);
-            durationTextView = itemView.findViewById(R.id.durationTextView);
+//            dateTextView = itemView.findViewById(R.id.dateTextView);
+//            durationTextView = itemView.findViewById(R.id.durationTextView);
             groupCoverImageView = itemView.findViewById(R.id.group_cover_image_view);
+            editButton = itemView.findViewById(R.id.editButton);
+            deleteButton = itemView.findViewById(R.id.deleteButton);
+            linearLayout = itemView.findViewById(R.id.buttonHolderLayout);
 
             itemView.setOnClickListener(this);
-            itemView.findViewById(R.id.editButton).setOnClickListener(this);
-            itemView.findViewById(R.id.deleteButton).setOnClickListener(this);
+            editButton.setOnClickListener(this);
+            deleteButton.setOnClickListener(this);
         }
 
         public Group getGroupAt(int position) {
@@ -93,6 +106,9 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                     listener.onItemClicked(position);
                 }
             }
+        }
+        private void toggleButtons(boolean isVisible) {
+            linearLayout.setVisibility(isVisible ? View.GONE : View.VISIBLE);
         }
     }
 }

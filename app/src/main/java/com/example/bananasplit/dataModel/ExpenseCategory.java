@@ -5,7 +5,7 @@ import com.example.bananasplit.R;
 public enum ExpenseCategory {
     FOOD("Food", R.drawable.fork_knife),
     TRANSPORT("Transport", R.drawable.bus),
-    ACCOMMODATION("Accommodation", R.drawable.bed), //TODO: Change icon WHY WONT YOU ACCEPT A FUCKIGN ROCKET
+    ACCOMMODATION("Accommodation", R.drawable.rockect),
     ACTIVITY("Activity" , R.drawable.bed),
     OTHER("Other", R.drawable.receipt_item);
 

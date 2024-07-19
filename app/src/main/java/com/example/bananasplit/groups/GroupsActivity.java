@@ -3,6 +3,8 @@ package com.example.bananasplit.groups;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,6 +43,11 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(GroupsActivity.this, CreateGroupActivity.class);
             startActivity(intent);
+        });
+        // Button to toggle the visibility of the edit and delete buttons
+        ImageButton toggleButtonsButton = findViewById(R.id.btn_toggle_grp_edit_state);
+        toggleButtonsButton.setOnClickListener(v -> {
+            adapter.toggleButtonsVisibility();
         });
     }
     @Override
