@@ -16,6 +16,7 @@ import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Currency;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Expense;
+import com.example.bananasplit.dataModel.ExpenseCategory;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.GroupInDao;
 import com.example.bananasplit.dataModel.Person;
@@ -28,6 +29,8 @@ public class CreateExpenseActivity extends BaseActivity {
     private EditText amountEditText;
     ExpenseViewModel expenseViewModel;
     private Spinner personWhoPaidSpinner;
+    private Spinner changeCategorySpinner;
+    private Spinner changeCurrencySpinner;
     private Button changeSplitRatioButton;
     GroupViewModel groupViewModel;
 
@@ -40,11 +43,13 @@ public class CreateExpenseActivity extends BaseActivity {
         nameEditText = findViewById(R.id.edit_text_name);
         amountEditText = findViewById(R.id.edit_text_amount);
         personWhoPaidSpinner = findViewById(R.id.spinner_change_person_who_paid);
-
+        changeCategorySpinner = findViewById(R.id.spinner_change_category);
 
         expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
         changeSplitRatioButton = findViewById(R.id.btn_change_split_ratio);
+        changeCurrencySpinner = findViewById(R.id.spinner_change_currency);
+
 
         groupViewModel.getMembersByGroupId(group.getGroupID()).observe(this, members -> {
             PersonSpinnerAdapter adapter = new PersonSpinnerAdapter(this, R.layout.person_spinner_item, members);
@@ -57,11 +62,39 @@ public class CreateExpenseActivity extends BaseActivity {
             showSplitRatioDialog();
         });
 
+        setupChangeCategorySpinner();
+        setupChangeCurrencySpinner();
+
 
         bindCreateExpenseButton(group);
 
 
     }
+
+    private void setupChangeCategorySpinner() {
+        ExpenseCategory[] categories = ExpenseCategory.values();
+
+        String[] categoryNames = new String[categories.length];
+        for (int i = 0; i < categories.length; i++) {
+            categoryNames[i] = categories[i].getCategory();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryNames);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        changeCategorySpinner.setAdapter(adapter);
+    } private void setupChangeCurrencySpinner() {
+        Currency[] categories = Currency.values();
+
+        String[] currencySymbol = new String[categories.length];
+        for (int i = 0; i < categories.length; i++) {
+            currencySymbol[i] = categories[i].getCurrencySymbol();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, currencySymbol);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        changeCurrencySpinner.setAdapter(adapter);
+    }
+
     private void showSplitRatioDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_split_ratio);
@@ -89,8 +122,11 @@ public class CreateExpenseActivity extends BaseActivity {
 
             String name = nameEditText.getText().toString();
             float amount = Float.parseFloat(amountEditText.getText().toString());
-            Person person = (Person) personWhoPaidSpinner.getSelectedItem(); //TODO currently just get the first person in the group as a temp solution
-            Expense newExpense = new Expense(name,person, group.getGroupID(), amount, Currency.EUR);
+            Person person = (Person) personWhoPaidSpinner.getSelectedItem();
+            ExpenseCategory selectedCategory = ExpenseCategory.fromString((String) changeCategorySpinner.getSelectedItem());
+            Currency selectedCurrency = Currency.fromString((String) changeCurrencySpinner.getSelectedItem());
+
+            Expense newExpense = new Expense(name, person, group.getGroupID(), amount, selectedCurrency, selectedCategory);//TODO currently just temp category
             expenseViewModel.insert(newExpense);
 
             finish();

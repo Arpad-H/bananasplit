@@ -3,6 +3,7 @@ package com.example.bananasplit.expense;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,8 +33,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         Expense expense = expenses.get(position);
         holder.descriptionTextView.setText(expense.getDescription());
-        holder.amountTextView.setText(String.valueOf(expense.getAmount()));
+
+        String amount = expense.getAmount() + expense.getCurrency().getCurrencySymbol();
+        holder.amountTextView.setText(amount);
         holder.byPersonTextView.setText(expense.getPersonWhoPaid().getName());
+        holder.categoryImageView.setImageResource(expense.getCategory().getId());
+        holder.dateTextView.setText(expense.getDateString());
     }
 
     @Override
@@ -50,13 +55,17 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     static class ExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView descriptionTextView;
         TextView amountTextView;
+        TextView dateTextView;
         TextView byPersonTextView;
+        ImageView categoryImageView;
 
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
             descriptionTextView = itemView.findViewById(R.id.txt_expense);
             amountTextView = itemView.findViewById(R.id.txt_expense_amount);
             byPersonTextView = itemView.findViewById(R.id.txt_by_person);
+            categoryImageView = itemView.findViewById(R.id.imageView_category);
+            dateTextView = itemView.findViewById(R.id.txt_date);
         }
     }
 }
