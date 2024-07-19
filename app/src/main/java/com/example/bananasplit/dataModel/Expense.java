@@ -5,6 +5,9 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 @Entity(foreignKeys =   {
         @ForeignKey(entity = Person.class,
@@ -26,15 +29,18 @@ public class Expense implements Serializable {
     private Currency currency;
     private String description;
     private Person personWhoPaid;
-    //TODO: Add date
+    private ExpenseCategory category;
 
-    public Expense(String description, Person personWhoPaid, int groupID, float amount, Currency currency) {
+    private Date date;
+    public Expense(String description, Person personWhoPaid, int groupID, float amount, Currency currency, ExpenseCategory category) {
         this.spenderID = personWhoPaid.getPersonID();
         this.groupID = groupID;
         this.amount = amount;
         this.currency = currency;
         this.description = description;
         this.personWhoPaid = personWhoPaid;
+        this.category = category;
+        date = new Date();
 
     }
     public float getAmount() {
@@ -91,5 +97,22 @@ public class Expense implements Serializable {
 
     public void setPersonWhoPaid(Person personWhoPaid) {
         this.personWhoPaid = personWhoPaid;
+    }
+
+    public ExpenseCategory getCategory() {
+        return category;
+    }
+    public void setCategory(ExpenseCategory category) {
+        this.category = category;
+    }
+    public Date getDate() {
+        return date;
+    }
+    public String getDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("M. dd. yyyy", Locale.GERMANY); //TODO change to user's locale
+        return sdf.format(date);
+    }
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

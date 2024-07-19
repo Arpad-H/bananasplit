@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Converters {
@@ -49,7 +50,15 @@ public class Converters {
     public static String personToString(Person person) {
         return gson.toJson(person);
     }
+    @TypeConverter
+    public static Date fromTimestamp(Long value) {
+        return value == null ? null : new Date(value);
+    }
 
+    @TypeConverter
+    public static Long dateToTimestamp(Date date) {
+        return date == null ? null : date.getTime();
+    }
 //
 //    @TypeConverter
 //    public static int[][] stringToIntArray(String data) {

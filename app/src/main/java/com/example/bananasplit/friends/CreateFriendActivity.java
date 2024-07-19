@@ -2,7 +2,6 @@ package com.example.bananasplit.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -11,12 +10,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 
 import java.util.Objects;
 
-public class CreateFriendActivity extends AppCompatActivity {
+public class CreateFriendActivity extends BaseActivity {
     private EditText friendName;
     private EditText friendEmail;
     private FriendViewModel friendViewmodel;
@@ -24,12 +24,12 @@ public class CreateFriendActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_friend);
+
 
         friendName = findViewById(R.id.nameFriendEdit);
         friendEmail = findViewById(R.id.emailFriendEdit);
         friendViewmodel = new ViewModelProvider(this).get(FriendViewModel.class);
-        TextView friendHeadline = findViewById(R.id.createFriendHeadline);
+        TextView friendHeadline = findViewById(R.id.createExpenseHeadline);
         ImageButton createFriend = findViewById(R.id.createFriend);
 
         Intent intent = getIntent();
@@ -57,5 +57,10 @@ public class CreateFriendActivity extends AppCompatActivity {
             }
             finish();
         });
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_create_friend;
     }
 }

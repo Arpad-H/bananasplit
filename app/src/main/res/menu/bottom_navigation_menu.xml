@@ -2,14 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_groups"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/people"
         android:title="@string/groups" />
     <item
         android:id="@+id/nav_friends"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/user"
         android:title="@string/Friends" />
     <item
         android:id="@+id/nav_activities"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/diagram"
         android:title="@string/Activity" />
+    <item
+        android:id="@+id/nav_ghost"
+        android:icon="@null"
+        android:title=""
+        android:enabled="false"
+        android:visible="false" />
 </menu>

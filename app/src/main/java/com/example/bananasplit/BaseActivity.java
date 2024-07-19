@@ -1,5 +1,6 @@
 package com.example.bananasplit;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bananasplit.friends.FriendsActivity;
 import com.example.bananasplit.groups.GroupsActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.lang.reflect.Field;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -56,10 +60,28 @@ public abstract class BaseActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.nav_friends);
         } else if (this instanceof ActivitiesActivity) {
             bottomNavigationView.setSelectedItemId(R.id.nav_activities);
+        }else{
+           bottomNavigationView.setSelectedItemId(R.id.nav_ghost);
         }
         // TODO: update for FirendsDetailActivity and GroupDetailsActivity
 
     }
+//    @SuppressLint("RestrictedApi")
+//    public static void deselectAllItems(BottomNavigationView bottomNavigationView) {
+//        BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);
+//        try {
+//            Field selectedItemField = menuView.getClass().getDeclaredField("selectedItem");
+//            selectedItemField.setAccessible(true);
+//            selectedItemField.setInt(menuView, -1);
+//            selectedItemField.setAccessible(false);
+//        } catch (NoSuchFieldException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        // Force update to reflect the deselection in the UI
+//        for (int i = 0; i < menuView.getChildCount(); i++) {
+//            menuView.getChildAt(i).setSelected(false);
+//        }
+//    }
 
     protected abstract int getLayoutResourceId();
 }

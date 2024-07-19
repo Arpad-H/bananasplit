@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.Person;
@@ -28,11 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CreateGroupActivity extends AppCompatActivity {
+public class CreateGroupActivity extends BaseActivity {
 
     private EditText nameEditText;
-    private EditText dateEditText;
-    private EditText durationEditText;
+//    private EditText dateEditText;
+//    private EditText durationEditText;
     private GroupViewModel groupViewModel;
     private LinearLayout selectedFriendsContainer;
     private Button pickImageButton;
@@ -43,11 +44,11 @@ public class CreateGroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_group);
+
 
         nameEditText = findViewById(R.id.nameEditText);
-        dateEditText = findViewById(R.id.dateEditText);
-        durationEditText = findViewById(R.id.durationEditText);
+//        dateEditText = findViewById(R.id.dateEditText);
+//        durationEditText = findViewById(R.id.durationEditText);
         Button createButton = findViewById(R.id.createButton);
         pickImageButton = findViewById(R.id.pickImageButton);
         groupCoverImageView = findViewById(R.id.groupCoverImageView);
@@ -60,8 +61,8 @@ public class CreateGroupActivity extends AppCompatActivity {
             setTitle("Edit Group");
             Group group = currentIntent.getParcelableExtra("group", Group.class);
             nameEditText.setText(group.getName());
-            dateEditText.setText(group.getDate());
-            durationEditText.setText(String.valueOf(group.getDuration()));
+//            dateEditText.setText(group.getDate());
+//            durationEditText.setText(String.valueOf(group.getDuration()));
             imageUri = Uri.parse(group.getImageUri());
             createButton.setText(R.string.update);
         } else {
@@ -85,15 +86,16 @@ public class CreateGroupActivity extends AppCompatActivity {
         createButton.setOnClickListener(v -> {
             // Get the input data
             String name = nameEditText.getText().toString();
-            String date = dateEditText.getText().toString();
-            int duration = Integer.parseInt(durationEditText.getText().toString());
+//            String date = dateEditText.getText().toString();
+//            int duration = Integer.parseInt(durationEditText.getText().toString());
             if (imageUri == null) {
                 imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
             }
             String imageUriString = imageUri.toString();
 
 
-            Group newGroup = new Group(name, date, duration, imageUriString);
+            Group newGroup = new Group(name, imageUriString);
+//            Group newGroup = new Group(name, date, duration, imageUriString);
 
 //            newGroup.setId(intent.getIntExtra(String.valueOf(id), -1));
             if (currentIntent.getParcelableExtra("group", Group.class) != null) {
@@ -105,6 +107,11 @@ public class CreateGroupActivity extends AppCompatActivity {
             }
             finish();
         });
+    }
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_create_group;
     }
 
     private ActivityResultLauncher<Intent> selectFriendsLauncher = registerForActivityResult(
