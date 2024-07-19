@@ -59,7 +59,7 @@ public class SettleUpAdapter extends RecyclerView.Adapter<SettleUpAdapter.Settle
 
         public SettleUpViewHolder(View view) {
             super(view);
-            friendName = view.findViewById(R.id.friend_name);
+            friendName = view.findViewById(R.id.settleFriendName);
             // Define click listener for the ViewHolder's View
             view.findViewById(R.id.friendDelete).setOnClickListener(this);
             view.findViewById(R.id.friendEdit).setOnClickListener(this);
