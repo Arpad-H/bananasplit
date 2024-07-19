@@ -1,6 +1,5 @@
 package com.example.bananasplit.friends;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.example.bananasplit.util.ImageUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
+public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendViewHolder> {
     private List<Person> friends;
     private final ListItemHolder listener;
     private final List<Person> selectedFriends = new ArrayList<>();
@@ -29,22 +28,22 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.ViewHold
     // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.friend_list_item, parent, false);
 
-        return new ViewHolder(view);
+        return new FriendViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(FriendViewHolder viewHolder, final int position) {
 
         Person friend = friends.get(position);
         viewHolder.getFriendName().setText(friend.getName());
         viewHolder.itemView.setSelected(selectedFriends.contains(friend));
-ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
+        ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
         viewHolder.itemView.setOnClickListener(v -> {
             if (selectedFriends.contains(friend)) {
                 selectedFriends.remove(friend);
@@ -78,15 +77,16 @@ ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture)
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder)
      */
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class FriendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView friendName;
 
-        public ViewHolder(View view) {
+        public FriendViewHolder(View view) {
             super(view);
             friendName = view.findViewById(R.id.friend_name);
             // Define click listener for the ViewHolder's View
             view.findViewById(R.id.friendDelete).setOnClickListener(this);
             view.findViewById(R.id.friendEdit).setOnClickListener(this);
+            friendName.setOnClickListener(this);
             view.setOnClickListener(this);
         }
 

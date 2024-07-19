@@ -16,7 +16,6 @@ import java.util.List;
 public class FriendViewModel extends AndroidViewModel {
     private final LiveData<List<Person>> allFriends;
     private final PersonInDao personInDao;
-    private Person person;
 
     public FriendViewModel(@NonNull Application application) {
         super(application);

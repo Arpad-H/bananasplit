@@ -21,7 +21,7 @@
         android:id="@+id/friend_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/friendName"
+        android:text="@string/placeholder"
         android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top2"
