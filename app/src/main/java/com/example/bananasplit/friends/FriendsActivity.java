@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.ImageButton;
 
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +40,10 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
         addFriend.setOnClickListener(v -> {
             Intent intent = new Intent(FriendsActivity.this, CreateFriendActivity.class);
             startActivity(intent);
+        });
+        ImageButton toggleButton = findViewById(R.id.btn_toggle_friends_edit_state);
+        toggleButton.setOnClickListener(v -> {
+            adapter.toggleButtonVisibility();
         });
     }
 

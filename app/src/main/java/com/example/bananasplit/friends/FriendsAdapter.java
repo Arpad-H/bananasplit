@@ -1,9 +1,10 @@
 package com.example.bananasplit.friends;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.example.bananasplit.ListItemHolder;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.util.ImageUtils;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
     private List<Person> friends;
     private final ListItemHolder listener;
     private final List<Person> selectedFriends = new ArrayList<>();
+    private boolean buttonVisibility = false;
     public FriendsAdapter(List<Person> friends, ListItemHolder listener) {
         this.friends = friends;
         this.listener = listener;
@@ -44,6 +47,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         Person friend = friends.get(position);
         viewHolder.getFriendName().setText(friend.getName());
         viewHolder.itemView.setSelected(selectedFriends.contains(friend));
+        viewHolder.editButton.setVisibility(this.buttonVisibility ? View.VISIBLE : View.INVISIBLE);
+        viewHolder.deleteButton.setVisibility(this.buttonVisibility ? View.VISIBLE : View.INVISIBLE);
         ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
 //        viewHolder.itemView.setOnClickListener(v -> {
 //            if (selectedFriends.contains(friend)) {
@@ -54,6 +59,12 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
 //            notifyDataSetChanged();
 //        });
     }
+
+    public void toggleButtonVisibility() {
+        this.buttonVisibility = !this.buttonVisibility;
+        notifyDataSetChanged();
+    }
+
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
@@ -80,14 +91,17 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
      */
     public class FriendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView friendName;
+        final ImageButton editButton;
+        final ImageButton deleteButton;
 
         public FriendViewHolder(View view) {
             super(view);
             friendName = view.findViewById(R.id.person_name);
-            // Define click listener for the ViewHolder's View
-            view.findViewById(R.id.friendDelete).setOnClickListener(this);
-            view.findViewById(R.id.friendEdit).setOnClickListener(this);
+            editButton = view.findViewById(R.id.friendEdit);
+            deleteButton = view.findViewById(R.id.friendDelete);
             friendName.setOnClickListener(this);
+            editButton.setOnClickListener(this);
+            deleteButton.setOnClickListener(this);
             view.setOnClickListener(this);
         }
 
