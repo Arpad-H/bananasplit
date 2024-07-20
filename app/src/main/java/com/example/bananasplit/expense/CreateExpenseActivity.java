@@ -1,5 +1,6 @@
 package com.example.bananasplit.expense;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -93,6 +95,11 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
         return findViewById(R.id.selected_friends_layout);
     }
 
+//    @Override
+//    protected void getListItemForPerson() {
+//        //TODO
+//    }
+
     private void setupChangeCategorySpinner() {
         ExpenseCategory[] categories = ExpenseCategory.values();
 
@@ -119,6 +126,7 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
         changeCurrencySpinner.setAdapter(adapter);
     }
 
+    @SuppressLint("SetTextI18n")
     private void showSplitRatioDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_split_ratio);
@@ -133,10 +141,11 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
         confirmButton.setOnClickListener(v -> {
             // Handle the logic for splitting the bill
             if (equalSplitCheckBox.isChecked()) {
-                // Implement the equal split logic
+                changeSplitRatioButton.setText(R.string.equal);
                 //TODO
+            } else if (!selectedFriends.isEmpty()) {
+                changeSplitRatioButton.setText("Custom");
             }
-            // Implement other split logics if any
 
             dialog.dismiss();
         });
@@ -145,7 +154,7 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     }
 
     private void bindCreateExpenseButton(Group group) {
-        Button createButton = findViewById(R.id.create_expense_button);
+        ImageButton createButton = findViewById(R.id.create_expense_button);
         createButton.setOnClickListener(v -> {
 
             String name = nameEditText.getText().toString();

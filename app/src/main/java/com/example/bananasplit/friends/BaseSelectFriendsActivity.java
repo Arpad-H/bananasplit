@@ -33,6 +33,7 @@ public abstract class BaseSelectFriendsActivity extends BaseActivity {
         setupSelectFriendsLauncher();
     }
     protected abstract ViewGroup getSelectedFriendsContainer();
+//    protected abstract void getListItemForPerson();
     private void setupSelectFriendsLauncher() {
         selectFriendsLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

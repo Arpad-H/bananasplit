@@ -44,6 +44,7 @@ public class ImageUtils {
         imageView.setImageDrawable(new BitmapDrawable(imageView.getResources(), bitmap));
     }
 
+    //https://stackoverflow.com/questions/74832184/how-to-transform-uri-to-integer-for-drawable
     public static Drawable getDrawableFromUri(Activity activity, Uri uri) {
         try {
             InputStream inputStream = activity.getContentResolver().openInputStream(uri);

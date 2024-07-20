@@ -85,6 +85,8 @@
     </string>
     <string name="select_specific_participants">Select specific Participants</string>
     <string name="confirm">Confirm</string>
+    <string name="equal">Equal</string>
+    <string name="string_equal">\@string/equal</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

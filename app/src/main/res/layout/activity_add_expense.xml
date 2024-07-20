@@ -9,11 +9,12 @@
         android:id="@+id/selected_friends_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/create_expense_button"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8"></LinearLayout>
 
     <View
         android:id="@+id/rectangle_at_the_top3"
@@ -135,6 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingRight="10dp"
             android:text="@string/split" />
 
         <Button
@@ -142,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="@string/equal" />
     </LinearLayout>
 
     <LinearLayout
@@ -150,18 +152,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="100dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center"
-            android:text="@string/or" />
+        app:layout_constraintTop_toBottomOf="@+id/rectangle_at_the_top3">
 
         <Button
             android:id="@+id/btn_scan"
@@ -169,18 +165,24 @@
             android:layout_height="wrap_content"
             android:text="@string/scan_receipt" />
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:paddingTop="20dp"
+            android:text="@string/or" />
+
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/create_expense_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="100dp"
-        android:text="@string/done"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:src="@drawable/save"
+        android:backgroundTint="@color/topAccentBar"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top3"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top3"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
