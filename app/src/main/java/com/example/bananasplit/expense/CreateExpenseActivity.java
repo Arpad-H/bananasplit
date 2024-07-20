@@ -54,7 +54,7 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Group group = getIntent().getParcelableExtra("group", Group.class);
+        Group group = getIntent().getParcelableExtra("group");
 
         nameEditText = findViewById(R.id.edit_text_name);
         amountEditText = findViewById(R.id.edit_text_amount);

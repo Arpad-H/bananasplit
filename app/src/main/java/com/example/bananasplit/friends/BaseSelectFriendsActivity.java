@@ -39,7 +39,7 @@ public abstract class BaseSelectFriendsActivity extends BaseActivity {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        List<Person> friends = result.getData().getParcelableArrayListExtra("selectedFriends", Person.class);
+                        List<Person> friends = result.getData().getParcelableArrayListExtra("selectedFriends");
                         if (friends != null) {
                             selectedFriends = friends;
                             displaySelectedFriends();

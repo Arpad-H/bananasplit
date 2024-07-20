@@ -30,7 +30,7 @@ public class FriendsDetailActivity extends BaseActivity {
         TextView friendOweTV = findViewById(R.id.friendOweTV);
         TextView balance = findViewById(R.id.friendBalanceTV);
 
-        Person friend = getIntent().getParcelableExtra("friend", Person.class);
+        Person friend = getIntent().getParcelableExtra("friend");
 
         if (friend != null) {
             friendNameTV.setText(friend.getName());

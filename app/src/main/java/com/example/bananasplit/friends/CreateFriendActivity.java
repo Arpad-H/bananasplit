@@ -50,7 +50,7 @@ public class CreateFriendActivity extends BaseActivity {
             Person friend = new Person(name, email);
 
             if (update) {
-                friend.setPersonID(Objects.requireNonNull(intent.getParcelableExtra("friend", Person.class)).getPersonID());
+                friend.setPersonID(Objects.requireNonNull((Person) intent.getParcelableExtra("friend")).getPersonID());
                 friendViewmodel.update(friend);
             } else {
                 friendViewmodel.insert(friend);

@@ -59,9 +59,9 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
         selectedFriendsContainer = findViewById(R.id.selected_friends_layout);
 
         Intent currentIntent = getIntent();
-        if (currentIntent.getParcelableExtra("group", Group.class) != null) {
+        if (currentIntent.getParcelableExtra("group") != null) {
             setTitle("Edit Group");
-            Group group = currentIntent.getParcelableExtra("group", Group.class);
+            Group group = currentIntent.getParcelableExtra("group");
             nameEditText.setText(group.getName());
 //            dateEditText.setText(group.getDate());
 //            durationEditText.setText(String.valueOf(group.getDuration()));
@@ -96,8 +96,8 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
 
             Group newGroup = new Group(name, imageUriString);
 
-            if (currentIntent.getParcelableExtra("group", Group.class) != null) {
-                int id = Objects.requireNonNull(currentIntent.getParcelableExtra("group", Group.class)).getGroupID();
+            if (currentIntent.getParcelableExtra("group") != null) {
+                int id = Objects.requireNonNull((Group) currentIntent.getParcelableExtra("group")).getGroupID();
                 newGroup.setId(currentIntent.getIntExtra(String.valueOf(id), -1));
                 groupViewModel.update(newGroup);
             } else {
