@@ -3,23 +3,23 @@ agp = "8.4.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-appcompat = "1.7.0"
-material = "1.12.0"
-activity = "1.9.0"
+appcompat = "1.6.1"
+material = "1.8.0"
+activity = "1.7.2"
 constraintlayout = "2.1.4"
-roomCommon = "2.6.1"
-roomRuntime = "2.6.1"
-roomCompiler = "2.6.1"
-cameraCore = "1.4.0-beta02"
-cameraCamera2 = "1.4.0-beta02"
-cameraLifecycle = "1.4.0-beta02"
-cameraView = "1.4.0-beta02"
+roomCommon = "2.5.2"
+roomRuntime = "2.5.2"
+roomCompiler = "2.5.2"
+cameraCore = "1.1.0"
+cameraCamera2 = "1.1.0"
+cameraLifecycle = "1.1.0"
+cameraView = "1.1.0"
 playServicesMlkitTextRecognition = "19.0.0"
-gson = "2.11.0"
-coreSplashscreen = "1.2.0-alpha01"
+gson = "2.10.1"
+coreSplashscreen = "1.0.0"
 imagepicker = "2.1"
-navigationFragment = "2.7.7"
-navigationUi = "2.7.7"
+navigationFragment = "2.5.3"
+navigationUi = "2.5.3"
 
 
 [libraries]
@@ -28,7 +28,7 @@ ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitV
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+activity = { group = "androidx.activity", name = "activity", version = "1.7.2" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }

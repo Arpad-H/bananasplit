@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 
-import androidx.activity.EdgeToEdge;
+//import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
