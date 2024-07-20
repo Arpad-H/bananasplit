@@ -87,6 +87,10 @@
     <string name="confirm">Confirm</string>
     <string name="equal">Equal</string>
     <string name="string_equal">\@string/equal</string>
+    <string name="choosePaymentMethod">Choose a payment method</string>
+    <string name="payWithPayPal">Pay Via PayPal</string>
+    <string name="payOther">Record Other Payment Method</string>
+    <string name="transferMoney">Transfer Money</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

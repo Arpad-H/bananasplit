@@ -49,7 +49,7 @@ public class SettleUpActivity extends BaseActivity implements ListItemHolder {
     public void onItemClicked(int position) {
         // TODO: handle onItemClicked
         Person personDetails = adapter.getPersonAt(position);
-        Intent intent = new Intent(SettleUpActivity.this, FriendsDetailActivity.class);
+        Intent intent = new Intent(SettleUpActivity.this, SettleUpDetailsActivity.class);
         intent.putExtra("friend", (Parcelable) personDetails);
         startActivity(intent);
     }

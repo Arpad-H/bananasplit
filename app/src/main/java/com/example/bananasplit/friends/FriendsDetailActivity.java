@@ -41,9 +41,7 @@ public class FriendsDetailActivity extends BaseActivity {
             recyclerView.setAdapter(adapter);
 
             expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
-            expenseViewModel.getExpensesByFriendId(1, friend.getPersonID()).observe(this, expenses -> {
-                adapter.updateExpenses(expenses);
-            });
+            expenseViewModel.getExpensesByFriendId(1, friend.getPersonID()).observe(this, expenses -> adapter.updateExpenses(expenses));
         }
     }
 
