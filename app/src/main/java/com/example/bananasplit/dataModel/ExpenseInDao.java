@@ -10,11 +10,14 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
+import java.util.Map;
 
 @Dao
 public interface ExpenseInDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Expense expense);
+    long insert(Expense expense);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertExpensePersonCrossRef(ExpensePersonCrossRef crossRef);
     @Update
     void update(Expense expense);
 
@@ -33,4 +36,12 @@ public interface ExpenseInDao {
     @Transaction
     @Query("SELECT * FROM Expense WHERE SpenderID = :ownID OR SpenderID = :friendID")
     LiveData<List<Expense>> getExpensesByFriendId(int ownID, int friendID);
+
+    @Transaction
+    default void insertExpenseWithPersonsAndAmount(Expense expense, Map<Float, Person> personsWithAmounts) {
+        int expenseID = (int) insert(expense);
+        for (Map.Entry<Float, Person> pair : personsWithAmounts.entrySet()) {
+            insertExpensePersonCrossRef(new ExpensePersonCrossRef(pair.getValue().getPersonID(), expenseID, pair.getKey()));
+        }
+    }
 }
