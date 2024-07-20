@@ -127,9 +127,9 @@
         android:id="@+id/memberView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/btn_settle_up"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top"
-        app:layout_constraintStart_toEndOf="@+id/groupNameTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -140,22 +140,27 @@
         android:textColor="@color/white"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top"
-        app:layout_constraintStart_toEndOf="@+id/groupCoverImageView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewExpenses"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 <!--    https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml-->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/groupCoverImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
         app:srcCompat="@drawable/ic_launcher_background"
         app:strokeColor="@color/white"
-        app:strokeWidth="5dp" />
+        app:strokeWidth="5dp"
+        android:scaleType="centerCrop"/>
 
     <Button
         android:id="@+id/btn_settle_up"

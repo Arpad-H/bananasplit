@@ -1,12 +1,17 @@
 package com.example.bananasplit.util;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.ImageView;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Random;
 
 public class ImageUtils {
@@ -37,5 +42,15 @@ public class ImageUtils {
         canvas.drawText(initial, xPos, yPos, textPaint);
 
         imageView.setImageDrawable(new BitmapDrawable(imageView.getResources(), bitmap));
+    }
+
+    public static Drawable getDrawableFromUri(Activity activity, Uri uri) {
+        try {
+            InputStream inputStream = activity.getContentResolver().openInputStream(uri);
+            return Drawable.createFromStream(inputStream, uri.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

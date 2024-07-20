@@ -1,8 +1,10 @@
 package com.example.bananasplit.groups;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +18,7 @@ import com.example.bananasplit.expense.CreateExpenseActivity;
 import com.example.bananasplit.expense.ExpenseAdapter;
 import com.example.bananasplit.expense.ExpenseViewModel;
 import com.example.bananasplit.friends.MemberView;
+import com.example.bananasplit.util.ImageUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class GroupDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         TextView groupNameTextView = findViewById(R.id.groupNameTextView);
+        ImageView groupCoverImageView = findViewById(R.id.groupCoverImageView);
 //        TextView groupDateTextView = findViewById(R.id.groupDateTextView);
 //        TextView groupDurationTextView = findViewById(R.id.groupDurationTextView);
 
@@ -42,6 +46,7 @@ public class GroupDetailsActivity extends BaseActivity {
             groupNameTextView.setText(group.getName());
 //            groupDateTextView.setText(group.getDate());
 //            groupDurationTextView.setText(String.valueOf(group.getDuration()));
+            groupCoverImageView.setImageDrawable(ImageUtils.getDrawableFromUri(this, Uri.parse(group.getImageUri())));
         }
 
         recyclerView = findViewById(R.id.recyclerViewExpenses);
