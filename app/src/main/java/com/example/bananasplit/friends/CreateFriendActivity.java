@@ -47,7 +47,11 @@ public class CreateFriendActivity extends BaseActivity {
         createFriend.setOnClickListener(v -> {
             String name = friendName.getText().toString();
             String email = friendEmail.getText().toString();
-            Person friend = new Person(name, email);
+            Person friend = new Person.PersonBuilder()
+                    .name(name)
+                    .email(email)
+                    .build();
+//            Person friend = new Person(name, email);
 
             if (update) {
                 friend.setPersonID(Objects.requireNonNull((Person) intent.getParcelableExtra("friend")).getPersonID());
