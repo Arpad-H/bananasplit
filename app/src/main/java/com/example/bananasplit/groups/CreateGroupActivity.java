@@ -38,12 +38,10 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
 
 
         nameEditText = findViewById(R.id.group_name_edit_text);
-//        dateEditText = findViewById(R.id.dateEditText);
-//        durationEditText = findViewById(R.id.durationEditText);
+
         Button createButton = findViewById(R.id.createButton);
         pickImageButton = findViewById(R.id.pickImageButton);
         groupCoverImageView = findViewById(R.id.GroupCoverImageView);
-//TODO Stringeingaben crshed die App
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
         selectedFriendsContainer = findViewById(R.id.selected_friends_layout);
 
@@ -52,8 +50,6 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
             setTitle("Edit Group");
             Group group = currentIntent.getParcelableExtra("group");
             nameEditText.setText(group.getName());
-//            dateEditText.setText(group.getDate());
-//            durationEditText.setText(String.valueOf(group.getDuration()));
             imageUri = Uri.parse(group.getImageUri());
             createButton.setText(R.string.update);
         } else {

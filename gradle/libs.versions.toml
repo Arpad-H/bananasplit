@@ -7,6 +7,7 @@ appcompat = "1.6.1"
 material = "1.8.0"
 activity = "1.7.2"
 constraintlayout = "2.1.4"
+paypalPaypalAndroidSdk = "2.16.0"
 roomCommon = "2.5.2"
 roomRuntime = "2.5.2"
 roomCompiler = "2.5.2"
@@ -20,6 +21,7 @@ coreSplashscreen = "1.0.0"
 imagepicker = "2.1"
 navigationFragment = "2.5.3"
 navigationUi = "2.5.3"
+securityCrypto = "1.1.0-alpha06"
 
 
 [libraries]
@@ -30,6 +32,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version = "1.7.2" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+paypal-paypal-android-sdk = { module = "com.paypal.sdk:paypal-android-sdk", version.ref = "paypalPaypalAndroidSdk" }
 room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
@@ -43,6 +46,7 @@ core-splashscreen = { group = "androidx.core", name = "core-splashscreen", versi
 imagepicker = { group = "com.github.dhaval2404", name = "imagepicker", version.ref = "imagepicker" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 
 
 [plugins]

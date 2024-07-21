@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 public class UserSessionManager {
     private static final String PREF_NAME = "UserSession";
     private static final String KEY_CURRENT_USER_ID = "currentUserId";
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
+    private final SharedPreferences prefs;
+    private final SharedPreferences.Editor editor;
 
     public UserSessionManager(Context context) {
         prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);

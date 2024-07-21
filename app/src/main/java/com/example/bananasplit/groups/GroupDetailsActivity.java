@@ -14,14 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
+import com.example.bananasplit.dataModel.AppDatabase;
+import com.example.bananasplit.dataModel.DatabaseModule;
+import com.example.bananasplit.dataModel.ExpenseInDao;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.expense.CreateExpenseActivity;
 import com.example.bananasplit.expense.ExpenseAdapter;
 import com.example.bananasplit.expense.ExpenseViewModel;
 import com.example.bananasplit.friends.MemberView;
+import com.example.bananasplit.util.ExpenseCalculator;
 import com.example.bananasplit.settleUp.SettleUpActivity;
 import com.example.bananasplit.settleUp.SettleUpDetailsActivity;
 import com.example.bananasplit.util.ImageUtils;
+import com.example.bananasplit.util.UserSessionManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -32,6 +37,10 @@ public class GroupDetailsActivity extends BaseActivity {
 
     GroupViewModel groupViewModel;
     MemberView memberView;
+    TextView balanceTextView;
+    TextView owedAmountTextView;
+    TextView youOweTextView;
+    Group group;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +51,10 @@ public class GroupDetailsActivity extends BaseActivity {
 //        TextView groupDateTextView = findViewById(R.id.groupDateTextView);
 //        TextView groupDurationTextView = findViewById(R.id.groupDurationTextView);
 
-        Group group = getIntent().getParcelableExtra("group");
+        group = getIntent().getParcelableExtra("group");
+        groupNameTextView.setText(group.getName());
+        groupCoverImageView.setImageDrawable(ImageUtils.getDrawableFromUri(this, Uri.parse(group.getImageUri())));
 
-        if (group != null) {
-            groupNameTextView.setText(group.getName());
-//            groupDateTextView.setText(group.getDate());
-//            groupDurationTextView.setText(String.valueOf(group.getDuration()));
-            groupCoverImageView.setImageDrawable(ImageUtils.getDrawableFromUri(this, Uri.parse(group.getImageUri())));
-        }
 
         RecyclerView recyclerView = findViewById(R.id.recyclerViewExpenses);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,6 +79,7 @@ public class GroupDetailsActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        populateBalanceOverview();
         FloatingActionButton fab = findViewById(R.id.btn_add_expense);
         fab.setOnClickListener(v -> {
 
@@ -83,6 +89,40 @@ public class GroupDetailsActivity extends BaseActivity {
         });
     }
 
+    private void populateBalanceOverview() {
+        youOweTextView = findViewById(R.id.txt_you_owe_amount);
+        owedAmountTextView = findViewById(R.id.txt_owed_amount);
+        balanceTextView = findViewById(R.id.txt_total_balance);
+        AppDatabase database = DatabaseModule.getInstance(this);
+        ExpenseInDao expenseInDao = database.expenseInDao();
+        UserSessionManager userSessionManager = new UserSessionManager(this);
+        observeExpenseData(group.getGroupID());
+
+    }
+
+    private void observeExpenseData(int groupId) {
+        ExpenseCalculator expenseCalculator = new ExpenseCalculator(this);
+        expenseCalculator.getTotalAmountOwedByCurrentUserInGroup(groupId).observe(this, youOwe -> {
+            if (youOwe != null) {
+                // Update UI with the amount owed
+                runOnUiThread(() -> youOweTextView.setText(String.format("%.2f", youOwe)));
+            } else {
+
+                runOnUiThread(() -> youOweTextView.setText("0.00"));
+            }
+        });
+
+// Observe the total amount paid
+        expenseCalculator.getTotalAmountPaidByCurrentInGroup(groupId).observe(this, owedAmount -> {
+            if (owedAmount != null) {
+                // Update UI with the amount paid
+                runOnUiThread(() -> owedAmountTextView.setText(String.format("%.2f", owedAmount)));
+            } else {
+
+                runOnUiThread(() -> owedAmountTextView.setText("0.00"));
+            }
+        });
+    }
 
     @Override
     protected int getLayoutResourceId() {

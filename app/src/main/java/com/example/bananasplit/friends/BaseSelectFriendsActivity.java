@@ -28,7 +28,7 @@ public abstract class BaseSelectFriendsActivity extends BaseActivity {
 
     protected List<Person> selectedFriends = new ArrayList<>();
     private ViewGroup selectedFriendsContainer;
-    private Map<Person, View> personViewMap = new HashMap<>();
+    private final Map<Person, View> personViewMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

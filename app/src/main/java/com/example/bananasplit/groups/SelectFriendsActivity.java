@@ -23,7 +23,7 @@ import java.util.List;
 public class SelectFriendsActivity extends BaseActivity {
     private SelectFriendsAdapter friendsAdapter;
     private FriendViewModel friendViewModel;
-    private List<Person> selectedFriends = new ArrayList<>();
+    private final List<Person> selectedFriends = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

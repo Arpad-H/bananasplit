@@ -44,9 +44,9 @@ public interface ExpenseInDao {
             insertExpensePersonCrossRef(new ExpensePersonCrossRef(pair.getKey().getPersonID(), expenseID, pair.getValue()));
         }
     }
-    @Query("SELECT SUM(amount) FROM Expense WHERE spenderID = :userId")
-    LiveData<Double> getTotalAmountPaidByUser(int userId);
+    @Query("SELECT COALESCE(SUM(amount), 0.0) FROM Expense WHERE spenderID = :userId and groupID = :groupId")
+    LiveData<Double> getTotalAmountPaidByUserInGroup(int userId, int groupId);
 
-    @Query("SELECT SUM(ep.amount) FROM ExpensePersonCrossRef ep WHERE ep.personID = :userId")
-    LiveData<Double> getTotalAmountOwedByUser(int userId);
+    @Query("SELECT SUM(ep.amount) FROM ExpensePersonCrossRef ep WHERE ep.personID = :userId and ep.expenseID IN (SELECT e.id FROM Expense e WHERE e.groupID = :groupId)")
+    LiveData<Double> getTotalAmountOwedByUserInGroup(int userId, int groupId);
 }

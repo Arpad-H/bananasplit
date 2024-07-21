@@ -49,7 +49,7 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     private Spinner changeCurrencySpinner;
     private Button changeSplitRatioButton;
     GroupViewModel groupViewModel;
-    private List<Person> participantsInExpense = new ArrayList<>();
+    private final List<Person> participantsInExpense = new ArrayList<>();
 
     //    private MultiSelectSpinner selectParticipantsSpinner;
     @Override

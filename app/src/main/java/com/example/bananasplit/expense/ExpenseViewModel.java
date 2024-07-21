@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ExpenseViewModel extends AndroidViewModel {
-    private ExpenseInDao expenseInDao;
+    private final ExpenseInDao expenseInDao;
 
     public ExpenseViewModel(@NonNull Application application) {
         super(application);
