@@ -33,9 +33,9 @@ public class CreateFriendActivity extends BaseActivity {
         ImageButton createFriend = findViewById(R.id.createFriend);
 
         Intent intent = getIntent();
-        boolean update = intent.getParcelableExtra("friend", Person.class) != null;
+        boolean update = intent.getParcelableExtra("friend") != null;
         if (update) {
-            Person friend = intent.getParcelableExtra("friend", Person.class);
+            Person friend = intent.getParcelableExtra("friend");
             if (friend != null) {
             friendHeadline.setText("Update " + friend.getName());
                 friendName.setText(friend.getName());

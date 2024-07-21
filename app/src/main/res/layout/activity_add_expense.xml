@@ -118,7 +118,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/settleUpOweOwed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -132,7 +132,7 @@
             android:text="Button" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/settleAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -166,7 +166,7 @@
             android:text="@string/scan_receipt" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/settleUpMail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center"

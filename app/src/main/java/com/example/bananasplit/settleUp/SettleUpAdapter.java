@@ -35,7 +35,10 @@ public class SettleUpAdapter extends RecyclerView.Adapter<SettleUpAdapter.Settle
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SettleUpViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SettleUpViewHolder viewHolder, int position) {
+        Person friend = friends.get(position);
+        viewHolder.getFriendName().setText(friend.getName());
+        viewHolder.getFriendMail().setText(friend.getEmail());
 
     }
 
@@ -56,14 +59,18 @@ public class SettleUpAdapter extends RecyclerView.Adapter<SettleUpAdapter.Settle
 
     public class SettleUpViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView friendName;
+        private final TextView amount;
+        private final TextView friendMail;
+        private final TextView oweOwed;
 
         public SettleUpViewHolder(View view) {
             super(view);
             friendName = view.findViewById(R.id.settleFriendName);
+            amount = view.findViewById(R.id.settleAmount);
+            friendMail = view.findViewById(R.id.settleUpMail);
+            oweOwed = view.findViewById(R.id.settleUpOweOwed);
             // Define click listener for the ViewHolder's View
-            view.findViewById(R.id.friendDelete).setOnClickListener(this);
-            view.findViewById(R.id.friendEdit).setOnClickListener(this);
-            friendName.setOnClickListener(this);
+//            friendName.setOnClickListener(this);
             view.setOnClickListener(this);
         }
 
@@ -71,18 +78,23 @@ public class SettleUpAdapter extends RecyclerView.Adapter<SettleUpAdapter.Settle
             return friendName;
         }
 
+        public TextView getAmount() {
+            return amount;
+        }
+
+        public TextView getFriendMail() {
+            return friendMail;
+        }
+
+        public TextView getOweOwed() {
+            return oweOwed;
+        }
+
         @Override
         public void onClick(View view) {
             int pos = getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION) {
-                int id = view.getId();
-                if (id == R.id.friendEdit) {
-                    listener.onEdit(pos);
-                } else if (id == R.id.friendDelete) {
-                    listener.onDelete(pos);
-                } else {
-                    listener.onItemClicked(pos);
-                }
+                listener.onItemClicked(pos);
             }
         }
 

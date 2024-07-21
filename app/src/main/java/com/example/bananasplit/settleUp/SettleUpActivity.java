@@ -3,6 +3,7 @@ package com.example.bananasplit.settleUp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.widget.ImageButton;
 
 //import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -28,6 +29,8 @@ public class SettleUpActivity extends BaseActivity implements ListItemHolder {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ImageButton back = findViewById(R.id.backButton);
+        back.setOnClickListener(v-> finish());
         RecyclerView recyclerView = findViewById(R.id.recyclerSettleUp);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SettleUpAdapter(new ArrayList<>(), this);

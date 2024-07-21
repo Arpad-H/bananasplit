@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,13 +19,14 @@ import com.example.bananasplit.expense.CreateExpenseActivity;
 import com.example.bananasplit.expense.ExpenseAdapter;
 import com.example.bananasplit.expense.ExpenseViewModel;
 import com.example.bananasplit.friends.MemberView;
+import com.example.bananasplit.settleUp.SettleUpActivity;
+import com.example.bananasplit.settleUp.SettleUpDetailsActivity;
 import com.example.bananasplit.util.ImageUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class GroupDetailsActivity extends BaseActivity {
-    private RecyclerView recyclerView;
     ExpenseAdapter adapter;
     ExpenseViewModel expenseViewModel;
 
@@ -40,7 +42,7 @@ public class GroupDetailsActivity extends BaseActivity {
 //        TextView groupDateTextView = findViewById(R.id.groupDateTextView);
 //        TextView groupDurationTextView = findViewById(R.id.groupDurationTextView);
 
-        Group group = getIntent().getParcelableExtra("group", Group.class);
+        Group group = getIntent().getParcelableExtra("group");
 
         if (group != null) {
             groupNameTextView.setText(group.getName());
@@ -49,7 +51,7 @@ public class GroupDetailsActivity extends BaseActivity {
             groupCoverImageView.setImageDrawable(ImageUtils.getDrawableFromUri(this, Uri.parse(group.getImageUri())));
         }
 
-        recyclerView = findViewById(R.id.recyclerViewExpenses);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewExpenses);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ExpenseAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
@@ -65,6 +67,12 @@ public class GroupDetailsActivity extends BaseActivity {
             memberView.setMembers(members);
         });
 
+        Button settleUp = findViewById(R.id.btn_settle_up);
+        settleUp.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SettleUpActivity.class);
+            intent.putExtra("group", (Parcelable) group);
+            startActivity(intent);
+        });
 
         FloatingActionButton fab = findViewById(R.id.btn_add_expense);
         fab.setOnClickListener(v -> {

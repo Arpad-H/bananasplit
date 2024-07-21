@@ -37,7 +37,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/settleUpMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
@@ -55,13 +55,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/settleUpOweOwed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/you_owe" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/settleAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/placeholder"

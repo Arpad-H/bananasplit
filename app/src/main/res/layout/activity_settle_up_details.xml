@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".settleUp.SettleUpDetails">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        tools:visibility="gone" />
+
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="60dp"
@@ -94,6 +106,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <RadioGroup
+        android:id="@+id/paymentRadios"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -103,65 +116,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choosePaymentMethodTV">
 
-        <LinearLayout
+        <RadioButton
+            android:id="@+id/radioButtonPayPal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
+            android:drawableTop="@drawable/paypal_color"
+            android:drawablePadding="10dp"
+            android:textAlignment="center"
+            tools:text="@string/payWithPayPal" />
 
-            <RadioButton
-                android:id="@+id/radioButtonPayPal"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/paypal_color" />
-
-                <TextView
-                    android:id="@+id/textPayPal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/payWithPayPal" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <RadioButton
+            android:id="@+id/radioButtonOther"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radioButtonOther"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/wallet" />
-
-                <TextView
-                    android:id="@+id/textOtherPayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/payOther" />
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_marginTop="8dp"
+            android:drawableTop="@drawable/wallet"
+            android:drawablePadding="10dp"
+            android:text="@string/payOther"
+            android:textAlignment="center" />
 
     </RadioGroup>
 
@@ -169,8 +141,8 @@
         android:id="@+id/btnTransfer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/topAccentBar"
         android:enabled="false"

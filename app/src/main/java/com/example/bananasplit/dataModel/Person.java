@@ -8,6 +8,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,11 +18,19 @@ public class Person implements Serializable, Parcelable {
     private int personID = 0;
     private String name;
     private String email;
+    private String imageURI;
     List<Person> friends;
 
     public Person(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public Person(PersonBuilder builder) {
+        this.name = builder.name;
+        this.email = builder.email;
+        this.imageURI = builder.imageURI;
+        this.friends = builder.friends;
     }
 
     public int getPersonID() {
@@ -41,6 +51,14 @@ public class Person implements Serializable, Parcelable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImageURI() {
+        return imageURI;
+    }
+
+    public void setImageURI(String imageURI) {
+        this.imageURI = imageURI;
     }
 
     public String getEmail() {
@@ -77,5 +95,36 @@ public class Person implements Serializable, Parcelable {
         dest.writeString(name);
         dest.writeString(email);
         dest.writeTypedList(friends);
+    }
+
+    public static class PersonBuilder {
+        private String name;
+        private String email;
+        private String imageURI = "";
+        private List<Person> friends;
+
+        public PersonBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public PersonBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public PersonBuilder imageURI(String imageURI) {
+            this.imageURI = imageURI;
+            return this;
+        }
+
+        public PersonBuilder friends(List<Person> friends) {
+            this.friends = friends;
+            return this;
+        }
+
+        public Person build() {
+            return new Person(this);
+        }
     }
 }
