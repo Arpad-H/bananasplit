@@ -10,8 +10,10 @@ import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Expense;
 import com.example.bananasplit.dataModel.ExpenseInDao;
 import com.example.bananasplit.dataModel.AppDatabase;
+import com.example.bananasplit.dataModel.Person;
 
 import java.util.List;
+import java.util.Map;
 
 public class ExpenseViewModel extends AndroidViewModel {
     private ExpenseInDao expenseInDao;
@@ -40,5 +42,9 @@ public class ExpenseViewModel extends AndroidViewModel {
 
     public void update(Expense expense) {
         new Thread(() -> expenseInDao.update(expense)).start();
+    }
+
+    public void insertExpenseWithPersonsAndAmount(Expense expense, Map<Person, Float> personsWithAmounts) {
+        new Thread(() -> expenseInDao.insertExpenseWithPersonsAndAmount(expense, personsWithAmounts)).start();
     }
 }

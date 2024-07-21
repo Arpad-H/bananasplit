@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,13 +20,15 @@ import com.example.bananasplit.groups.SelectFriendsActivity;
 import com.example.bananasplit.util.ImageUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class BaseSelectFriendsActivity extends BaseActivity {
 
     protected List<Person> selectedFriends = new ArrayList<>();
     private ViewGroup selectedFriendsContainer;
-
+    private Map<Person, View> personViewMap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +51,21 @@ public abstract class BaseSelectFriendsActivity extends BaseActivity {
                 }
         );
     }
+    protected Map<Person, Float> extractDataFromEditTexts(int editTextId) {
+        Map<Person, Float> dataMap = new HashMap<>();
 
+        for (Map.Entry<Person, View> entry : personViewMap.entrySet()) {
+            Person person = entry.getKey();
+            View view = entry.getValue();
+            EditText editText = view.findViewById(editTextId);
+            if (editText != null) {
+                float additionalInfo = Float.parseFloat(editText.getText().toString());
+                dataMap.put(person, additionalInfo);
+            }
+        }
+
+        return dataMap;
+    }
     protected ActivityResultLauncher<Intent> selectFriendsLauncher;
 
     protected void launchSelectFriendsActivity() {
@@ -61,15 +78,18 @@ public abstract class BaseSelectFriendsActivity extends BaseActivity {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (Person friend : selectedFriends) {
-            View friendView = inflater.inflate(R.layout.friend_with_picture_list_item, selectedFriendsContainer, false);
+            View friendView = inflater.inflate(getListItemLayoutResId(), selectedFriendsContainer, false);
 
             TextView friendNameTextView = friendView.findViewById(R.id.person_name);
             ImageView friendImageView = friendView.findViewById(R.id.friend_profile_picture);
 
             friendNameTextView.setText(friend.getName());
             ImageUtils.setProfileImage(friendImageView, friend.getName());
-
+            handleAdditionalElements(friendView, friend);
             selectedFriendsContainer.addView(friendView);
+            personViewMap.put(friend, friendView);
         }
     }
+    protected abstract void handleAdditionalElements(View friendView, Person friend);
+    protected abstract int getListItemLayoutResId();
 }

@@ -38,10 +38,10 @@ public interface ExpenseInDao {
     LiveData<List<Expense>> getExpensesByFriendId(int ownID, int friendID);
 
     @Transaction
-    default void insertExpenseWithPersonsAndAmount(Expense expense, Map<Float, Person> personsWithAmounts) {
+    default void insertExpenseWithPersonsAndAmount(Expense expense, Map<Person,Float> personsWithAmounts) {
         int expenseID = (int) insert(expense);
-        for (Map.Entry<Float, Person> pair : personsWithAmounts.entrySet()) {
-            insertExpensePersonCrossRef(new ExpensePersonCrossRef(pair.getValue().getPersonID(), expenseID, pair.getKey()));
+        for (Map.Entry<Person,Float> pair : personsWithAmounts.entrySet()) {
+            insertExpensePersonCrossRef(new ExpensePersonCrossRef(pair.getKey().getPersonID(), expenseID, pair.getValue()));
         }
     }
 }

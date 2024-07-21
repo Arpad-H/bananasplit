@@ -38,6 +38,7 @@ import com.example.bananasplit.util.ImageUtils;
 //import com.pratikbutani.multiselectspinner.MultiSelectSpinner;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     private EditText nameEditText;
@@ -49,7 +50,8 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     private Button changeSplitRatioButton;
     GroupViewModel groupViewModel;
     private List<Person> participantsInExpense = new ArrayList<>();
-//    private MultiSelectSpinner selectParticipantsSpinner;
+
+    //    private MultiSelectSpinner selectParticipantsSpinner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +82,6 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
         });
 
 
-
         setupChangeCategorySpinner();
         setupChangeCurrencySpinner();
 
@@ -95,10 +96,16 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
         return findViewById(R.id.selected_friends_layout);
     }
 
-//    @Override
-//    protected void getListItemForPerson() {
-//        //TODO
-//    }
+    @Override
+    protected void handleAdditionalElements(View friendView, Person friend) {
+        EditText ratioEditText = friendView.findViewById(R.id.edit_expense_ratio);
+    }
+
+    @Override
+    protected int getListItemLayoutResId() {
+
+        return R.layout.expense_participant_custom_ratio_list_item;
+    }
 
     private void setupChangeCategorySpinner() {
         ExpenseCategory[] categories = ExpenseCategory.values();
@@ -156,16 +163,16 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     private void bindCreateExpenseButton(Group group) {
         ImageButton createButton = findViewById(R.id.create_expense_button);
         createButton.setOnClickListener(v -> {
-
+            Map<Person, Float> personExpenseRatio = extractDataFromEditTexts(R.id.edit_expense_ratio);
             String name = nameEditText.getText().toString();
             float amount = Float.parseFloat(amountEditText.getText().toString());
             Person person = (Person) personWhoPaidSpinner.getSelectedItem();
             ExpenseCategory selectedCategory = ExpenseCategory.fromString((String) changeCategorySpinner.getSelectedItem());
             Currency selectedCurrency = Currency.fromString((String) changeCurrencySpinner.getSelectedItem());
 
-            Expense newExpense = new Expense(name, person, group.getGroupID(), amount, selectedCurrency, selectedCategory);//TODO currently just temp category
-            expenseViewModel.insert(newExpense);
-
+            Expense newExpense = new Expense(name, person, group.getGroupID(), amount, selectedCurrency, selectedCategory);
+//            expenseViewModel.insert(newExpense);
+            expenseViewModel.insertExpenseWithPersonsAndAmount(newExpense, personExpenseRatio);
             finish();
         });
     }

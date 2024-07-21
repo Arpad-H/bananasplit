@@ -13,6 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.bananasplit.dataModel.AppDatabase;
+import com.example.bananasplit.dataModel.CurrentUserInDao;
+import com.example.bananasplit.dataModel.DatabaseModule;
+import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.dataModel.PersonInDao;
 import com.example.bananasplit.scanner.ScannerActivity;
 
 public class MainActivity extends BaseActivity {
@@ -27,6 +32,10 @@ public class MainActivity extends BaseActivity {
             startActivity(intent);
         });
         requestCameraPermission();
+
+        AppDatabase database = DatabaseModule.getInstance(this);
+        CurrentUserInDao personInDao = database.currentUserInDao();
+        personInDao.insert(new Person("User", "u@u.com"),0);
     }
 
     @Override

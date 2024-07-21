@@ -97,7 +97,8 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
             Group newGroup = new Group(name, imageUriString);
 
             if (currentIntent.getParcelableExtra("group") != null) {
-                int id = Objects.requireNonNull((Group) currentIntent.getParcelableExtra("group")).getGroupID();
+                Group group = currentIntent.getParcelableExtra("group");
+                int id = group.getGroupID();
                 newGroup.setId(currentIntent.getIntExtra(String.valueOf(id), -1));
                 groupViewModel.update(newGroup);
             } else {
@@ -110,6 +111,16 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
     @Override
     protected ViewGroup getSelectedFriendsContainer() {
         return findViewById(R.id.selected_friends_layout);
+    }
+
+    @Override
+    protected void handleAdditionalElements(View friendView, Person friend) {
+
+    }
+
+    @Override
+    protected int getListItemLayoutResId() {
+        return R.layout.friend_with_picture_list_item;
     }
 
     @Override
