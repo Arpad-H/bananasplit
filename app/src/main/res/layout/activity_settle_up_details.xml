@@ -122,8 +122,8 @@
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/paypal_color"
             android:drawablePadding="10dp"
-            android:textAlignment="center"
-            tools:text="@string/payWithPayPal" />
+            android:text="@string/payWithPayPal"
+            android:textAlignment="center" />
 
         <RadioButton
             android:id="@+id/radioButtonOther"
