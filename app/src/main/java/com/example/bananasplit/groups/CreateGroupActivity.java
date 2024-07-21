@@ -79,7 +79,11 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
             String imageUriString = imageUri.toString();
 
 
-            Group newGroup = new Group(name, imageUriString);
+//            Group newGroup = new Group(name, imageUriString);
+            Group newGroup = new Group.GroupBuilder()
+                    .name(name)
+                    .imageURI(imageUriString)
+                    .build();
 
             if (currentIntent.getParcelableExtra("group") != null) {
                 Group group = currentIntent.getParcelableExtra("group");

@@ -66,6 +66,14 @@ public class Group implements Serializable, Parcelable {
         this.imageUri = imageUri;
     }
 
+    public Group(GroupBuilder builder) {
+        this.name = builder.name;
+        this.date = builder.date;
+        this.duration = builder.duration;
+        this.imageUri = builder.imageURI;
+    }
+
+
     protected Group(Parcel in) {
         groupID = in.readInt();
         name = in.readString();
@@ -108,4 +116,35 @@ public class Group implements Serializable, Parcelable {
             return new Group[size];
         }
     };
+
+    public static class GroupBuilder {
+        private String name;
+        private String date;
+        private int duration;
+        private String imageURI;
+
+        public GroupBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public GroupBuilder date(String date) {
+            this.date = date;
+            return this;
+        }
+
+        public GroupBuilder duration(int duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public GroupBuilder imageURI(String imageURI) {
+            this.imageURI = imageURI;
+            return this;
+        }
+
+        public Group build() {
+            return new Group(this);
+        }
+    }
 }

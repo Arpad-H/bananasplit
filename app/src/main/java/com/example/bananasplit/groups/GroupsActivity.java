@@ -60,7 +60,11 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
             int duration = data.getIntExtra("duration", 0);
             String imageUri = data.getStringExtra("imageUri");
 
-            Group newGroup = new Group(name, imageUri);
+            Group newGroup = new Group.GroupBuilder()
+                    .name(name)
+                    .imageURI(imageUri)
+                    .build();
+//            Group newGroup = new Group(name, imageUri);
 
             groupViewModel.insert(newGroup, new ArrayList<>()); //TODO: selectedFriends, currently just empty list as placeholder
         }
