@@ -1,10 +1,10 @@
 package com.example.bananasplit.scanner;
 
 public class ScanEntry {
-    private String name;
-    private int quantity;
-    private double unitPrice;
-    private double totalPrice;
+    private final String name;
+    private final int quantity;
+    private final double unitPrice;
+    private final double totalPrice;
 
     public ScanEntry(String name, int quantity, double unitPrice, double totalPrice) {
         this.name = name;

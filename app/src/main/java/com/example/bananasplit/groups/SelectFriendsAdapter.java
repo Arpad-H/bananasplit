@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SelectFriendsAdapter extends RecyclerView.Adapter<SelectFriendsAdapter.ViewHolder> {
     private List<Person> friends;
-    private List<Person> selectedFriends = new ArrayList<>();
+    private final List<Person> selectedFriends = new ArrayList<>();
 
     public SelectFriendsAdapter(List<Person> friends) {
         this.friends = friends;

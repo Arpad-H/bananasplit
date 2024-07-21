@@ -21,6 +21,7 @@ import com.example.bananasplit.dataModel.PersonInDao;
 import com.example.bananasplit.groups.GroupsActivity;
 import com.example.bananasplit.scanner.ScannerActivity;
 import com.example.bananasplit.settings.EditProfileActivity;
+import com.example.bananasplit.util.SecurePreferencesManager;
 import com.example.bananasplit.util.UserSessionManager;
 
 public class MainActivity extends BaseActivity {
@@ -42,6 +43,9 @@ public class MainActivity extends BaseActivity {
 
         userSessionManager = new UserSessionManager(this);
         database = DatabaseModule.getInstance(this);
+
+        SecurePreferencesManager securePreferences = new SecurePreferencesManager(this);
+        securePreferences.saveApiKey("EG9TMxhWchFzMHlDlGDsv-nLuLBhcCsC_mez57saO5I5qoGpJm7FhUryXeeS9VeSH4J4n-ZzA61hDG-2");
 
         editProfileLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

@@ -20,7 +20,7 @@ import java.util.List;
 
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
     private List<Group> groups;
-    private ListItemHolder listener;
+    private final ListItemHolder listener;
     private boolean areButtonsVisible = false;
     public GroupAdapter(List<Group> groups, ListItemHolder listener) {
         this.groups = groups;

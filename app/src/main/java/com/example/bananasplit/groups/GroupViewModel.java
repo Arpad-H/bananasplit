@@ -14,10 +14,10 @@ import com.example.bananasplit.dataModel.Person;
 import java.util.List;
 
 public class GroupViewModel extends AndroidViewModel {
-    private AppDatabase appDatabase;
+    private final AppDatabase appDatabase;
     private LiveData<List<Group>> allGroups;
 //    private LiveData<List<Person>> allPersons;
-private GroupInDao groupInDao;
+private final GroupInDao groupInDao;
     public GroupViewModel(@NonNull Application application) {
         super(application);
 
