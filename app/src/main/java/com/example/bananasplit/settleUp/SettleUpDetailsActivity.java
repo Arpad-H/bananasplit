@@ -1,76 +1,79 @@
 package com.example.bananasplit.settleUp;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
-//import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bananasplit.BaseActivity;
+import com.example.bananasplit.MainActivity;
 import com.example.bananasplit.R;
-import com.example.bananasplit.util.SecurePreferencesManager;
-import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
-import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.paypal.checkout.PayPalCheckout;
+import com.paypal.checkout.approve.Approval;
+import com.paypal.checkout.approve.OnApprove;
+import com.paypal.checkout.config.CheckoutConfig;
+import com.paypal.checkout.config.Environment;
+import com.paypal.checkout.createorder.CreateOrder;
+import com.paypal.checkout.createorder.CreateOrderActions;
+import com.paypal.checkout.createorder.CurrencyCode;
+import com.paypal.checkout.createorder.OrderIntent;
+import com.paypal.checkout.createorder.UserAction;
+import com.paypal.checkout.order.Amount;
+import com.paypal.checkout.order.AppContext;
+import com.paypal.checkout.order.CaptureOrderResult;
+import com.paypal.checkout.order.OnCaptureComplete;
+import com.paypal.checkout.order.OrderRequest;
+import com.paypal.checkout.order.PurchaseUnit;
+import com.paypal.checkout.paymentbutton.PaymentButtonContainer;
 
-import java.math.BigDecimal;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettleUpDetailsActivity extends BaseActivity {
     SettleUpAdapter adapter;
     SettleUpViewModel settleUpViewModel;
-    private static final int PAYPAL_REQUEST_CODE = 123;
-    private PayPalConfiguration payPalConfiguration;
+    PaymentButtonContainer paymentButtonContainer;
     private ActivityResultLauncher<Intent> payPalLauncher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ImageButton back = findViewById(R.id.backButton);
-        back.setOnClickListener(v-> finish());
+        back.setOnClickListener(v -> finish());
 
 
         RadioGroup radioGroup = findViewById(R.id.paymentRadios);
         Button transferMoneyButton = findViewById(R.id.btnTransfer);
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> transferMoneyButton.setEnabled(group.getCheckedRadioButtonId() != -1));
-    setupPayPal();
-        setupPaypalLauncher();
+
+        paymentButtonContainer = findViewById(R.id.paypal_payment_button);
+//        setupPayPal();
+
+        processPayPalPayment();
         transferMoneyButton.setOnClickListener(v -> {
 
             int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
 
             if (selectedRadioButtonId != -1) { // Check if a RadioButton is selected
-
                 RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
 
-                // Get the text or ID of the selected RadioButton
-                String selectedOption = selectedRadioButton.getText().toString();
+                if (selectedRadioButtonId == R.id.radioButtonPayPal) {
+                    processPayPalPayment();
+                } else if (selectedRadioButtonId == R.id.radioButtonCash) {
+                    Toast.makeText(this, "Settlement in Person Noted", Toast.LENGTH_SHORT).show();
+                } else {
 
-                // Show a Toast message or perform other actions
-                Toast.makeText(this, "Selected option: " + selectedOption, Toast.LENGTH_SHORT).show();
-
-                switch (selectedOption) {
-                    case "PayPal":
-                        processPayPalPayment();
-                        break;
-
-                    case "Cash":
-                        // Perform action for Cash
-                        break;
-                    default:
-
-                        break;
                 }
             } else {
                 Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
@@ -79,56 +82,38 @@ public class SettleUpDetailsActivity extends BaseActivity {
 
     }
 
-    private void setupPaypalLauncher() {
-        payPalLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data != null) {
-                            PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-                            if (confirmation != null) {
-                                try {
-                                    String paymentDetails = confirmation.toJSONObject().toString(4);
-                                    // Handle the payment confirmation
-                                    Toast.makeText(this, "Payment Success!", Toast.LENGTH_SHORT).show();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    } else if (result.getResultCode() == RESULT_CANCELED) {
-                        Toast.makeText(this, "Payment Cancelled", Toast.LENGTH_SHORT).show();
-                    } else if (result.getResultCode() == PaymentActivity.RESULT_EXTRAS_INVALID) {
-                        Toast.makeText(this, "Payment Invalid", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
-    }
 
-    private void setupPayPal() {
-        SecurePreferencesManager securePreferencesManager = new SecurePreferencesManager(this);
-        String PAYPAL_CLIENT_ID = securePreferencesManager.getApiKey();
-        payPalConfiguration = new PayPalConfiguration()
-                .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-                .clientId(PAYPAL_CLIENT_ID);
-    }
     private void processPayPalPayment() {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("10.00"), "USD", "Banana Split Settlement",
-                PayPalPayment.PAYMENT_INTENT_SALE);
 
-        Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfiguration);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+        paymentButtonContainer.setup(
+                createOrderActions -> {
+                    Log.d(TAG, "create: ");
+                    ArrayList<PurchaseUnit> purchaseUnits = new ArrayList<>();
+                    purchaseUnits.add(
+                            new PurchaseUnit.Builder()
+                                    .amount(
+                                            new Amount.Builder()
+                                                    .currencyCode(CurrencyCode.USD)
+                                                    .value("10.00")
+                                                    .build()
+                                    )
+                                    .build()
+                    );
+                    OrderRequest order = new OrderRequest(
+                            OrderIntent.CAPTURE,
+                            new AppContext.Builder()
+                                    .userAction(UserAction.PAY_NOW)
+                                    .build(),
+                            purchaseUnits
+                    );
+                    createOrderActions.create(order, (CreateOrderActions.OnOrderCreated) null);
+                },
+                approval -> approval.getOrderActions().capture(result -> {
+                    Log.d(TAG, String.format("CaptureOrderResult: %s", result));
+                    Toast.makeText(getApplication().getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
+                })
+        );
 
-
-        payPalLauncher.launch(intent);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopService(new Intent(this, PayPalService.class));
     }
 
     @Override

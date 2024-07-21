@@ -50,15 +50,18 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.core.splashscreen)
     implementation(libs.imagepicker)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+//    implementation(libs.navigation.fragment)
+//    implementation(libs.navigation.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.junit)
     annotationProcessor(libs.room.compiler)
-    implementation (libs.paypal.paypal.android.sdk)
+    implementation (libs.paypal.card.payments)
+    implementation (libs.android.paypal.native.payments)
+    implementation (libs.checkout.android.sdk)
     implementation (libs.security.crypto)
+    implementation (libs.payment.buttons)
 
     //fix for kotlin duplicate calss error which erose from nowhere?!?!
     constraints {

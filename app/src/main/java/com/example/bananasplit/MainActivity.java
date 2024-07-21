@@ -23,6 +23,12 @@ import com.example.bananasplit.scanner.ScannerActivity;
 import com.example.bananasplit.settings.EditProfileActivity;
 import com.example.bananasplit.util.SecurePreferencesManager;
 import com.example.bananasplit.util.UserSessionManager;
+import com.google.android.datatransport.backend.cct.BuildConfig;
+import com.paypal.checkout.PayPalCheckout;
+import com.paypal.checkout.config.CheckoutConfig;
+import com.paypal.checkout.config.Environment;
+import com.paypal.checkout.createorder.CurrencyCode;
+import com.paypal.checkout.createorder.UserAction;
 
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 1;
@@ -43,9 +49,9 @@ public class MainActivity extends BaseActivity {
 
         userSessionManager = new UserSessionManager(this);
         database = DatabaseModule.getInstance(this);
-
+//userSessionManager.clearAllPreferences();
         SecurePreferencesManager securePreferences = new SecurePreferencesManager(this);
-        securePreferences.saveClientIDKey("EG9TMxhWchFzMHlDlGDsv-nLuLBhcCsC_mez57saO5I5qoGpJm7FhUryXeeS9VeSH4J4n-ZzA61hDG-2");
+        securePreferences.saveClientIDKey("AY-yuDyocmOSSWMxaG_lRLp_d2aTkCHxeP7o13U0kTAG-M_iSwAoF1u4o10l8OwQ2S6q3Gm4VCJuhbWi");
 
         editProfileLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -62,6 +68,17 @@ public class MainActivity extends BaseActivity {
         } else {
             launchGroupsActivity();
         }
+
+            CheckoutConfig config = new CheckoutConfig(
+                    this.getApplication(),
+                    "AY-yuDyocmOSSWMxaG_lRLp_d2aTkCHxeP7o13U0kTAG-M_iSwAoF1u4o10l8OwQ2S6q3Gm4VCJuhbWi",
+                    Environment.SANDBOX,
+                    CurrencyCode.USD,
+                    UserAction.PAY_NOW,
+                    "nativexo://paypalpay"
+            );
+            PayPalCheckout.setConfig(config);
+
     }
 
     private void launchGroupsActivity() {

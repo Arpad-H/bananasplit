@@ -9,12 +9,14 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
@@ -22,14 +24,35 @@
 
         <activity
             android:name=".settleUp.SettleUpDetailsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Bananasplit" />
+            android:exported="true"
+            android:theme="@style/Theme.Bananasplit" >
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="com.your.package.name" android:host="paypalpay" />
+        </intent-filter>
+        </activity>
+
+
         <activity
             android:name=".settleUp.SettleUpActivity"
             android:exported="false" />
-        <activity
-            android:name=".settings.EditProfileActivity"
-            android:exported="false" />
+
+        <activity android:name=".settings.EditProfileActivity"
+            android:exported="true">
+
+        </activity>
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.VIEW" />-->
+
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+        <!--                <data android:scheme="geo" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+
         <activity
             android:name=".friends.FriendsDetailActivity"
             android:exported="false"
@@ -57,17 +80,17 @@
             android:exported="true" />
         <activity
             android:name=".groups.SelectFriendsActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".settings.SettingsActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ActivitiesActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,7 +99,7 @@
         </activity>
         <activity
             android:name=".scanner.ScannerActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

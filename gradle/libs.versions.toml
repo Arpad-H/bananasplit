@@ -1,5 +1,6 @@
 [versions]
 agp = "8.4.1"
+androidSdkVersion = "1.3.2"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -7,7 +8,9 @@ appcompat = "1.6.1"
 material = "1.8.0"
 activity = "1.7.2"
 constraintlayout = "2.1.4"
-paypalPaypalAndroidSdk = "2.16.0"
+paymentButtons = "1.5.0"
+paypalCardPayments = "1.5.0"
+paypalNativePaymentsVersion = "1.5.0"
 roomCommon = "2.5.2"
 roomRuntime = "2.5.2"
 roomCompiler = "2.5.2"
@@ -25,6 +28,8 @@ securityCrypto = "1.1.0-alpha06"
 
 
 [libraries]
+android-paypal-native-payments = { module = "com.paypal.android:paypal-native-payments", version.ref = "paypalNativePaymentsVersion" }
+checkout-android-sdk = { module = "com.paypal.checkout:android-sdk", version.ref = "androidSdkVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -32,7 +37,8 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version = "1.7.2" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-paypal-paypal-android-sdk = { module = "com.paypal.sdk:paypal-android-sdk", version.ref = "paypalPaypalAndroidSdk" }
+payment-buttons = { module = "com.paypal.android:payment-buttons", version.ref = "paymentButtons" }
+paypal-card-payments = { module = "com.paypal.android:card-payments", version.ref = "paypalCardPayments" }
 room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
