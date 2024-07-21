@@ -18,6 +18,7 @@ import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.dataModel.PersonInDao;
+import com.example.bananasplit.groups.GroupsActivity;
 import com.example.bananasplit.scanner.ScannerActivity;
 import com.example.bananasplit.settings.EditProfileActivity;
 import com.example.bananasplit.util.UserSessionManager;
@@ -25,7 +26,9 @@ import com.example.bananasplit.util.UserSessionManager;
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 1;
     private UserSessionManager userSessionManager;
+    private ActivityResultLauncher<Intent> editProfileLauncher;
     private AppDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,19 +43,27 @@ public class MainActivity extends BaseActivity {
         userSessionManager = new UserSessionManager(this);
         database = DatabaseModule.getInstance(this);
 
-//        Button createProfileButton = findViewById(R.id.btn_create_profile);//TODO this should laucnh automatically if no profile is found
-//        createProfileButton.setOnClickListener(v -> {
-            // Launch an activity to create a new profile
-            Intent intent = new Intent(this, EditProfileActivity.class);
-            startActivity(intent);
-//        });
+        editProfileLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        launchGroupsActivity();
+                    }
+                }
+        );
 
-//        Button selectProfileButton = findViewById(R.id.btn_select_profile);
-//        selectProfileButton.setOnClickListener(v -> {
-//            // Launch an activity to select an existing profile
-//            Intent intent = new Intent(this, SelectProfileActivity.class);
-//            startActivity(intent);
-//        });
+        if (userSessionManager.getCurrentUserId() == -1) {
+            Intent intent = new Intent(this, EditProfileActivity.class);
+            editProfileLauncher.launch(intent);
+        } else {
+            launchGroupsActivity();
+        }
+    }
+
+    private void launchGroupsActivity() {
+        Intent intent = new Intent(this, GroupsActivity.class);
+        startActivity(intent);
+        finish(); //we dont want main in the back stack
     }
 
     @Override
@@ -66,8 +77,7 @@ public class MainActivity extends BaseActivity {
         } else if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             //TODO explain why the app needs this permission
         } else {
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA
-            );
+            requestPermissionLauncher.launch(Manifest.permission.CAMERA);
         }
     }
 
@@ -78,6 +88,7 @@ public class MainActivity extends BaseActivity {
 
         }
     });
+
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_READ_EXTERNAL_STORAGE);
@@ -85,8 +96,10 @@ public class MainActivity extends BaseActivity {
             // Permission has already been granted
         }
     }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_READ_EXTERNAL_STORAGE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

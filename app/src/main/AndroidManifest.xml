@@ -19,12 +19,16 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bananasplit">
+
         <activity
             android:name=".settleUp.SettleUpDetailsActivity"
             android:exported="false"
             android:theme="@style/Theme.Bananasplit" />
         <activity
             android:name=".settleUp.SettleUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".settings.EditProfileActivity"
             android:exported="false" />
         <activity
             android:name=".friends.FriendsDetailActivity"

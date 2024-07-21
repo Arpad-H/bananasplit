@@ -5,10 +5,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 @TypeConverters(Converters.class)
-@Database(entities = {Group.class, Expense.class, Person.class, PersonGroupCrossRef.class, ExpensePersonCrossRef.class}, version = 11)
+@Database(entities = {Group.class, Expense.class, Person.class, PersonGroupCrossRef.class, ExpensePersonCrossRef.class}, version = 16)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract GroupInDao groupInDao();
     public abstract ExpenseInDao expenseInDao();
     public abstract PersonInDao personInDao();
-//    public abstract CurrentUserInDao currentUserInDao();
+
 }

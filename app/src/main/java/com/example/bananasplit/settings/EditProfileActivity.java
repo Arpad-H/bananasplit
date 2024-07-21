@@ -12,6 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bananasplit.R;
+import com.example.bananasplit.dataModel.AppDatabase;
+import com.example.bananasplit.dataModel.DatabaseModule;
+import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.dataModel.PersonInDao;
+import com.example.bananasplit.groups.GroupsActivity;
+import com.example.bananasplit.util.UserSessionManager;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -41,7 +47,14 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         confirmButton.setOnClickListener(v -> {
-            //TODO save the profile
+            UserSessionManager userSessionManager = new UserSessionManager(this);
+            AppDatabase database = DatabaseModule.getInstance(this);
+            PersonInDao personInDao = database.personInDao();
+            new Thread(() -> {
+                int id = (int) personInDao.insert(new Person(nameEditText.getText().toString(), imageUri.toString()));
+                userSessionManager.setCurrentUserId(id);
+            }).start();
+            setResult(RESULT_OK);
             finish();
         });
 

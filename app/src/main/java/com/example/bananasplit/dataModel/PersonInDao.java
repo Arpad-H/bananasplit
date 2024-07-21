@@ -15,7 +15,7 @@ import java.util.List;
 public interface PersonInDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Person person);
+    long insert(Person person);
 
     @Update
     void update(Person person);

@@ -20,6 +20,11 @@ public class UserSessionManager {
     }
 
     public int getCurrentUserId() {
-        return prefs.getInt(KEY_CURRENT_USER_ID, -1); // -1 indicates no user is set
+        return prefs.getInt(KEY_CURRENT_USER_ID, -1);
+    }
+    public void clearAllPreferences() {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
     }
 }
