@@ -10,5 +10,5 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract GroupInDao groupInDao();
     public abstract ExpenseInDao expenseInDao();
     public abstract PersonInDao personInDao();
-    public abstract CurrentUserInDao currentUserInDao();
+//    public abstract CurrentUserInDao currentUserInDao();
 }

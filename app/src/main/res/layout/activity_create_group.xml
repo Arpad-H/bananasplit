@@ -57,7 +57,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/groupCoverImageView"
+                    android:id="@+id/GroupCoverImageView"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginStart="30dp"
@@ -81,13 +81,13 @@
                     android:layout_marginStart="30dp"
                     android:text="@string/pick_image"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/groupCoverImageView"
-                    app:layout_constraintTop_toTopOf="@+id/groupCoverImageView" />
+                    app:layout_constraintStart_toEndOf="@+id/GroupCoverImageView"
+                    app:layout_constraintTop_toTopOf="@+id/GroupCoverImageView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/nameEditText"
+                android:id="@+id/group_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"

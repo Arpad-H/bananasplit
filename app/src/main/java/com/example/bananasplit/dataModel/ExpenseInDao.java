@@ -44,4 +44,9 @@ public interface ExpenseInDao {
             insertExpensePersonCrossRef(new ExpensePersonCrossRef(pair.getKey().getPersonID(), expenseID, pair.getValue()));
         }
     }
+    @Query("SELECT SUM(amount) FROM Expense WHERE payerID = :userId")
+    LiveData<Double> getTotalAmountPaidByUser(int userId);
+
+    @Query("SELECT SUM(amount) / COUNT(participants) FROM Expense WHERE :userId IN (participants)")
+    LiveData<Double> getTotalAmountOwedByUser(int userId);
 }

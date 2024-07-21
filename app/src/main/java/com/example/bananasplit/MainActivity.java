@@ -14,14 +14,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.bananasplit.dataModel.AppDatabase;
-import com.example.bananasplit.dataModel.CurrentUserInDao;
+//import com.example.bananasplit.dataModel.CurrentUserInDao;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.dataModel.PersonInDao;
 import com.example.bananasplit.scanner.ScannerActivity;
+import com.example.bananasplit.settings.EditProfileActivity;
+import com.example.bananasplit.util.UserSessionManager;
 
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 1;
+    private UserSessionManager userSessionManager;
+    private AppDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +37,22 @@ public class MainActivity extends BaseActivity {
         });
         requestCameraPermission();
 
-        AppDatabase database = DatabaseModule.getInstance(this);
-        CurrentUserInDao personInDao = database.currentUserInDao();
-        personInDao.insert(new Person("User", "u@u.com"),0);
+        userSessionManager = new UserSessionManager(this);
+        database = DatabaseModule.getInstance(this);
+
+//        Button createProfileButton = findViewById(R.id.btn_create_profile);//TODO this should laucnh automatically if no profile is found
+//        createProfileButton.setOnClickListener(v -> {
+            // Launch an activity to create a new profile
+            Intent intent = new Intent(this, EditProfileActivity.class);
+            startActivity(intent);
+//        });
+
+//        Button selectProfileButton = findViewById(R.id.btn_select_profile);
+//        selectProfileButton.setOnClickListener(v -> {
+//            // Launch an activity to select an existing profile
+//            Intent intent = new Intent(this, SelectProfileActivity.class);
+//            startActivity(intent);
+//        });
     }
 
     @Override

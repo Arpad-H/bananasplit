@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/groupCoverImageView">
+        app:layout_constraintTop_toBottomOf="@+id/GroupCoverImageView">
 
         <ImageView
             android:id="@+id/imageView"
@@ -145,7 +145,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 <!--    https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml-->
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/groupCoverImageView"
+        android:id="@+id/GroupCoverImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"

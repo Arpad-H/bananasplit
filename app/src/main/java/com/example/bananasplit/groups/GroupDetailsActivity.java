@@ -36,7 +36,7 @@ public class GroupDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         TextView groupNameTextView = findViewById(R.id.groupNameTextView);
-        ImageView groupCoverImageView = findViewById(R.id.groupCoverImageView);
+        ImageView groupCoverImageView = findViewById(R.id.GroupCoverImageView);
 //        TextView groupDateTextView = findViewById(R.id.groupDateTextView);
 //        TextView groupDurationTextView = findViewById(R.id.groupDurationTextView);
 

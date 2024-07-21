@@ -91,6 +91,8 @@
     <string name="payWithPayPal">Pay Via PayPal</string>
     <string name="payOther">Record Other Payment Method</string>
     <string name="transferMoney">Transfer Money</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="lets_get_started">Lets get started!</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

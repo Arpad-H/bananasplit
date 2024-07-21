@@ -4,32 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.friends.BaseSelectFriendsActivity;
-import com.example.bananasplit.util.ImageUtils;
 import com.github.dhaval2404.imagepicker.ImagePicker;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class CreateGroupActivity extends  BaseSelectFriendsActivity {
 
@@ -48,12 +37,12 @@ public class CreateGroupActivity extends  BaseSelectFriendsActivity {
         super.onCreate(savedInstanceState);
 
 
-        nameEditText = findViewById(R.id.nameEditText);
+        nameEditText = findViewById(R.id.group_name_edit_text);
 //        dateEditText = findViewById(R.id.dateEditText);
 //        durationEditText = findViewById(R.id.durationEditText);
         Button createButton = findViewById(R.id.createButton);
         pickImageButton = findViewById(R.id.pickImageButton);
-        groupCoverImageView = findViewById(R.id.groupCoverImageView);
+        groupCoverImageView = findViewById(R.id.GroupCoverImageView);
 //TODO Stringeingaben crshed die App
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
         selectedFriendsContainer = findViewById(R.id.selected_friends_layout);
