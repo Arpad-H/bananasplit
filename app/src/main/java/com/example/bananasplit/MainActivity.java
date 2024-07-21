@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity {
         database = DatabaseModule.getInstance(this);
 
         SecurePreferencesManager securePreferences = new SecurePreferencesManager(this);
-        securePreferences.saveApiKey("EG9TMxhWchFzMHlDlGDsv-nLuLBhcCsC_mez57saO5I5qoGpJm7FhUryXeeS9VeSH4J4n-ZzA61hDG-2");
+        securePreferences.saveClientIDKey("EG9TMxhWchFzMHlDlGDsv-nLuLBhcCsC_mez57saO5I5qoGpJm7FhUryXeeS9VeSH4J4n-ZzA61hDG-2");
 
         editProfileLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
