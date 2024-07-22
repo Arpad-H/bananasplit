@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.activity.result.ActivityResultLauncher;
@@ -17,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.bananasplit.R;
+import com.example.bananasplit.dataModel.Currency;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.databinding.ActivityCreateGroupBinding;
@@ -30,6 +33,9 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
     private GroupViewModel groupViewModel;
     private Uri imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
 
+    private ImageView groupCoverImageView;
+    private Spinner changeCurrencySpinner;
+//    private List<Person> selectedFriends = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +50,9 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
         setSelectedFriendsContainer();
 
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
+
+
+        setupChangeCurrencySpinner();
 
         setupActivity();
         setupListeners();
@@ -88,10 +97,12 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
             imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
         }
         String imageUriString = imageUri.toString();
+        Currency selectedCurrency = Currency.fromString((String) changeCurrencySpinner.getSelectedItem());
 
         Group newGroup = new Group.GroupBuilder()
                 .name(name)
                 .imageURI(imageUriString)
+                .currency(selectedCurrency)
                 .build();
 
         Intent currentIntent = getIntent();
@@ -103,6 +114,21 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
             groupViewModel.insert(newGroup, selectedFriends);
         }
     }
+
+    private void setupChangeCurrencySpinner() {
+        changeCurrencySpinner = binding.spinnerGroupCurrency;
+        Currency[] categories = Currency.values();
+
+        String[] currencySymbol = new String[categories.length];
+        for (int i = 0; i < categories.length; i++) {
+            currencySymbol[i] = categories[i].getCurrencySymbol();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, currencySymbol);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        changeCurrencySpinner.setAdapter(adapter);
+    }
+
 
     @Override
     protected ViewGroup getSelectedFriendsContainer() {
@@ -128,7 +154,7 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
             imageUri = data.getData();
-            binding.groupCoverImageView.setImageURI(imageUri);
+            groupCoverImageView.setImageURI(imageUri);
         }
     }
 }

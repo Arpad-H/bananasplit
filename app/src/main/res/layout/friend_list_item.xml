@@ -35,24 +35,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/topAccentBar"
+        app:backgroundTint="?attr/colorPrimary"
         android:contentDescription="@string/delete"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete"
-        app:tint="@color/black" />
+        app:tint="?attr/colorOnPrimary" />
 
     <ImageButton
         android:id="@+id/friendEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/topAccentBar"
+        app:backgroundTint="?attr/colorPrimary"
         android:contentDescription="@string/edit"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/friendDelete"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit"
-        app:tint="@color/black" />
+        app:tint="?attr/colorOnPrimary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

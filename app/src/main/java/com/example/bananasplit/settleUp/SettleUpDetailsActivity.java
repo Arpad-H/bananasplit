@@ -94,18 +94,11 @@ public class SettleUpDetailsActivity extends BaseActivity {
      */
     private void setupTransferMoneyButton() {
         binding.btnTransfer.setOnClickListener(v -> {
-            int selectedRadioButtonId = binding.paymentRadios.getCheckedRadioButtonId();
-            if (selectedRadioButtonId != -1) {
-                RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
-                if (selectedRadioButtonId == R.id.radioButtonCash) {
-                    Toast.makeText(this, "Settlement in Person Noted", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Add other payment methods
-                }
-            } else {
-                Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, "Cash Payment recorded", Toast.LENGTH_SHORT).show();
+            //TODO: handle Database query
+            finish();
         });
+
     }
 
     /**

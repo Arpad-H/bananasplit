@@ -16,6 +16,7 @@ public class Group implements Serializable, Parcelable {
     private String name;
     private String date; //TODO: eventuell als Date Object mit Converter?
     private int duration;
+    private Currency currency;
     private String imageUri;
 
     public void setImageUri(String imageUri) {
@@ -55,7 +56,15 @@ public class Group implements Serializable, Parcelable {
         return duration;
     }
 
-//    public Group(String name, String date, int duration, String imageUri) {
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    //    public Group(String name, String date, int duration, String imageUri) {
 //        this.name = name;
 ////        this.date = date;
 ////        this.duration = duration;
@@ -71,6 +80,7 @@ public class Group implements Serializable, Parcelable {
         this.date = builder.date;
         this.duration = builder.duration;
         this.imageUri = builder.imageURI;
+        this.currency = builder.currency;
     }
 
 
@@ -80,6 +90,7 @@ public class Group implements Serializable, Parcelable {
 //        date = in.readString();
 //        duration = in.readInt();
         imageUri = in.readString();
+        currency = Currency.from(in.readDouble());
     }
 
     public void setId(int id) {
@@ -103,6 +114,7 @@ public class Group implements Serializable, Parcelable {
 //        dest.writeString(date);
 //        dest.writeInt(duration);
         dest.writeString(imageUri);
+        dest.writeDouble(currency.getValueInEur());
     }
 
     public static final Creator<Group> CREATOR = new Creator<Group>() {
@@ -122,6 +134,7 @@ public class Group implements Serializable, Parcelable {
         private String date;
         private int duration;
         private String imageURI;
+        private Currency currency = Currency.EUR;
 
         public GroupBuilder name(String name) {
             this.name = name;
@@ -140,6 +153,11 @@ public class Group implements Serializable, Parcelable {
 
         public GroupBuilder imageURI(String imageURI) {
             this.imageURI = imageURI;
+            return this;
+        }
+
+        public GroupBuilder currency(Currency currency) {
+            this.currency = currency;
             return this;
         }
 

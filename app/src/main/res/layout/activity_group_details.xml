@@ -39,7 +39,6 @@
                 android:layout_width="102dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text"
                 android:justificationMode="none"
                 android:text="@string/you_are_owed" />
 
@@ -48,7 +47,6 @@
                 android:layout_width="114dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text"
                 android:justificationMode="none"
                 android:text="@string/you_owe" />
 
@@ -57,7 +55,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text"
                 android:justificationMode="none"
                 android:text="@string/total_balance" />
 
@@ -103,7 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:background="@color/topAccentBar"
+        android:background="?attr/colorPrimary"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,8 +119,8 @@
         android:id="@+id/groupNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/white"
+        android:text="@string/placeholder"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top"
         app:layout_constraintEnd_toEndOf="@+id/recyclerViewExpenses"
@@ -154,7 +151,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="20dp"
-        android:backgroundTint="@color/btn_color"
         android:text="@string/settle_up"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +181,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/btn_color"
             android:text="@string/convert_currency" />
 
         <Button
@@ -193,7 +188,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/btn_color"
             android:text="@string/balances" />
 
     </LinearLayout>
@@ -204,8 +198,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:contentDescription="Add Expense"
+        android:contentDescription="@string/addexpense"
         android:src="@android:drawable/ic_input_add"
+        app:tint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

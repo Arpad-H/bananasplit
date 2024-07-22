@@ -93,6 +93,14 @@
     <string name="transferMoney">Transfer Money</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="lets_get_started">Lets get started!</string>
+    <string name="groupCurrency">Groups Currency</string>
+    <string name="language">Language</string>
+    <string name="defaultcurrency">Default Currency</string>
+    <string name="user">User</string>
+    <string name="setup">Set Up User</string>
+    <string name="darkMode">Dark Mode</string>
+    <string name="addexpense">Add Expense</string>
+    <string name="addgroup">Add Group</string>
     <string name="camera_permission_denied">Camera Permissions have been denied</string>
     <string name="storage_permission_denied">Storage permissions have been denied</string>
     <!-- Strings used for fragments for navigation -->
