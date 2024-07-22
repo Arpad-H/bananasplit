@@ -29,7 +29,7 @@ public class SettingsActivity extends BaseActivity {
         View contentView = inflater.inflate(R.layout.activity_settings, getContentContainer(), false);
         getContentContainer().addView(contentView);
 
-        UserSessionManager userSessionManager = new UserSessionManager(this);
+        UserSessionManager userSessionManager = new UserSessionManager(getApplication());
         SwitchCompat darkmode = findViewById(R.id.switch_darkmode);
         darkmode.setChecked((userSessionManager.getDarkMode()));
         AppDatabase database = DatabaseModule.getInstance(this);

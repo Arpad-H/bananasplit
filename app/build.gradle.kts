@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -6,6 +8,12 @@ android {
     namespace = "com.example.bananasplit"
     compileSdk = 33
 
+    packaging {
+        resources {
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/DEPENDENCIES"
+        }
+    }
     defaultConfig {
         applicationId = "com.example.bananasplit"
         minSdk = 30
@@ -68,8 +76,14 @@ dependencies {
     implementation(libs.checkout.android.sdk)
     implementation(libs.security.crypto)
     implementation(libs.payment.buttons)
-
+    implementation (libs.google.cloud.language)
     implementation(libs.hilt.android)
+    implementation (libs.google.auth.library.oauth2.http)
+    implementation (libs.grpc.okhttp)
+    implementation (libs.grpc.protobuf)
+    implementation (libs.grpc.stub)
+    implementation (libs.google.cloud.vision)
+
 
     //fix for kotlin duplicate calss error which erose from nowhere?!?!
     constraints {

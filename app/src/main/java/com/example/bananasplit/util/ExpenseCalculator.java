@@ -20,6 +20,7 @@ public class ExpenseCalculator {
     AppDatabase appDatabase;
 
     public ExpenseCalculator(Application application) {
+        appDatabase = DatabaseModule.getInstance(application);
         expenseInDao = appDatabase.expenseInDao();
         userSessionManager = new UserSessionManager(application);
     }

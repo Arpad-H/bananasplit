@@ -27,6 +27,7 @@ import com.example.bananasplit.databinding.ActivitySelectFriendsBinding;
 import com.example.bananasplit.friends.BaseSelectFriendsActivity;
 import com.example.bananasplit.groups.GroupViewModel;
 import com.example.bananasplit.groups.SelectFriendsActivity;
+import com.example.bananasplit.scanner.ScannerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,11 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
 
         binding.btnChangeSplitRatio.setOnClickListener(v -> {
             showSplitRatioDialog();
+        });
+
+        binding.btnScan.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ScannerActivity.class);
+            startActivity(intent);
         });
 
         setupChangeCategorySpinner();

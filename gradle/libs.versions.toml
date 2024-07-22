@@ -1,6 +1,11 @@
 [versions]
 agp = "8.4.1"
 androidSdkVersion = "1.3.2"
+googleAuthLibraryOauth2Http = "1.13.0"
+googleCloudLanguage = "2.3.0"
+googleCloudVision = "3.2.0"
+grpcOkhttp = "1.57.0"
+grpcProtobuf = "1.57.0"
 hiltAndroid = "2.44"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -31,6 +36,12 @@ securityCrypto = "1.1.0-alpha06"
 [libraries]
 android-paypal-native-payments = { module = "com.paypal.android:paypal-native-payments", version.ref = "paypalNativePaymentsVersion" }
 checkout-android-sdk = { module = "com.paypal.checkout:android-sdk", version.ref = "androidSdkVersion" }
+google-auth-library-oauth2-http = { module = "com.google.auth:google-auth-library-oauth2-http", version.ref = "googleAuthLibraryOauth2Http" }
+google-cloud-language = { module = "com.google.cloud:google-cloud-language", version.ref = "googleCloudLanguage" }
+google-cloud-vision = { module = "com.google.cloud:google-cloud-vision", version.ref = "googleCloudVision" }
+grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.ref = "grpcOkhttp" }
+grpc-protobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpcProtobuf" }
+grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcOkhttp" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

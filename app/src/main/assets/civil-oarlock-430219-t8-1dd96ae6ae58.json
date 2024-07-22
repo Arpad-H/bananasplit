@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "civil-oarlock-430219-t8",
+  "private_key_id": "1dd96ae6ae58690ef7b4e75558795c03b525735e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC4xKo1vKCkXlbq\nT/HIepPOziImMNa0Y4WI8c16lUAbAgDloipn7FNcPx1f3XQVMsJS+CXhyWqSb2d8\nDQtDni6ZXaRaeA5JAkhuTUyNJtFAkXC4aIBjuTwMBj8bX3Vzs+ibweEJKKiEVsn4\noGx4xQQRI0V9Oc9DRaArWBHA6U0oK9uGAipopzELjzHKXgXQipFudjjjHZUZfEtF\ntD2mWXY2Fr1+AqFRWSjIpLmidNbu3CHLiVTvsrPgDxT+lCu7X8NXuaQOZwa5iVp7\nRvLTfo6o3si7AY62YAaxFqMs8FuNyUdC6kCzqyKACtf7R7EbcM8YQcnj24iL+hGU\nOdE9UGzpAgMBAAECggEAI/5z5hoD9WFHb0f5owN2DeCMOIJlISkOF3p7e/jdTyWZ\nxSJNPoeEScEl2MoMViDYSE99GboiH7rCHyFvY1HKZCgg31rp9YETWSGH2yuHshtj\nKRl6gXLRZspEuvFisRKIKuefDii0g2tg1yVxXCmNPEVxwQ5k+Qb0R91VQA5y8HMe\nB/HsYBIT3PUChjCbHdU30UMmAPviD4sPg9ZmHhFVUwBxoTQd32lHD0W+dPvdIAc4\nBp7vLgTptWhaROT4KfEitmiKpD0Hy6O4OY9UtcCoUsozmB1RAsQd0jcI+rRgjBwT\n5oDUH8ATCJcek7t4ph+pA5KwAZVCCNMtvpxjp2Iv/QKBgQDbwYWYHGTAo1y8J4t3\n6P1vuO1RL+d43LgD0EwmuCmc/juNj+JNwV/WLoc4Celrq5i4qQ7bZ47IRVN/9UoQ\nvE57Q4JcdIT9hNpZx4kab1tLeIcZEcg8kdxIjdTC3tms7xOjgU+rk5B/mitJzV5n\n6xlSDZPPZ4FZky5op2WH//UZ6wKBgQDXPeaJy8yd3Q+ZmtG53nsxQnVzGMaFj3Ud\nJs5A/VEgX/v6qO7WWVmfG7abOjcKDeYb6zd8a5CV/0+R9qL5MOPUz5gMVSwgVP8h\nzUa7mGKVjV8ypwUfsN+6ZsY2pyGLii8h+FSRyQP7c/Td8q12y2Uzd6WBSbJHO5Ve\nVkdG+nerewKBgFnogjzqmPoLnDxKvY/wngfglA+cVsqnGw5MYWuR+0yE416WmJMR\nY6FgZegyffKUQSaD3FU9uDgNzQzUEVppgH6D70jeTy7d9Ou4bEqJdsOY60UBdnf5\ngTOZ+4tC27IaGmHR3QOomvzp2X4XbOF9WV2tumSnx08bnWgp3KtYuDHDAoGAcI1f\n5iJ55vrX03zPuqAKT2HvRLZp6SFxHkNSi01rhMBsZVC9Q70JTlgRju5MJafK8kJ3\ni0o8GxOcqjkMU74rBPdhDOHk5ytLFoPfPu2ab5WzeCs6VK4K79AaSi3vLqadqufO\nYUV6HZ0vKHhkGMCXNOiV1RuSbAlOPDxlnUoQFc0CgYBgU8vwZwRIhg6BzL1gyld7\nymF1EukTgrS7miuVNRUXoF9GOwJnT6t3BHNf7/pIfD7/+0GARh03e8VvWw+tRuhZ\naexuEXlKNfkBU9iP2qzRZgkVhUlvHPUcyH5saNnnnfbQxVJv+Gu6KfookWyTL059\nMjrP05cjICfZYwHvLp1K0w==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bananasplit@civil-oarlock-430219-t8.iam.gserviceaccount.com",
+  "client_id": "110285314849770853946",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bananasplit%40civil-oarlock-430219-t8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

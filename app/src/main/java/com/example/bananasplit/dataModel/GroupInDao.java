@@ -45,5 +45,7 @@ public interface GroupInDao {
         }
 //        return grpID;
     }
-
+    @Transaction
+    @Query("SELECT * FROM `Group` WHERE groupID = :ID")
+    LiveData<Group> getGroupByID(int ID);
 }

@@ -3,6 +3,8 @@ package com.example.bananasplit.scanner;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,33 +21,55 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 
 import com.example.bananasplit.R;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.language.v1.AnalyzeEntitiesResponse;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.Entity;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.LanguageServiceSettings;
+import com.google.cloud.vision.v1.AnnotateImageRequest;
+import com.google.cloud.vision.v1.Feature;
+import com.google.cloud.vision.v1.Image;
+import com.google.cloud.vision.v1.ImageAnnotatorClient;
+import com.google.cloud.vision.v1.TextAnnotation;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
+import com.google.protobuf.ByteString;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ScannerActivity extends AppCompatActivity {
     private PreviewView previewView;
     private ImageCapture imageCapture;
     private ExecutorService cameraExecutor;
+    private ExecutorService executorService;
+    private Handler mainHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
-
+        executorService = Executors.newSingleThreadExecutor();
         previewView = findViewById(R.id.previewView);
-
+        mainHandler = new Handler(Looper.getMainLooper());
         Button captureButton = findViewById(R.id.captureButton);
         captureButton.setOnClickListener(view -> takePhoto());
         cameraExecutor = Executors.newSingleThreadExecutor();
@@ -104,6 +128,21 @@ public class ScannerActivity extends AppCompatActivity {
                     // Task failed with an exception
                     Log.e("MLKit", "Text recognition failed", e);
                 });
+
+
+        // Build the image request
+//        Image img = Image.newBuilder().setContent(imgBytes).build();
+//        Feature feat = Feature.newBuilder().setType(Feature.Type.TEXT_DETECTION).build();
+//        AnnotateImageRequest request = AnnotateImageRequest.newBuilder()
+//                .addFeatures(feat)
+//                .setImage(img)
+//                .build();
+//
+//        // Perform OCR
+//        try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+//            TextAnnotation response = client.annotateImage(request).getFullTextAnnotation();
+//            System.out.println("Text: " + response.getText());
+//        }
     }
 
     private Bitmap imageProxyToBitmap(ImageProxy image) {
@@ -118,115 +157,106 @@ public class ScannerActivity extends AppCompatActivity {
 
     private void processTextBlock(Text result) {
         String resultText = result.getText();
-//        List<String> lines = new ArrayList<>();
-//        for (Text.TextBlock block : result.getTextBlocks()) {
-//            for (Text.Line line : block.getLines()) {
-//                lines.add(line.getText());
-//            }
-//        }
-
-        parseReceipt(resultText);
+        analyzeTextWithGoogleCloud(resultText);
     }
-    private static List<ScanEntry> parseReceipt(String text) {
-    List<ScanEntry> entries = new ArrayList<>();
 
-    // Pattern to match prices and quantities
-    Pattern priceQuantityPattern = Pattern.compile("^(\\d+\\.\\d{2})$|^(\\d+)$", Pattern.MULTILINE);
-    Matcher pqMatcher = priceQuantityPattern.matcher(text);
+    private void analyzeTextWithGoogleCloud(String text) {
+        String cleanedText = text.replaceAll("\\r\\n|\\r|\\n", " ").trim();
+        executorService.execute(() -> {
+            InputStream credentialsStream = null;
+            try {
+                // Load the service account key JSON file from the assets directory
+                credentialsStream = getAssets().open("civil-oarlock-430219-t8-1dd96ae6ae58.json");
 
-    // List to store the matched prices and quantities
-    List<String> pqMatches = new ArrayList<>();
+                // Set up the credentials
+                GoogleCredentials credentials = ServiceAccountCredentials.fromStream(credentialsStream);
+                LanguageServiceSettings settings = LanguageServiceSettings.newBuilder().setCredentialsProvider(() -> credentials).build();
+                try (LanguageServiceClient languageServiceClient = LanguageServiceClient.create(settings)) {
+                    Document doc = Document.newBuilder().setContent(cleanedText).setType(Document.Type.PLAIN_TEXT).setLanguage("de").build();
+                    AnalyzeEntitiesResponse response = languageServiceClient.analyzeEntities(doc);
 
-        while(pqMatcher.find())
+                    List<Entity> entities = response.getEntitiesList();
+                    List<ScanEntry> scanEntries = processEntities(entities);
+                    // Process entities on the main thread
+                    mainHandler.post(() -> updateUIWithScanResults(scanEntries));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Handle error on the main thread
+                mainHandler.post(() -> {
+                    Toast.makeText(ScannerActivity.this, "Failed to analyze text", Toast.LENGTH_SHORT).show();
+                });
+            } finally {
+                if (credentialsStream != null) {
+                    try {
+                        credentialsStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
 
-    {
-        if (pqMatcher.group(1) != null) {
-            pqMatches.add(pqMatcher.group(1)); // price
-        } else if (pqMatcher.group(2) != null) {
-            pqMatches.add(pqMatcher.group(2)); // quantity
+    // Utility method to check if a number is a valid decimal number
+    private boolean isValidDecimalNumber(String text) {
+        // Check if the text is a positive decimal number (not an integer)
+        return text.matches("\\d+([.,]\\d+)?") && !text.matches("\\d+");
+    }
+
+
+    // Utility method to extract numerical value from a NUMBER entity
+    private double extractNumberValue(Entity entity) {
+        String text = entity.getName().replace(',', '.'); // Replace comma with dot for parsing
+        try {
+            return Double.parseDouble(text);
+        } catch (NumberFormatException e) {
+            return 0.0;
         }
     }
 
-    // Pattern to match item names
-    Pattern itemNamePattern = Pattern.compile("^[A-Za-z ]+$", Pattern.MULTILINE);
-    Matcher itemNameMatcher = itemNamePattern.matcher(text);
+    private List<ScanEntry> processEntities(List<Entity> entities) {
+        List<ScanEntry> entries = new ArrayList<>();
 
-    // List to store the matched item names
-    List<String> itemNames = new ArrayList<>();
+        List<Entity> consumerGoodsEntries = new ArrayList<>();
+        LinkedList<Entity> numberEntries = new LinkedList<>();
 
-        while(itemNameMatcher.find())
+        for (Entity entity : entities) {
+            String name = entity.getName();
+            if (entity.getType().toString().equals("CONSUMER_GOOD")) {
+                // Process CONSUMER_GOOD entities
+                consumerGoodsEntries.add(entity);
+            } else if (entity.getType().toString().equals("NUMBER")) {
+                // Process NUMBER entities and filter out integers
+                if (isValidDecimalNumber(name)) {
+                    numberEntries.add(entity);
+                }
+            }
+        }
 
-    {
-        itemNames.add(itemNameMatcher.group().trim());
-    }
-
-    // Combine the extracted information into ScanEntry objects
-        for(
-    int i = 0; i<itemNames.size();i++)
-
-    {
-        String name = itemNames.get(i);
-        int quantityIndex = i * 3 + 1;
-        int unitPriceIndex = i * 3 + 2;
-        int totalPriceIndex = i * 3;
-
-        if (quantityIndex < pqMatches.size() && unitPriceIndex < pqMatches.size() && totalPriceIndex < pqMatches.size()) {
-            int quantity = Integer.parseInt(pqMatches.get(quantityIndex));
-            double unitPrice = Double.parseDouble(pqMatches.get(unitPriceIndex));
-            double totalPrice = Double.parseDouble(pqMatches.get(totalPriceIndex));
+        for (Entity entity : consumerGoodsEntries) {
+            String name = entity.getName();
+            // Logic to extract quantities and prices from the entity or related mentions
+            int quantity = 1; // Placeholder
+            float unitPrice = 1.0f; // Placeholder TODO: refine entity processing
+            double totalPrice = extractNumberValue(numberEntries.removeFirst());
             entries.add(new ScanEntry(name, quantity, unitPrice, totalPrice));
         }
-    }
 
         return entries;
+    }
 
-}
 
-//    private List<ScanEntry> parseWithStanfordNLP(String text) {
-//        // Setup Stanford NLP pipeline
-//        Properties props = PropertiesUtils.asProperties(
-//                "annotators", "tokenize,ssplit,pos,lemma,ner",
-//                "ner.useSUTime", "false"
-//        );
-//        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-//
-//        // Annotate the text
-//        Annotation document = new Annotation(text);
-//        pipeline.annotate(document);
-//
-//        List<ScanEntry> entries = new ArrayList<>();
-//        List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
-//        for (CoreMap sentence : sentences) {
-//            List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
-//            String itemName = "";
-//            int quantity = 0;
-//            double amount = 0.0;
-//
-//            for (CoreLabel token : tokens) {
-//                String word = token.get(CoreAnnotations.TextAnnotation.class);
-//                String ner = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
-//
-//                if (ner.equals("QUANTITY")) {
-//                    quantity = Integer.parseInt(word);
-//                } else if (ner.equals("MONEY")) {
-//                    amount = Double.parseDouble(word.replaceAll("[^\\d.]", ""));
-//                } else {
-//                    itemName += word + " ";
-//                }
-//            }
-//
-//            itemName = itemName.trim();
-//            if (!itemName.isEmpty() && quantity > 0 && amount > 0) {
-//                entries.add(new ScanEntry(itemName, quantity, amount));
-//            }
-//        }
-//
-//        return entries;
-//    }
+    private void updateUIWithScanResults(List<ScanEntry> scanEntries) {
+        // Example: Update UI elements or RecyclerViews with the processed results
+        // For instance:
+        // consumerGoodsRecyclerView.setAdapter(new ScanEntryAdapter(consumerGoods));
+        // numbersRecyclerView.setAdapter(new ScanEntryAdapter(numbers));
+    }
 
-@Override
-protected void onDestroy() {
-    super.onDestroy();
-    cameraExecutor.shutdown();
-}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        cameraExecutor.shutdown();
+    }
 }
