@@ -55,7 +55,7 @@ public class SettleUpDetailsActivity extends BaseActivity {
 
         RadioGroup radioGroup = findViewById(R.id.paymentRadios);
         Button transferMoneyButton = findViewById(R.id.btnTransfer);
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> transferMoneyButton.setEnabled(group.getCheckedRadioButtonId() != -1));
+//        radioGroup.setOnCheckedChangeListener((group, checkedId) -> transferMoneyButton.setEnabled(group.getCheckedRadioButtonId() != -1));
 
         paymentButtonContainer = findViewById(R.id.paypal_payment_button);
 //        setupPayPal();
@@ -63,21 +63,25 @@ public class SettleUpDetailsActivity extends BaseActivity {
         processPayPalPayment();
         transferMoneyButton.setOnClickListener(v -> {
 
-            int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+            Toast.makeText(this, "Cash Payment recorded", Toast.LENGTH_SHORT).show();
+            //TODO: handle Database query
+            finish();
 
-            if (selectedRadioButtonId != -1) { // Check if a RadioButton is selected
-                RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
-
-                if (selectedRadioButtonId == R.id.radioButtonPayPal) {
-                    processPayPalPayment();
-                } else if (selectedRadioButtonId == R.id.radioButtonCash) {
-                    Toast.makeText(this, "Settlement in Person Noted", Toast.LENGTH_SHORT).show();
-                } else {
-
-                }
-            } else {
-                Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
-            }
+//            int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+//
+//            if (selectedRadioButtonId != -1) { // Check if a RadioButton is selected
+//                RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
+//
+//                if (selectedRadioButtonId == R.id.radioButtonPayPal) {
+//                    processPayPalPayment();
+//                } else if (selectedRadioButtonId == R.id.radioButtonCash) {
+//                    Toast.makeText(this, "Settlement in Person Noted", Toast.LENGTH_SHORT).show();
+//                } else {
+//
+//                }
+//            } else {
+//                Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
+//            }
         });
 
     }
