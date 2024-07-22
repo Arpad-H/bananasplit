@@ -105,10 +105,10 @@ public class GroupDetailsActivity extends BaseActivity {
         expenseCalculator.getTotalAmountOwedByCurrentUserInGroup(groupId).observe(this, youOwe -> {
             if (youOwe != null) {
                 // Update UI with the amount owed
-                runOnUiThread(() -> youOweTextView.setText(String.format("%.2f", youOwe)));
+                runOnUiThread(() -> youOweTextView.setText(String.format("%.2f", youOwe) + group.getCurrency().getCurrencySymbol()));
             } else {
 
-                runOnUiThread(() -> youOweTextView.setText("0.00"));
+                runOnUiThread(() -> youOweTextView.setText("0.00" + group.getCurrency().getCurrencySymbol()));
             }
         });
 
@@ -116,10 +116,10 @@ public class GroupDetailsActivity extends BaseActivity {
         expenseCalculator.getTotalAmountPaidByCurrentInGroup(groupId).observe(this, owedAmount -> {
             if (owedAmount != null) {
                 // Update UI with the amount paid
-                runOnUiThread(() -> owedAmountTextView.setText(String.format("%.2f", owedAmount)));
+                runOnUiThread(() -> owedAmountTextView.setText(String.format("%.2f", owedAmount) + group.getCurrency().getCurrencySymbol()));
             } else {
 
-                runOnUiThread(() -> owedAmountTextView.setText("0.00"));
+                runOnUiThread(() -> owedAmountTextView.setText("0.00" + group.getCurrency().getCurrencySymbol()));
             }
         });
     }
