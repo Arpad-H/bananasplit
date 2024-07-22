@@ -8,8 +8,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +25,7 @@ public class Person implements Serializable, Parcelable {
     }
 
     public Person(PersonBuilder builder) {
+        this.personID = builder.personID;
         this.name = builder.name;
         this.email = builder.email;
         this.imageURI = builder.imageURI;
@@ -98,10 +97,16 @@ public class Person implements Serializable, Parcelable {
     }
 
     public static class PersonBuilder {
+        private int personID;
         private String name;
         private String email;
         private String imageURI = "";
         private List<Person> friends;
+
+        public PersonBuilder personID(int personID) {
+            this.personID = personID;
+            return this;
+        }
 
         public PersonBuilder name(String name) {
             this.name = name;

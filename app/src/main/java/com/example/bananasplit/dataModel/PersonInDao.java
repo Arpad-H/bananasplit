@@ -17,7 +17,7 @@ public interface PersonInDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Person person);
 
-    @Update
+    @Update(entity = Person.class)
     void update(Person person);
 
     @Delete
@@ -32,7 +32,7 @@ public interface PersonInDao {
     LiveData<List<PersonWithGroups>> getPersonWithGroupsByName(String name);
 
     @Transaction
-    @Query("SELECT * FROM Person WHERE Person.personID LIKE :personID")
+    @Query("SELECT * FROM Person WHERE personID = :personID")
     LiveData<Person> getPersonForID(int personID);
 
     @Query("SELECT * FROM Person")
