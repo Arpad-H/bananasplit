@@ -59,7 +59,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btn_setup_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -131,7 +131,7 @@
             android:paddingBottom="5dp">
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switch1"
+                android:id="@+id/switch_darkmode"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -155,15 +155,4 @@
         app:srcCompat="@drawable/save"
         app:tint="?attr/colorOnPrimary" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" >
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </androidx.constraintlayout.widget.ConstraintLayout>

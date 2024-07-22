@@ -48,7 +48,7 @@ public class FriendsDetailActivity extends BaseActivity {
             ExpenseViewModel expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
             expenseViewModel.getExpensesByFriendId(1, friend.getPersonID()).observe(this, expenses -> adapter.updateExpenses(expenses));
             settleUp.setOnClickListener(v -> {
-                Intent intent = new Intent(this, SettleUpDetailsActivity.class);
+                Intent intent = new Intent(FriendsDetailActivity.this, SettleUpDetailsActivity.class);
                 intent.putExtra("friend", (Parcelable) friend);
                 startActivity(intent);
             });
