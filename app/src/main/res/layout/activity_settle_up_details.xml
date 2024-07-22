@@ -8,6 +8,42 @@
     tools:context=".settleUp.SettleUpDetailsActivity">
 
 
+    <View
+        android:id="@+id/rectangle_at_the_top7"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/backButton"
+        app:backgroundTint="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        app:tint="?attr/colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/settleUpTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settle_up"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="@id/rectangle_at_the_top7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@id/rectangle_at_the_top7" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -30,40 +66,16 @@
         app:layout_constraintTop_toBottomOf="@+id/paymentRadios"
         app:paypal_button_shape="pill" />
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/topAccentBar"
-        android:contentDescription="@string/backButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
-
-    <TextView
-        android:id="@+id/settleUpTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/settle_up"
-        android:textColor="@color/topAccentBar"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/backButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/oweTVwithAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="@string/placeholder"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settleUpTV" />
+        app:layout_constraintTop_toBottomOf="@id/rectangle_at_the_top7" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -156,10 +168,11 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="@color/topAccentBar"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="@string/payOther"
+        android:textColor="?attr/colorOnPrimary"
         app:icon="@drawable/wallet"
-        app:iconTint="@color/black"
+        app:iconTint="?attr/colorOnPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paypal_payment_button" />

@@ -94,6 +94,13 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="lets_get_started">Lets get started!</string>
     <string name="groupCurrency">Groups Currency</string>
+    <string name="language">Language</string>
+    <string name="defaultcurrency">Default Currency</string>
+    <string name="user">User</string>
+    <string name="setup">Set Up User</string>
+    <string name="darkMode">Dark Mode</string>
+    <string name="addexpense">Add Expense</string>
+    <string name="addgroup">Add Group</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

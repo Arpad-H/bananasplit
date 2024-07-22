@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        android:background="@color/topAccentBar"
+        android:background="?attr/colorPrimary"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/groups"
-        android:textColor="@color/white"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top"
@@ -149,22 +149,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:contentDescription="Add group"
+        android:contentDescription="@string/addgroup"
         android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="?attr/colorPrimary"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="?attr/colorOnPrimary" />
 
 
     <ImageButton
         android:id="@+id/btn_toggle_grp_edit_state"
         android:layout_width="54dp"
         android:layout_height="52dp"
-        android:backgroundTint="@color/topAccentBar"
+        android:backgroundTint="?attr/colorPrimary"
+        android:contentDescription="@string/edit"
         android:src="@drawable/edit"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_at_the_top"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_at_the_top"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorOnPrimary" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

@@ -6,6 +6,28 @@
         <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_logo2</item>
         <item name="android:windowSplashScreenBrandingImage">@drawable/group_51_3_</item>
         <!--TODO increse anim length-->
+
+        <!-- light theme -->
+        <item name="colorPrimary">@color/topAccentBar</item>
+        <item name="backgroundTint">@color/topAccentBar</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorSecondary">@color/topAccentBar</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+
+
+    </style>
+
+    <style name="Base.Theme.Bananasplit.Dark" parent="Base.Theme.Bananasplit">
+        <!-- dark theme -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/topAccentBar</item>
+        <item name="backgroundColor">@color/lightGrey</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorSecondary">@color/topAccentBar</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
     <style name="Theme.Bananasplit" parent="Base.Theme.Bananasplit" />
