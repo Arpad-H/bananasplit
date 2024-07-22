@@ -89,7 +89,8 @@
                     android:id="@+id/edit_text_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/amount" />
+                    android:hint="@string/amount"
+                    android:inputType="number|numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
