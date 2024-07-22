@@ -14,15 +14,19 @@ import com.example.bananasplit.dataModel.PersonInDao;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class SettleUpViewModel extends AndroidViewModel {
     private final LiveData<List<Person>> allFriends;
     private final PersonInDao personInDao;
     private final ExpenseInDao expenseInDao;
     private Person person;
+    @Inject
+    AppDatabase appDatabase;
 
     public SettleUpViewModel(@NonNull Application application) {
         super(application);
-        AppDatabase appDatabase = DatabaseModule.getInstance(application);
+
         personInDao = appDatabase.personInDao();
         expenseInDao = appDatabase.expenseInDao();
         allFriends = personInDao.getFriends();

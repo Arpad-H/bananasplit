@@ -100,13 +100,13 @@ public class GroupDetailsActivity extends BaseActivity {
 
         ExpenseInDao expenseInDao = database.expenseInDao();
 
-        UserSessionManager userSessionManager = new UserSessionManager(this);
+        UserSessionManager userSessionManager = new UserSessionManager(getApplication());
 
         observeExpenseData(group.getGroupID());
     }
 
     private void observeExpenseData(int groupId) {
-        ExpenseCalculator expenseCalculator = new ExpenseCalculator(this);
+        ExpenseCalculator expenseCalculator = new ExpenseCalculator(getApplication());
         expenseCalculator.getTotalAmountOwedByCurrentUserInGroup(groupId).observe(this, youOwe -> {
             if (youOwe != null) {
                 // Update UI with the amount owed

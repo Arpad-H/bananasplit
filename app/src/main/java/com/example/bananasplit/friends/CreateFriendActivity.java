@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -15,10 +14,6 @@ import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.databinding.ActivityCreateFriendBinding;
-import com.example.bananasplit.databinding.ActivityCreateGroupBinding;
-import com.example.bananasplit.databinding.ActivityMainBinding;
-import com.example.bananasplit.databinding.ActivitySelectFriendsBinding;
-import com.example.bananasplit.groups.CreateGroupActivityBinding;
 
 import java.util.Objects;
 
@@ -26,6 +21,9 @@ public class CreateFriendActivity extends BaseActivity {
 
     private ActivityCreateFriendBinding binding;
     private FriendViewModel friendViewModel;
+
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,10 +67,13 @@ public class CreateFriendActivity extends BaseActivity {
                 friendViewModel.update(friend);
             } else {
                 friendViewModel.insert(friend);
+
             }
             finish();
         });
     }
+
+
 
     @Override
     protected int getLayoutResourceId() {

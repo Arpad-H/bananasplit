@@ -1,5 +1,7 @@
 package com.example.bananasplit.dataModel.repository;
 
+import static dagger.hilt.android.internal.Contexts.getApplication;
+
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
@@ -9,14 +11,23 @@ import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.GroupInDao;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.util.ActivityLogger;
+import com.example.bananasplit.util.AppActivityLogger;
+import com.example.bananasplit.util.UserSessionManager;
+import com.paypal.pyplcheckout.data.model.pojo.User;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class GroupRepository {
     private final GroupInDao groupInDao;
-
+    private final ActivityLogger activityLogger;
+    private final UserSessionManager userSessionManager;
     public GroupRepository(Application application) {
         AppDatabase database = DatabaseModule.getInstance(application);
+        userSessionManager = new UserSessionManager(application);
+        activityLogger = new AppActivityLogger(database);
         groupInDao = database.groupInDao();
     }
 
@@ -26,6 +37,7 @@ public class GroupRepository {
 
     public void insertGroupWithPersons(Group group, List<Person> persons) {
         groupInDao.insertGroupWithPersons(group, persons);
+        logGroupCreated(group);
     }
 
     public void updateGroup(Group group) {
@@ -35,9 +47,16 @@ public class GroupRepository {
     public void deleteGroup(Group group) {
         groupInDao.delete(group);
         groupInDao.deletePersonGroupCrossRefsForGroup(group.getGroupID());
+        logGroupDeleted(group);
     }
 
     public LiveData<List<Person>> getMembersByGroupId(int groupId) {
         return groupInDao.getMembersByGroupId(groupId);
+    }
+    private void logGroupCreated(Group group) {
+        activityLogger.logActivity(userSessionManager.getCurrentUserName(), "created group " + group.getName(), "Groups");
+    }
+    private void logGroupDeleted(Group group) {
+        activityLogger.logActivity(userSessionManager.getCurrentUserName(), "deleted group " + group.getName(), "Groups");
     }
 }

@@ -1,5 +1,3 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -28,6 +26,10 @@ android {
     viewBinding {
         enable = true
     }
+    buildFeatures {
+        dataBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -61,11 +63,13 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     testImplementation(libs.junit)
     annotationProcessor(libs.room.compiler)
-    implementation (libs.paypal.card.payments)
-    implementation (libs.android.paypal.native.payments)
-    implementation (libs.checkout.android.sdk)
-    implementation (libs.security.crypto)
-    implementation (libs.payment.buttons)
+    implementation(libs.paypal.card.payments)
+    implementation(libs.android.paypal.native.payments)
+    implementation(libs.checkout.android.sdk)
+    implementation(libs.security.crypto)
+    implementation(libs.payment.buttons)
+
+    implementation(libs.hilt.android)
 
     //fix for kotlin duplicate calss error which erose from nowhere?!?!
     constraints {

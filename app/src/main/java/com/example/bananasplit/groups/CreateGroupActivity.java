@@ -32,8 +32,7 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
     private ActivityCreateGroupBinding binding;
     private GroupViewModel groupViewModel;
     private Uri imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
-
-    private ImageView groupCoverImageView;
+    
     private Spinner changeCurrencySpinner;
 //    private List<Person> selectedFriends = new ArrayList<>();
 
@@ -154,7 +153,7 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && data != null) {
             imageUri = data.getData();
-            groupCoverImageView.setImageURI(imageUri);
+            binding.groupCoverImageView.setImageURI(imageUri);
         }
     }
 }

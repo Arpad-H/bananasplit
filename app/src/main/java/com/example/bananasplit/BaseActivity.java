@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bananasplit.Activities.ActivitiesActivity;
 import com.example.bananasplit.settings.SettingsActivity;
 import com.example.bananasplit.friends.FriendsActivity;
 import com.example.bananasplit.groups.GroupsActivity;

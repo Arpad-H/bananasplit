@@ -1,13 +1,16 @@
 package com.example.bananasplit.groups;
 
+import android.app.Activity;
 import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.bananasplit.dataModel.AppActivityTracker;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.dataModel.repository.GroupRepository;
+import com.example.bananasplit.util.ActivityLogger;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -17,6 +20,7 @@ public class GroupViewModel extends AndroidViewModel {
     private final GroupRepository groupRepository;
     private final LiveData<List<Group>> allGroups;
     private final ExecutorService executorService;
+
 
     public GroupViewModel(@NonNull Application application) {
         super(application);

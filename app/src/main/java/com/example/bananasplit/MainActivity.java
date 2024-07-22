@@ -28,6 +28,8 @@ import com.paypal.checkout.config.Environment;
 import com.paypal.checkout.createorder.CurrencyCode;
 import com.paypal.checkout.createorder.UserAction;
 
+import javax.inject.Inject;
+
 /**
  * The MainActivity class handles the intitial Setup of the Application on launch. Managing user sessions,
  * initializing necessary components, and handling permissions.
@@ -36,6 +38,7 @@ import com.paypal.checkout.createorder.UserAction;
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 1;
     private UserSessionManager userSessionManager;
+    @Inject
     private AppDatabase database;
     private ActivityMainBinding binding;
     private ActivityResultLauncher<Intent> editProfileLauncher;
@@ -68,7 +71,6 @@ public class MainActivity extends BaseActivity {
         setupTestButton();
         requestCameraPermission();
         initializeUserSessionManager();
-        initializeDatabase();
         initializeSecurePreferences();
         setupEditProfileLauncher();
     }
@@ -91,14 +93,9 @@ public class MainActivity extends BaseActivity {
      * Initializes the UserSessionManager.
      */
     private void initializeUserSessionManager() {
-        userSessionManager = new UserSessionManager(this);
+        userSessionManager = new UserSessionManager(getApplication());
     }
-    /**
-     * Initializes the AppDatabase.
-     */
-    private void initializeDatabase() {
-        database = DatabaseModule.getInstance(this);
-    }
+
     /**
      * Initializes SecurePreferencesManager and saves the PayPal client ID.
      */

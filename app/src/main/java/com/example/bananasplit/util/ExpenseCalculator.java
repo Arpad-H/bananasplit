@@ -1,21 +1,27 @@
 package com.example.bananasplit.util;
 
+import android.app.Application;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
+import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.ExpenseInDao;
 import com.example.bananasplit.dataModel.ExpenseInDao_Impl;
 
+import javax.inject.Inject;
+
 public class ExpenseCalculator {
     private final ExpenseInDao expenseInDao;
     private final UserSessionManager userSessionManager;
+    @Inject
+    AppDatabase appDatabase;
 
-    public ExpenseCalculator(Context context) {
-        expenseInDao = DatabaseModule.getInstance(context).expenseInDao();
-        userSessionManager = new UserSessionManager(context);
+    public ExpenseCalculator(Application application) {
+        expenseInDao = appDatabase.expenseInDao();
+        userSessionManager = new UserSessionManager(application);
     }
 
     public LiveData<Double> getTotalAmountPaidByCurrentInGroup(int groupId) {

@@ -16,22 +16,26 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:usesCleartextTraffic="true"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bananasplit">
+        android:theme="@style/Theme.Bananasplit"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".settleUp.SettleUpDetailsActivity"
             android:exported="true"
-            android:theme="@style/Theme.Bananasplit" >
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="com.your.package.name" android:host="paypalpay" />
-        </intent-filter>
+            android:theme="@style/Theme.Bananasplit">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="paypalpay"
+                    android:scheme="com.your.package.name" />
+            </intent-filter>
         </activity>
 
 
@@ -39,7 +43,8 @@
             android:name=".settleUp.SettleUpActivity"
             android:exported="false" />
 
-        <activity android:name=".settings.EditProfileActivity"
+        <activity
+            android:name=".settings.EditProfileActivity"
             android:exported="true">
 
         </activity>
@@ -86,7 +91,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ActivitiesActivity"
+            android:name=".Activities.ActivitiesActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

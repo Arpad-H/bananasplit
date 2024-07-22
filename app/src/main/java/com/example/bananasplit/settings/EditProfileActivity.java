@@ -20,12 +20,17 @@ import com.example.bananasplit.groups.GroupsActivity;
 import com.example.bananasplit.util.UserSessionManager;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
+import javax.inject.Inject;
+
 public class EditProfileActivity extends AppCompatActivity {
     private Button pickImageButton;
 //    private Uri imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
     private ImageView profilePictureView;
     private Uri imageUri= Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
     private EditText nameEditText;
+
+    @Inject
+    AppDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,12 +52,12 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         confirmButton.setOnClickListener(v -> {
-            UserSessionManager userSessionManager = new UserSessionManager(this);
-            AppDatabase database = DatabaseModule.getInstance(this);
+            UserSessionManager userSessionManager = new UserSessionManager(getApplication());
             PersonInDao personInDao = database.personInDao();
             new Thread(() -> {
                 int id = (int) personInDao.insert(new Person.PersonBuilder().name(nameEditText.getText().toString()).imageURI(imageUri.toString()).build());
                 userSessionManager.setCurrentUserId(id);
+                userSessionManager.setCurrentUserName(nameEditText.getText().toString());
             }).start();
             setResult(RESULT_OK);
             finish();

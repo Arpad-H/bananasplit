@@ -64,12 +64,7 @@ public class Group implements Serializable, Parcelable {
         this.currency = currency;
     }
 
-    //    public Group(String name, String date, int duration, String imageUri) {
-//        this.name = name;
-////        this.date = date;
-////        this.duration = duration;
-//        this.imageUri = imageUri;
-//    }
+
     public Group(String name, String imageUri) {
         this.name = name;
         this.imageUri = imageUri;
@@ -87,8 +82,6 @@ public class Group implements Serializable, Parcelable {
     protected Group(Parcel in) {
         groupID = in.readInt();
         name = in.readString();
-//        date = in.readString();
-//        duration = in.readInt();
         imageUri = in.readString();
         currency = Currency.from(in.readDouble());
     }
@@ -111,8 +104,6 @@ public class Group implements Serializable, Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(groupID);
         dest.writeString(name);
-//        dest.writeString(date);
-//        dest.writeInt(duration);
         dest.writeString(imageUri);
         dest.writeDouble(currency.getValueInEur());
     }
