@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +16,8 @@ import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.ListItemHolder;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.databinding.ActivityCreateGroupBinding;
+import com.example.bananasplit.databinding.ActivityFriendsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -21,11 +25,20 @@ import java.util.ArrayList;
 public class FriendsActivity extends BaseActivity implements ListItemHolder {
     private FriendsAdapter adapter;
     private FriendViewModel friendViewmodel;
-
+private ActivityFriendsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setContentViewForActivity(getLayoutResourceId());
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_friends, getContentContainer(), false);
+        getContentContainer().addView(contentView);
+
+        binding = ActivityFriendsBinding.bind(contentView);
+
+
 
         RecyclerView recyclerView = findViewById(R.id.recyclerFriends);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

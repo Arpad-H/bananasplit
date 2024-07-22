@@ -19,7 +19,7 @@
 
 
         <TextView
-            android:id="@+id/nameTextView"
+            android:id="@+id/txt_group_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
@@ -37,13 +37,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone">
         <Button
-            android:id="@+id/editButton"
+            android:id="@+id/btn_edit_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit" />
 
         <Button
-            android:id="@+id/deleteButton"
+            android:id="@+id/btn_delete_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delete" />

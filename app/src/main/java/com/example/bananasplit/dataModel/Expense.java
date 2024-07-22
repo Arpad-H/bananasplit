@@ -30,8 +30,8 @@ public class Expense implements Serializable {
     private String description;
     private Person personWhoPaid;
     private ExpenseCategory category;
-
     private Date date;
+
     public Expense(String description, Person personWhoPaid, int groupID, float amount, Currency currency, ExpenseCategory category) {
         this.spenderID = personWhoPaid.getPersonID();
         this.groupID = groupID;

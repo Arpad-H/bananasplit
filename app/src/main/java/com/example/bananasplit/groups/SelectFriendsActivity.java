@@ -2,6 +2,8 @@ package com.example.bananasplit.groups;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -14,6 +16,9 @@ import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.ListItemHolder;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.databinding.ActivityFriendsBinding;
+import com.example.bananasplit.databinding.ActivityGroupsBinding;
+import com.example.bananasplit.databinding.ActivitySelectFriendsBinding;
 import com.example.bananasplit.friends.FriendViewModel;
 import com.example.bananasplit.friends.FriendsAdapter;
 
@@ -24,11 +29,17 @@ public class SelectFriendsActivity extends BaseActivity {
     private SelectFriendsAdapter friendsAdapter;
     private FriendViewModel friendViewModel;
     private final List<Person> selectedFriends = new ArrayList<>();
+    private ActivitySelectFriendsBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_select_friends, getContentContainer(), false);
+        getContentContainer().addView(contentView);
+
+        binding = ActivitySelectFriendsBinding.bind(contentView);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_select_friends);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GroupCoverImageView">
+        app:layout_constraintTop_toBottomOf="@+id/groupCoverImageView">
 
         <ImageView
             android:id="@+id/imageView"
@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/group_52" />
 
 
@@ -97,16 +98,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
-
     <View
         android:id="@+id/rectangle_at_the_top"
         android:layout_width="match_parent"
@@ -140,7 +131,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 <!--    https://stackoverflow.com/questions/22105775/imageview-in-circular-through-xml-->
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/GroupCoverImageView"
+        android:id="@+id/groupCoverImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"
@@ -167,7 +158,7 @@
         android:text="@string/settle_up"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/GroupCoverImageView"
+        app:layout_constraintStart_toEndOf="@+id/groupCoverImageView"
         app:layout_constraintTop_toBottomOf="@+id/rectangle_at_the_top" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -175,7 +166,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_grp_actions" />
@@ -206,6 +197,7 @@
             android:text="@string/balances" />
 
     </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_expense"
         android:layout_width="wrap_content"
@@ -215,7 +207,7 @@
         android:contentDescription="Add Expense"
         android:src="@android:drawable/ic_input_add"
         app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

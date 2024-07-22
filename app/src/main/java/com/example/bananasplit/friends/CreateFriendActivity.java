@@ -2,6 +2,8 @@ package com.example.bananasplit.friends;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -13,35 +15,46 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.databinding.ActivityCreateFriendBinding;
+import com.example.bananasplit.databinding.ActivityCreateGroupBinding;
+import com.example.bananasplit.databinding.ActivityMainBinding;
+import com.example.bananasplit.databinding.ActivitySelectFriendsBinding;
+import com.example.bananasplit.groups.CreateGroupActivityBinding;
 
 import java.util.Objects;
 
 public class CreateFriendActivity extends BaseActivity {
-    private EditText friendName;
-    private EditText friendEmail;
-    private FriendViewModel friendViewmodel;
+
+    private ActivityCreateFriendBinding binding;
+    private FriendViewModel friendViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_create_friend, getContentContainer(), false);
+        getContentContainer().addView(contentView);
 
-        friendName = findViewById(R.id.nameFriendEdit);
-        friendEmail = findViewById(R.id.emailFriendEdit);
-        friendViewmodel = new ViewModelProvider(this).get(FriendViewModel.class);
-        TextView friendHeadline = findViewById(R.id.createExpenseHeadline);
-        ImageButton createFriend = findViewById(R.id.createFriend);
+        binding = ActivityCreateFriendBinding.bind(contentView);
+
+        friendViewModel = new ViewModelProvider(this).get(FriendViewModel.class);
+
+
+        TextView friendName = binding.nameFriendEdit;
+        TextView friendEmail = binding.emailFriendEdit;
+        TextView friendHeadline = binding.createExpenseHeadline;
+        ImageButton createFriend = binding.createFriend;
 
         Intent intent = getIntent();
         boolean update = intent.getParcelableExtra("friend") != null;
         if (update) {
             Person friend = intent.getParcelableExtra("friend");
             if (friend != null) {
-            friendHeadline.setText("Update " + friend.getName());
+                friendHeadline.setText("Update " + friend.getName());
                 friendName.setText(friend.getName());
                 friendEmail.setText(friend.getEmail());
             }
-
         }
 
         createFriend.setOnClickListener(v -> {
@@ -51,13 +64,12 @@ public class CreateFriendActivity extends BaseActivity {
                     .name(name)
                     .email(email)
                     .build();
-//            Person friend = new Person(name, email);
 
             if (update) {
                 friend.setPersonID(Objects.requireNonNull((Person) intent.getParcelableExtra("friend")).getPersonID());
-                friendViewmodel.update(friend);
+                friendViewModel.update(friend);
             } else {
-                friendViewmodel.insert(friend);
+                friendViewModel.insert(friend);
             }
             finish();
         });
@@ -65,6 +77,7 @@ public class CreateFriendActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResourceId() {
-        return R.layout.activity_create_friend;
+        return R.layout.activity_create_group;
     }
 }
+

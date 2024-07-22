@@ -12,88 +12,67 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Currency;
-import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Expense;
 import com.example.bananasplit.dataModel.ExpenseCategory;
 import com.example.bananasplit.dataModel.Group;
-import com.example.bananasplit.dataModel.GroupInDao;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.databinding.ActivityAddExpenseBinding;
+import com.example.bananasplit.databinding.ActivitySelectFriendsBinding;
 import com.example.bananasplit.friends.BaseSelectFriendsActivity;
-import com.example.bananasplit.groups.CreateGroupActivity;
 import com.example.bananasplit.groups.GroupViewModel;
 import com.example.bananasplit.groups.SelectFriendsActivity;
-import com.example.bananasplit.util.ImageUtils;
-//import com.pratikbutani.multiselectspinner.MultiSelectSpinner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class CreateExpenseActivity extends BaseSelectFriendsActivity {
-    private EditText nameEditText;
-    private EditText amountEditText;
+    private ActivityAddExpenseBinding binding;
     ExpenseViewModel expenseViewModel;
-    private Spinner personWhoPaidSpinner;
-    private Spinner changeCategorySpinner;
-    private Spinner changeCurrencySpinner;
-    private Button changeSplitRatioButton;
     GroupViewModel groupViewModel;
     private final List<Person> participantsInExpense = new ArrayList<>();
 
-    //    private MultiSelectSpinner selectParticipantsSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Group group = getIntent().getParcelableExtra("group");
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_add_expense, getContentContainer(), false);
+        getContentContainer().addView(contentView);
 
-        nameEditText = findViewById(R.id.edit_text_name);
-        amountEditText = findViewById(R.id.edit_text_amount);
-        personWhoPaidSpinner = findViewById(R.id.spinner_change_person_who_paid);
-        changeCategorySpinner = findViewById(R.id.spinner_change_category);
-//        selectParticipantsSpinner = findViewById(R.id.spinner_select_participants);
+        binding = ActivityAddExpenseBinding.bind(contentView);
+
+        Group group = getIntent().getParcelableExtra("group");
 
         expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
-        changeSplitRatioButton = findViewById(R.id.btn_change_split_ratio);
-        changeCurrencySpinner = findViewById(R.id.spinner_change_currency);
-
 
         groupViewModel.getMembersByGroupId(group.getGroupID()).observe(this, members -> {
             PersonSpinnerAdapter adapter = new PersonSpinnerAdapter(this, R.layout.person_spinner_item, members);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            personWhoPaidSpinner.setAdapter(adapter);
+            binding.spinnerChangePersonWhoPaid.setAdapter(adapter);
         });
 
-
-        changeSplitRatioButton.setOnClickListener(v -> {
+        binding.btnChangeSplitRatio.setOnClickListener(v -> {
             showSplitRatioDialog();
         });
-
 
         setupChangeCategorySpinner();
         setupChangeCurrencySpinner();
 
-
         bindCreateExpenseButton(group);
-
-
     }
 
     @Override
     protected ViewGroup getSelectedFriendsContainer() {
-        return findViewById(R.id.selected_friends_layout);
+        return binding.selectedFriendsLayout;
     }
 
     @Override
@@ -103,34 +82,29 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
 
     @Override
     protected int getListItemLayoutResId() {
-
         return R.layout.expense_participant_custom_ratio_list_item;
     }
 
     private void setupChangeCategorySpinner() {
         ExpenseCategory[] categories = ExpenseCategory.values();
-
         String[] categoryNames = new String[categories.length];
         for (int i = 0; i < categories.length; i++) {
             categoryNames[i] = categories[i].getCategory();
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categoryNames);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        changeCategorySpinner.setAdapter(adapter);
+        binding.spinnerChangeCategory.setAdapter(adapter);
     }
 
     private void setupChangeCurrencySpinner() {
         Currency[] categories = Currency.values();
-
         String[] currencySymbol = new String[categories.length];
         for (int i = 0; i < categories.length; i++) {
             currencySymbol[i] = categories[i].getCurrencySymbol();
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, currencySymbol);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        changeCurrencySpinner.setAdapter(adapter);
+        binding.spinnerChangeCurrency.setAdapter(adapter);
     }
 
     @SuppressLint("SetTextI18n")
@@ -148,10 +122,10 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
         confirmButton.setOnClickListener(v -> {
             // Handle the logic for splitting the bill
             if (equalSplitCheckBox.isChecked()) {
-                changeSplitRatioButton.setText(R.string.equal);
+                binding.btnChangeSplitRatio.setText(R.string.equal);
                 //TODO
             } else if (!selectedFriends.isEmpty()) {
-                changeSplitRatioButton.setText("Custom");
+                binding.btnChangeSplitRatio.setText("Custom");
             }
 
             dialog.dismiss();
@@ -161,17 +135,15 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     }
 
     private void bindCreateExpenseButton(Group group) {
-        ImageButton createButton = findViewById(R.id.create_expense_button);
-        createButton.setOnClickListener(v -> {
+        binding.createExpenseButton.setOnClickListener(v -> {
             Map<Person, Float> personExpenseRatio = extractDataFromEditTexts(R.id.edit_expense_ratio);
-            String name = nameEditText.getText().toString();
-            float amount = Float.parseFloat(amountEditText.getText().toString());
-            Person person = (Person) personWhoPaidSpinner.getSelectedItem();
-            ExpenseCategory selectedCategory = ExpenseCategory.fromString((String) changeCategorySpinner.getSelectedItem());
-            Currency selectedCurrency = Currency.fromString((String) changeCurrencySpinner.getSelectedItem());
+            String name = binding.editTextName.getText().toString();
+            float amount = Float.parseFloat(binding.editTextAmount.getText().toString());
+            Person person = (Person) binding.spinnerChangePersonWhoPaid.getSelectedItem();
+            ExpenseCategory selectedCategory = ExpenseCategory.fromString((String) binding.spinnerChangeCategory.getSelectedItem());
+            Currency selectedCurrency = Currency.fromString((String) binding.spinnerChangeCurrency.getSelectedItem());
 
             Expense newExpense = new Expense(name, person, group.getGroupID(), amount, selectedCurrency, selectedCategory);
-//            expenseViewModel.insert(newExpense);
             expenseViewModel.insertExpenseWithPersonsAndAmount(newExpense, personExpenseRatio);
             finish();
         });

@@ -2,19 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout4"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
 
     <View
         android:id="@+id/rectangle_at_the_top3"
@@ -57,7 +47,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/GroupCoverImageView"
+                    android:id="@+id/groupCoverImageView"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginStart="30dp"
@@ -81,8 +71,8 @@
                     android:layout_marginStart="30dp"
                     android:text="@string/pick_image"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/GroupCoverImageView"
-                    app:layout_constraintTop_toTopOf="@+id/GroupCoverImageView" />
+                    app:layout_constraintStart_toEndOf="@+id/groupCoverImageView"
+                    app:layout_constraintTop_toTopOf="@+id/groupCoverImageView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -94,7 +84,7 @@
                 android:hint="@string/name" />
 
             <LinearLayout
-                android:id="@+id/selected_friends_layout"
+                android:id="@+id/selectedFriendsLayout"
                 android:layout_width="459dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"

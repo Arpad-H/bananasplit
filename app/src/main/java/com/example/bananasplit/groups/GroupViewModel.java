@@ -5,62 +5,43 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Group;
-import com.example.bananasplit.dataModel.GroupInDao;
-import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.Person;
+import com.example.bananasplit.dataModel.repository.GroupRepository;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class GroupViewModel extends AndroidViewModel {
-    private final AppDatabase appDatabase;
-    private LiveData<List<Group>> allGroups;
-//    private LiveData<List<Person>> allPersons;
-private final GroupInDao groupInDao;
+    private final GroupRepository groupRepository;
+    private final LiveData<List<Group>> allGroups;
+    private final ExecutorService executorService;
+
     public GroupViewModel(@NonNull Application application) {
         super(application);
-
-        appDatabase = DatabaseModule.getInstance(application);
-        groupInDao = appDatabase.groupInDao();
-        updateAllGroups();
-//        updateAllPersons();
+        groupRepository = new GroupRepository(application);
+        allGroups = groupRepository.getAllGroups();
+        executorService = Executors.newSingleThreadExecutor();
     }
 
-    private void updateAllGroups() {
-        allGroups = groupInDao.getAllGroups();
+    public LiveData<List<Group>> getAllGroups() {
+        return allGroups;
     }
-//    private void updateAllPersons() {
-//        allPersons = groupInDao.getPersonIDsForGroup();
-//    }
 
-    //TODO insert, update, delete
     public void insert(Group group, List<Person> persons) {
-        new Thread(() -> {
-            groupInDao.insertGroupWithPersons(group, persons);
-        }).start();
+        executorService.execute(() -> groupRepository.insertGroupWithPersons(group, persons));
     }
-//    public void insert(Group group) {
-//        new Thread(() -> {
-//            groupInDao.insert(group);
-//        }).start();
-//    }
 
     public void update(Group group) {
-        new Thread(() -> groupInDao.update(group)).start();
-
+        executorService.execute(() -> groupRepository.updateGroup(group));
     }
 
     public void delete(Group group) {
-        new Thread(() -> groupInDao.delete(group)).start();
-        new Thread(() -> groupInDao.deletePersonGroupCrossRefsForGroup(group.getGroupID())).start();
-
+        executorService.execute(() -> groupRepository.deleteGroup(group));
     }
 
     public LiveData<List<Person>> getMembersByGroupId(int groupId) {
-        return groupInDao.getMembersByGroupId(groupId);
-    }
-    public LiveData<List<Group>> getAllGroups() {
-        return allGroups;
+        return groupRepository.getMembersByGroupId(groupId);
     }
 }

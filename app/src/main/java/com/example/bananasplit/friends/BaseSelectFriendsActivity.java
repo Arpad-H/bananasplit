@@ -32,11 +32,19 @@ public abstract class BaseSelectFriendsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedFriendsContainer = getSelectedFriendsContainer();
+
+//        setContentViewForActivity(getLayoutResourceId());
+
+
         setupSelectFriendsLauncher();
     }
+
+    protected void setSelectedFriendsContainer() {
+        selectedFriendsContainer = getSelectedFriendsContainer();
+    }
+
     protected abstract ViewGroup getSelectedFriendsContainer();
-//    protected abstract void getListItemForPerson();
+
     private void setupSelectFriendsLauncher() {
         selectFriendsLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

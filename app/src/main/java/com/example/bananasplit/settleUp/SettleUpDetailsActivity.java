@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -16,6 +18,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.MainActivity;
 import com.example.bananasplit.R;
+import com.example.bananasplit.databinding.ActivityGroupsBinding;
+import com.example.bananasplit.databinding.ActivitySettleUpDetailsBinding;
 import com.paypal.checkout.PayPalCheckout;
 import com.paypal.checkout.approve.Approval;
 import com.paypal.checkout.approve.OnApprove;
@@ -39,53 +43,77 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity to handle settling up details.
+ * Provides options for different payment methods including PayPal.
+ * @author Arpad Horvath
+ */
 public class SettleUpDetailsActivity extends BaseActivity {
     SettleUpAdapter adapter;
     SettleUpViewModel settleUpViewModel;
     PaymentButtonContainer paymentButtonContainer;
     private ActivityResultLauncher<Intent> payPalLauncher;
+    private ActivitySettleUpDetailsBinding binding;
 
+    /**
+     * Called when the activity is first created.
+     * Initializes the activity and sets up the view components.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     *                           shut down then this Bundle contains the data it most recently supplied.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ImageButton back = findViewById(R.id.backButton);
-        back.setOnClickListener(v -> finish());
+        binding = ActivitySettleUpDetailsBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        setupBackButton();
+        setupRadioGroup();
+        setupPayPalPayment();
+        setupTransferMoneyButton();
+    }
 
-        RadioGroup radioGroup = findViewById(R.id.paymentRadios);
-        Button transferMoneyButton = findViewById(R.id.btnTransfer);
-        radioGroup.setOnCheckedChangeListener((group, checkedId) -> transferMoneyButton.setEnabled(group.getCheckedRadioButtonId() != -1));
+    /**
+     * Sets up the back button and its click listener.
+     */
+    private void setupBackButton() {
+        binding.backButton.setOnClickListener(v -> finish());
+    }
 
-        paymentButtonContainer = findViewById(R.id.paypal_payment_button);
-//        setupPayPal();
+    /**
+     * Sets up the radio group and enables the transfer money button based on selection.
+     */
+    private void setupRadioGroup() {
+        binding.paymentRadios.setOnCheckedChangeListener((group, checkedId) -> binding.btnTransfer.setEnabled(group.getCheckedRadioButtonId() != -1));
+    }
 
-        processPayPalPayment();
-        transferMoneyButton.setOnClickListener(v -> {
-
-            int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-
-            if (selectedRadioButtonId != -1) { // Check if a RadioButton is selected
+    /**
+     * Sets up the transfer money button click listener.
+     */
+    private void setupTransferMoneyButton() {
+        binding.btnTransfer.setOnClickListener(v -> {
+            int selectedRadioButtonId = binding.paymentRadios.getCheckedRadioButtonId();
+            if (selectedRadioButtonId != -1) {
                 RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
-
-                if (selectedRadioButtonId == R.id.radioButtonPayPal) {
-                    processPayPalPayment();
-                } else if (selectedRadioButtonId == R.id.radioButtonCash) {
+                if (selectedRadioButtonId == R.id.radioButtonCash) {
                     Toast.makeText(this, "Settlement in Person Noted", Toast.LENGTH_SHORT).show();
                 } else {
-
+                    // Add other payment methods
                 }
             } else {
                 Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-
-    private void processPayPalPayment() {
-
-        paymentButtonContainer.setup(
+    /**
+     * Sets up the PayPal payment button container and its actions.
+     * capture is deprecated but no alternative is provided in the documentation.
+     */
+    private void setupPayPalPayment() {
+        binding.paypalPaymentButton.setup(
                 createOrderActions -> {
                     Log.d(TAG, "create: ");
                     ArrayList<PurchaseUnit> purchaseUnits = new ArrayList<>();
@@ -111,11 +139,17 @@ public class SettleUpDetailsActivity extends BaseActivity {
                 approval -> approval.getOrderActions().capture(result -> {
                     Log.d(TAG, String.format("CaptureOrderResult: %s", result));
                     Toast.makeText(getApplication().getApplicationContext(), "Successful", Toast.LENGTH_SHORT).show();
+                    //TODO launch success activity
                 })
         );
 
     }
 
+    /**
+     * Gets the layout resource ID for this activity.
+     *
+     * @return The layout resource ID.
+     */
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_settle_up_details;
