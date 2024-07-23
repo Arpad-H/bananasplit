@@ -68,19 +68,12 @@ public class MainActivity extends BaseActivity {
      * Initializes the components of the activity.
      */
     private void initializeComponents() {
-        setupTestButton();
         requestCameraPermission();
         initializeUserSessionManager();
         initializeSecurePreferences();
         setupEditProfileLauncher();
     }
-//TODO Remove
-    private void setupTestButton() {
-        binding.btnCamtest.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ScannerActivity.class);
-            startActivity(intent);
-        });
-    }
+
     /**
      * Requests camera permission from the user.
      */
