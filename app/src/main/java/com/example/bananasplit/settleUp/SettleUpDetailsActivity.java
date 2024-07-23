@@ -115,7 +115,7 @@ public class SettleUpDetailsActivity extends BaseActivity {
                                     .amount(
                                             new Amount.Builder()
                                                     .currencyCode(CurrencyCode.USD)
-                                                    .value("10.00")
+                                                    .value("10.00")//TODO: get amount from intent and convert to usd
                                                     .build()
                                     )
                                     .build()

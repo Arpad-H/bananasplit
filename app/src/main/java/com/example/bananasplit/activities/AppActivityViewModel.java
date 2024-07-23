@@ -1,4 +1,4 @@
-package com.example.bananasplit.Activities;
+package com.example.bananasplit.activities;
 
 import android.app.Application;
 

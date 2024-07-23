@@ -1,5 +1,6 @@
 package com.example.bananasplit.scanner;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -236,7 +237,6 @@ public class ScannerActivity extends AppCompatActivity {
 
         for (Entity entity : consumerGoodsEntries) {
             String name = entity.getName();
-            // Logic to extract quantities and prices from the entity or related mentions
             int quantity = 1; // Placeholder
             float unitPrice = 1.0f; // Placeholder TODO: refine entity processing
             double totalPrice = extractNumberValue(numberEntries.removeFirst());
@@ -248,10 +248,9 @@ public class ScannerActivity extends AppCompatActivity {
 
 
     private void updateUIWithScanResults(List<ScanEntry> scanEntries) {
-        // Example: Update UI elements or RecyclerViews with the processed results
-        // For instance:
-        // consumerGoodsRecyclerView.setAdapter(new ScanEntryAdapter(consumerGoods));
-        // numbersRecyclerView.setAdapter(new ScanEntryAdapter(numbers));
+        Intent intent = new Intent(this, AddExpenseFromScannerActivity.class);
+        intent.putParcelableArrayListExtra("scanEntries", new ArrayList<>(scanEntries));
+        startActivity(intent);
     }
 
     @Override

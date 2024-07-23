@@ -1,13 +1,9 @@
-package com.example.bananasplit.Activities;
+package com.example.bananasplit.activities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -15,8 +11,6 @@ import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.AppActivityTracker;
 import com.example.bananasplit.databinding.ActivityActivitiesBinding;
-import com.example.bananasplit.databinding.ActivityGroupDetailsBinding;
-import com.example.bananasplit.databinding.ActivityGroupsBinding;
 
 import java.util.ArrayList;
 import java.util.List;

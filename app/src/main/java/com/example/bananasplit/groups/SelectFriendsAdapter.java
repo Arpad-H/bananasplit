@@ -15,10 +15,20 @@ import com.example.bananasplit.dataModel.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for displaying a list of friends with checkboxes to select them.
+ * @author Arpad Horvath
+ */
 public class SelectFriendsAdapter extends RecyclerView.Adapter<SelectFriendsAdapter.ViewHolder> {
+
     private List<Person> friends;
     private final List<Person> selectedFriends = new ArrayList<>();
 
+    /**
+     * Constructor for SelectFriendsAdapter.
+     *
+     * @param friends List of friends to display.
+     */
     public SelectFriendsAdapter(List<Person> friends) {
         this.friends = friends;
     }
@@ -33,27 +43,8 @@ public class SelectFriendsAdapter extends RecyclerView.Adapter<SelectFriendsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Person friend = friends.get(position);
-        viewHolder.getFriendName().setText(friend.getName());
-        viewHolder.getFriendCheckBox().setChecked(selectedFriends.contains(friend));
 
-        viewHolder.itemView.setOnClickListener(v -> {
-            if (selectedFriends.contains(friend)) {
-                selectedFriends.remove(friend);
-            } else {
-                selectedFriends.add(friend);
-            }
-            notifyDataSetChanged();
-        });
-
-        viewHolder.getFriendCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                if (!selectedFriends.contains(friend)) {
-                    selectedFriends.add(friend);
-                }
-            } else {
-                selectedFriends.remove(friend);
-            }
-        });
+        viewHolder.bind(friend);
     }
 
     @Override
@@ -61,35 +52,88 @@ public class SelectFriendsAdapter extends RecyclerView.Adapter<SelectFriendsAdap
         return friends.size();
     }
 
+    /**
+     * Updates the list of friends displayed by the adapter.
+     *
+     * @param friends The new list of friends.
+     */
     public void updateFriends(List<Person> friends) {
         this.friends = friends;
         notifyDataSetChanged();
     }
 
+    /**
+     * Returns the friend at the specified position.
+     *
+     * @param position The position of the friend.
+     * @return The friend at the specified position.
+     */
     public Person getPersonAt(int position) {
         return friends.get(position);
     }
 
+    /**
+     * Returns the list of selected friends.
+     *
+     * @return List of selected friends.
+     */
     public List<Person> getSelectedFriends() {
-        return selectedFriends;
+        return new ArrayList<>(selectedFriends);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * ViewHolder for displaying a friend with a checkbox.
+     */
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView friendName;
         private final CheckBox friendCheckBox;
 
-        public ViewHolder(View view) {
-            super(view);
-            friendName = view.findViewById(R.id.person_name);
-            friendCheckBox = view.findViewById(R.id.friendCheckBox);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            friendName = itemView.findViewById(R.id.person_name);
+            friendCheckBox = itemView.findViewById(R.id.friendCheckBox);
         }
 
-        public TextView getFriendName() {
-            return friendName;
+        /**
+         * Binds the friend data to the view.
+         *
+         * @param friend The friend to bind.
+         */
+        public void bind(Person friend) {
+            friendName.setText(friend.getName());
+            friendCheckBox.setChecked(selectedFriends.contains(friend));
+
+            itemView.setOnClickListener(v -> toggleSelection(friend));
+            friendCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> toggleSelection(friend, isChecked));
         }
 
-        public CheckBox getFriendCheckBox() {
-            return friendCheckBox;
+        /**
+         * Toggles the selection state of a friend.
+         *
+         * @param friend The friend to toggle.
+         */
+        private void toggleSelection(Person friend) {
+            boolean isSelected = selectedFriends.contains(friend);
+            if (isSelected) {
+                selectedFriends.remove(friend);
+            } else {
+                selectedFriends.add(friend);
+            }
+            notifyItemChanged(getAdapterPosition());
+        }
+
+        /**
+         * Toggles the selection state of a friend based on the checkbox state.
+         *
+         * @param friend The friend to toggle.
+         * @param isChecked The new checked state of the checkbox.
+         */
+        private void toggleSelection(Person friend, boolean isChecked) {
+            if (isChecked && !selectedFriends.contains(friend)) {
+                selectedFriends.add(friend);
+            } else if (!isChecked) {
+                selectedFriends.remove(friend);
+            }
         }
     }
 }

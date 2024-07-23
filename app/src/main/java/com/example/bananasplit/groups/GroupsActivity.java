@@ -30,6 +30,7 @@ import java.util.ArrayList;
  * @Author Arpad Horvath
  */
 public class GroupsActivity extends BaseActivity implements ListItemHolder {
+    private static final int REQUEST_CREATE_GROUP = 1;
     private static final String TAG = "GroupsActivity";
     private ActivityGroupsBinding binding;
     private GroupAdapter adapter;
@@ -45,13 +46,13 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         createBinding();
         setupRecyclerView();
         setupViewModel();
         setupFloatingActionButton();
         setupToggleButtons();
     }
+
     /**
      * Initializes the view binding for this activity.
      */
@@ -61,6 +62,7 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         getContentContainer().addView(contentView);
         binding = ActivityGroupsBinding.bind(contentView);
     }
+
     /**
      * Sets up the RecyclerView with a LinearLayoutManager and attaches the adapter.
      */
@@ -69,6 +71,7 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         adapter = new GroupAdapter(new ArrayList<>(), this);
         binding.recyclerView.setAdapter(adapter);
     }
+
     /**
      * Initializes the ViewModel and sets up the observer for group data.
      */
@@ -76,50 +79,46 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
         groupViewModel.getAllGroups().observe(this, groups -> adapter.updateGroups(groups));
     }
+
     /**
      * Sets up the Floating Action Button for adding a new group.
      */
     private void setupFloatingActionButton() {
         binding.btnAddGroup.setOnClickListener(v -> startActivity(new Intent(GroupsActivity.this, CreateGroupActivity.class)));
     }
+
     /**
      * Sets up the toggle button to switch between edit states in the group adapter.
      */
     private void setupToggleButtons() {
         binding.btnToggleGrpEditState.setOnClickListener(v -> adapter.toggleButtonsVisibility());
     }
+
     /**
      * Handles the result from activities started for a result.
      *
      * @param requestCode The integer request code originally supplied to startActivityForResult(), allowing you to identify who this result came from.
-     * @param resultCode The integer result code returned by the child activity through its setResult().
-     * @param data An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
+     * @param resultCode  The integer result code returned by the child activity through its setResult().
+     * @param data        An Intent, which can return result data to the caller (various data can be attached to Intent "extras").
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            String name = data.getStringExtra("name");
-            String imageUri = data.getStringExtra("imageUri");
-
-            Group newGroup = new Group.GroupBuilder()
-                    .name(name)
-                    .imageURI(imageUri)
-                    .build();
-
-            groupViewModel.insert(newGroup, new ArrayList<>());
+        if (requestCode == REQUEST_CREATE_GROUP && resultCode == RESULT_OK && data != null) {
+            handleCreateGroupResult(data);
         }
     }
+
     /**
      * Handles the result from the CreateGroupActivity.
      *
      * @param data The intent data returned from the CreateGroupActivity.
      */
     private void handleCreateGroupResult(@NonNull Intent data) {
-        try {
-            String name = data.getStringExtra("name");
-            String imageUri = data.getStringExtra("imageUri");
+        String name = data.getStringExtra("name");
+        String imageUri = data.getStringExtra("imageUri");
 
+        if (name != null && imageUri != null) {
             Group newGroup = new Group.GroupBuilder()
                     .name(name)
                     .imageURI(imageUri)
@@ -127,14 +126,16 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
 
             groupViewModel.insert(newGroup, new ArrayList<>());
             Log.d(TAG, "New group created: " + name);
-        } catch (Exception e) {
-            Log.e(TAG, "Error creating group", e);
+        } else {
+            Log.e(TAG, "Error creating group: name or imageUri is null");
             Toast.makeText(this, "Failed to create group", Toast.LENGTH_SHORT).show();
         }
     }
 
+
     /**
      * Handles item click events from the adapter.
+     * ItemListHolder interface implementation.
      *
      * @param position The position of the item clicked.
      */
@@ -145,8 +146,10 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         intent.putExtra("group", (Parcelable) groupToView);
         startActivity(intent);
     }
+
     /**
      * Handles item delete events from the adapter.
+     * ItemListHolder interface implementation.
      *
      * @param position The position of the item to be deleted.
      */
@@ -155,8 +158,10 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         Group groupToDelete = adapter.getGroupAt(position);
         groupViewModel.delete(groupToDelete);
     }
+
     /**
      * Handles item edit events from the adapter.
+     * ItemListHolder interface implementation.
      *
      * @param position The position of the item to be edited.
      */
@@ -167,6 +172,7 @@ public class GroupsActivity extends BaseActivity implements ListItemHolder {
         intent.putExtra("group", (Parcelable) groupToEdit);
         startActivity(intent);
     }
+
     /**
      * Returns the layout resource ID for this activity. Used by the BaseActivity.
      *
