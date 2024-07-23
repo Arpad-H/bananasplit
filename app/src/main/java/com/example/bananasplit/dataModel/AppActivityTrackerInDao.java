@@ -9,11 +9,15 @@ import androidx.room.Transaction;
 
 import java.util.List;
 
+/**
+ *  Defines the methods that will be used to interact with the database
+ * @author Arpad Horvath
+ */
 @Dao
 public interface AppActivityTrackerInDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insert(AppActivityTracker appActivityTracker);
+    long insert(AppActivityTrackerFootprint appActivityTrackerSignature);
     @Transaction
-    @Query("SELECT * FROM `AppActivityTracker`")
-    LiveData<List<AppActivityTracker>> getAllActivityTrackers();
+    @Query("SELECT * FROM AppActivityTrackerFootprint")
+    LiveData<List<AppActivityTrackerFootprint>> getAllActivityTrackers();
 }

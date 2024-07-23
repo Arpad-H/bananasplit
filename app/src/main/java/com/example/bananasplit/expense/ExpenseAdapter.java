@@ -1,71 +1,96 @@
 package com.example.bananasplit.expense;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Expense;
+import com.example.bananasplit.databinding.ExpenseListItemBinding;
 
 import java.util.List;
 
-public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder> {
+/**
+ * Adapter for the RecyclerView for Expenses.
+ * @author Arpad Horvath
+ */
+public class ExpenseAdapter extends ListAdapter<Expense, ExpenseAdapter.ExpenseViewHolder> {
 
-    private final List<Expense> expenses;
-
-    public ExpenseAdapter(List<Expense> expenses) {
-        this.expenses = expenses;
+    /**
+     * Constructor for the ExpenseAdapter.
+     */
+    public ExpenseAdapter() {
+        super(DIFF_CALLBACK);
     }
+
+    /**
+     * DiffUtil.ItemCallback for the ExpenseAdapter.
+     */
+    private static final DiffUtil.ItemCallback<Expense> DIFF_CALLBACK = new DiffUtil.ItemCallback<Expense>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Expense oldItem, @NonNull Expense newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Expense oldItem, @NonNull Expense newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
+
 
     @NonNull
     @Override
     public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.expense_list_item, parent, false);
-        return new ExpenseViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ExpenseListItemBinding binding = ExpenseListItemBinding.inflate(inflater, parent, false);
+        return new ExpenseViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
-        Expense expense = expenses.get(position);
-        holder.descriptionTextView.setText(expense.getDescription());
-
-        String amount = expense.getAmount() + expense.getCurrency().getCurrencySymbol();
-        holder.amountTextView.setText(amount);
-        holder.byPersonTextView.setText(expense.getPersonWhoPaid().getName());
-        holder.categoryImageView.setImageResource(expense.getCategory().getId());
-        holder.dateTextView.setText(expense.getDateString());
+        Expense expense = getItem(position);
+        holder.bind(expense);
     }
-
-    @Override
-    public int getItemCount() {
-        return expenses.size();
-    }
-
+    /**
+     * Updates the list of expenses in the adapter.
+     * @param newExpenses The new list of expenses.
+     */
     public void updateExpenses(List<Expense> newExpenses) {
-        expenses.clear();
-        expenses.addAll(newExpenses);
-        notifyDataSetChanged();
+        submitList(newExpenses);
     }
 
+    /**
+     * ViewHolder for the ExpenseAdapter.
+     */
     static class ExpenseViewHolder extends RecyclerView.ViewHolder {
-        TextView descriptionTextView;
-        TextView amountTextView;
-        TextView dateTextView;
-        TextView byPersonTextView;
-        ImageView categoryImageView;
+        private final ExpenseListItemBinding binding;
 
-        public ExpenseViewHolder(@NonNull View itemView) {
-            super(itemView);
-            descriptionTextView = itemView.findViewById(R.id.txt_expense);
-            amountTextView = itemView.findViewById(R.id.txt_expense_amount);
-            byPersonTextView = itemView.findViewById(R.id.txt_by_person);
-            categoryImageView = itemView.findViewById(R.id.imageView_category);
-            dateTextView = itemView.findViewById(R.id.txt_date);
+        /**
+         * Constructor for the ExpenseViewHolder.
+         * @param binding The binding for the ViewHolder.
+         */
+        public ExpenseViewHolder(@NonNull ExpenseListItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        /**
+         * Binds the expense to the ViewHolder.
+         * @param expense The expense to bind.
+         */
+        public void bind(Expense expense) {
+            binding.txtExpense.setText(expense.getDescription());
+
+            String amount = expense.getAmount() + expense.getCurrency().getCurrencySymbol();
+            binding.txtExpenseAmount.setText(amount);
+            binding.txtByPerson.setText(expense.getPersonWhoPaid().getName());
+            binding.imageViewCategory.setImageResource(expense.getCategory().getId());
+            binding.txtDate.setText(expense.getDateString());
         }
     }
 }

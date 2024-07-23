@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bananasplit.dataModel.AppActivityTracker;
+import com.example.bananasplit.dataModel.AppActivityTrackerFootprint;
 import com.example.bananasplit.databinding.AppActivityListItemBinding;
 
 import java.text.SimpleDateFormat;
@@ -15,10 +15,10 @@ import java.util.Locale;
 
 public class AppActivityAdapter extends RecyclerView.Adapter<AppActivityAdapter.ViewHolder> {
 
-    private List<AppActivityTracker> activityList;
+    private List<AppActivityTrackerFootprint> activityList;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
 
-    public AppActivityAdapter(List<AppActivityTracker> activityList) {
+    public AppActivityAdapter(List<AppActivityTrackerFootprint> activityList) {
         this.activityList = activityList;
     }
 
@@ -32,7 +32,7 @@ public class AppActivityAdapter extends RecyclerView.Adapter<AppActivityAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        AppActivityTracker activity = activityList.get(position);
+        AppActivityTrackerFootprint activity = activityList.get(position);
         holder.bind(activity);
     }
 
@@ -41,7 +41,7 @@ public class AppActivityAdapter extends RecyclerView.Adapter<AppActivityAdapter.
         return activityList.size();
     }
 
-    public void updateEntries(List<AppActivityTracker> newEntries) {
+    public void updateEntries(List<AppActivityTrackerFootprint> newEntries) {
         activityList = newEntries;
         notifyDataSetChanged();
     }
@@ -54,7 +54,7 @@ public class AppActivityAdapter extends RecyclerView.Adapter<AppActivityAdapter.
             this.binding = binding;
         }
 
-        void bind(AppActivityTracker activity) {
+        void bind(AppActivityTrackerFootprint activity) {
             binding.textViewInitiator.setText(activity.getInitiator());
             binding.textViewDetails.setText(activity.getActivityDetails());
             binding.textViewLocation.setText(activity.getActivityLocation());

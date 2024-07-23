@@ -42,7 +42,7 @@ public class FriendsDetailActivity extends BaseActivity {
 
             RecyclerView recyclerView = findViewById(R.id.recyclerViewExpensesFriend);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ExpenseAdapter(new ArrayList<>());
+            adapter = new ExpenseAdapter();
             recyclerView.setAdapter(adapter);
 
             ExpenseViewModel expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);

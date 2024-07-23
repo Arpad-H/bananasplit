@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
-import com.example.bananasplit.dataModel.AppActivityTracker;
+import com.example.bananasplit.dataModel.AppActivityTrackerFootprint;
 import com.example.bananasplit.databinding.ActivityActivitiesBinding;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class ActivitiesActivity extends BaseActivity {
         viewModel.getAllActivityTrackers().observe(this, this::updateUI);
     }
 
-    private void updateUI(List<AppActivityTracker> activityTrackers) {
+    private void updateUI(List<AppActivityTrackerFootprint> activityTrackers) {
         adapter.updateEntries(activityTrackers);
     }
 }

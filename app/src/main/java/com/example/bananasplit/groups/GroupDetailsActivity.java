@@ -110,7 +110,7 @@ public class GroupDetailsActivity extends BaseActivity {
     private void setupRecyclerView() {
         RecyclerView recyclerView = binding.recyclerViewExpenses;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ExpenseAdapter adapter = new ExpenseAdapter(new ArrayList<>());
+        ExpenseAdapter adapter = new ExpenseAdapter();
         recyclerView.setAdapter(adapter);
 
         expenseViewModel.getExpensesByGroupId(group.getGroupID()).observe(this, adapter::updateExpenses);

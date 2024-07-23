@@ -16,6 +16,10 @@ import com.example.bananasplit.util.UserSessionManager;
 
 import java.util.List;
 
+/**
+ * The ViewModel for the FriendsFragment
+* @author Dennis Brockmeyer, Arpad Horvath(where specified)
+ */
 public class FriendViewModel extends AndroidViewModel {
     private final LiveData<List<Person>> allFriends;
     private final PersonInDao personInDao;
@@ -47,6 +51,11 @@ public class FriendViewModel extends AndroidViewModel {
         }).start();
     }
 
+    /**
+     * Logs the creation of a friend
+     * @param friend the friend that was created
+     * @author Arpad Horvath
+     */
     private void logFriendCreated(Person friend) {
         UserSessionManager userSessionManager = new UserSessionManager(this.getApplication());
         String name = userSessionManager.getCurrentUserName();

@@ -14,50 +14,68 @@ import com.example.bananasplit.util.ImageUtils;
 
 import java.util.List;
 
+/**
+ * Adapter for displaying Person objects in a Spinner.
+ * @author Arpad Horvath
+ */
 public class PersonSpinnerAdapter extends ArrayAdapter<Person> {
 
     private final LayoutInflater inflater;
-    private final List<Person> persons;
     private final int resourceId;
 
+    /**
+     * Constructor for PersonSpinnerAdapter.
+     * @param context the context
+     * @param resourceId the layout resource ID
+     * @param persons the list of Person objects
+     */
     public PersonSpinnerAdapter(Context context, int resourceId, List<Person> persons) {
         super(context, resourceId, persons);
         this.inflater = LayoutInflater.from(context);
         this.resourceId = resourceId;
-        this.persons = persons;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return createViewFromResource(inflater, position, convertView, parent, resourceId);
+        return getCustomView(position, convertView, parent);
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return createViewFromResource(inflater, position, convertView, parent, resourceId);
+        return getCustomView(position, convertView, parent);
     }
 
-    private View createViewFromResource(LayoutInflater inflater, int position, View convertView, ViewGroup parent, int resource) {
-        final View view;
-        final ViewHolder holder;
+    /**
+     * Creates or updates a view to display a Person item.
+     * @param position the position of the item in the list
+     * @param convertView the recycled view to reuse, if possible
+     * @param parent the parent view group
+     * @return the view to display the item
+     */
+    private View getCustomView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
         if (convertView == null) {
-            view = inflater.inflate(resource, parent, false);
+            convertView = inflater.inflate(resourceId, parent, false);
             holder = new ViewHolder();
-            holder.profilePicture = view.findViewById(R.id.friend_profile_picture);
-            holder.name = view.findViewById(R.id.person_name);
-            view.setTag(holder);
+            holder.profilePicture = convertView.findViewById(R.id.friend_profile_picture);
+            holder.name = convertView.findViewById(R.id.person_name);
+            convertView.setTag(holder);
         } else {
-            view = convertView;
-            holder = (ViewHolder) view.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        Person person = persons.get(position);
-        holder.name.setText(person.getName());
-        ImageUtils.setProfileImage(holder.profilePicture, person.getName());
+        Person person = getItem(position);
+        if (person != null) {
+            holder.name.setText(person.getName());
+            ImageUtils.setProfileImage(holder.profilePicture, person.getName()); //TODO currently just placeholder image
+        }
 
-        return view;
+        return convertView;
     }
 
+    /**
+     * ViewHolder pattern for optimizing view lookup.
+     */
     private static class ViewHolder {
         ImageView profilePicture;
         TextView name;

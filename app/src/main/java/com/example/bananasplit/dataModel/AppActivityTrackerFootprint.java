@@ -6,13 +6,12 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 /**
- * Entity class representing an activity tracker.
+ * Entity class representing a footprint left by certain Action.
  * Utilizes the Builder pattern for easy and flexible object creation.
- *
- * @Author YourName
+ * @Author Arpad Horvath
  */
 @Entity
-public class AppActivityTracker {
+public class AppActivityTrackerFootprint {
     public int getActivityID() {
         return activityID;
     }
@@ -29,14 +28,21 @@ public class AppActivityTracker {
     private Date activityDate;
     private String activityLocation;
 
-    private AppActivityTracker(Builder builder) {
+    private AppActivityTrackerFootprint(Builder builder) {
         this.initiator = builder.initiator;
         this.activityDetails = builder.activityDetails;
         this.activityDate = builder.activityDate != null ? builder.activityDate : new Date();
         this.activityLocation = builder.activityLocation;
     }
 
-    public AppActivityTracker(String initiator, String activityDetails, Date activityDate, String activityLocation) {
+    /**
+     * Constructor for the AppActivityTrackerFootprint class.
+     * @param initiator The user who initiated the action.
+     * @param activityDetails The details of the action.
+     * @param activityDate The date of the action.
+     * @param activityLocation The location of the action.
+     */
+    public AppActivityTrackerFootprint(String initiator, String activityDetails, Date activityDate, String activityLocation) {
         this.initiator = initiator;
         this.activityDetails = activityDetails;
         this.activityDate = activityDate;
@@ -86,9 +92,12 @@ public class AppActivityTracker {
             this.activityLocation = activityLocation;
             return this;
         }
-
-        public AppActivityTracker build() {
-            return new AppActivityTracker(this);
+        /**
+         * Builds the AppActivityTrackerFootprint object.
+         * @return The built AppActivityTrackerFootprint object.
+         */
+        public AppActivityTrackerFootprint build() {
+            return new AppActivityTrackerFootprint(this);
         }
     }
 }

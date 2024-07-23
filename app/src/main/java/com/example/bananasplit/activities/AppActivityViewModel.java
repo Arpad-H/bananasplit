@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.bananasplit.dataModel.AppActivityTracker;
+import com.example.bananasplit.dataModel.AppActivityTrackerFootprint;
 import com.example.bananasplit.dataModel.AppActivityTrackerInDao;
 import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AppActivityViewModel extends AndroidViewModel {
 
-    private final LiveData<List<AppActivityTracker>> allActivityTrackers;
+    private final LiveData<List<AppActivityTrackerFootprint>> allActivityTrackers;
 
     public AppActivityViewModel(@NonNull Application application) {
         super(application);
@@ -24,7 +24,7 @@ public class AppActivityViewModel extends AndroidViewModel {
         allActivityTrackers = dao.getAllActivityTrackers();
     }
 
-    public LiveData<List<AppActivityTracker>> getAllActivityTrackers() {
+    public LiveData<List<AppActivityTrackerFootprint>> getAllActivityTrackers() {
         return allActivityTrackers;
     }
 }

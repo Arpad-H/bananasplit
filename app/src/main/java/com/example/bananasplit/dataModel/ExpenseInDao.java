@@ -12,12 +12,20 @@ import androidx.room.Update;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This interface is used to interact with the Expense table in the database.
+ *
+ * @author Dennis Brockmeyer, Arpad Horvath
+ */
+
 @Dao
 public interface ExpenseInDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Expense expense);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExpensePersonCrossRef(ExpensePersonCrossRef crossRef);
+
     @Update
     void update(Expense expense);
 
@@ -29,6 +37,13 @@ public interface ExpenseInDao {
     @Query("SELECT * FROM Expense WHERE id = :id")
     LiveData<Expense> getExpenseByID(int id);
 
+    /**
+     * Returns all expenses of a group
+     *
+     * @param groupID the groupID of the group
+     * @return a list of all expenses of the group
+     * @author Arpad Horvath
+     */
     @Transaction
     @Query("SELECT * FROM Expense WHERE groupID = :groupID")
     LiveData<List<Expense>> getExpensesByGroupId(int groupID);
@@ -37,16 +52,40 @@ public interface ExpenseInDao {
     @Query("SELECT * FROM Expense WHERE SpenderID = :ownID OR SpenderID = :friendID")
     LiveData<List<Expense>> getExpensesByFriendId(int ownID, int friendID);
 
+    /**
+     * insert an expense with a list of persons and their amounts, representing the split in the bill
+     *
+     * @param expense            the expense to be inserted
+     * @param personsWithAmounts a map of persons and their amounts
+     * @author Arpad Horvath
+     */
     @Transaction
-    default void insertExpenseWithPersonsAndAmount(Expense expense, Map<Person,Float> personsWithAmounts) {
+    default void insertExpenseWithPersonsAndAmount(Expense expense, Map<Person, Float> personsWithAmounts) {
         int expenseID = (int) insert(expense);
-        for (Map.Entry<Person,Float> pair : personsWithAmounts.entrySet()) {
+        for (Map.Entry<Person, Float> pair : personsWithAmounts.entrySet()) {
             insertExpensePersonCrossRef(new ExpensePersonCrossRef(pair.getKey().getPersonID(), expenseID, pair.getValue()));
         }
     }
+
+    /**
+     * Returns the total amount of money spent by a user in a group
+     *
+     * @param userId   the ID of the user
+     * @param groupId  the ID of the group
+     * @return the total amount of money spent by the user in the group
+     * @author Arpad Horvath
+     */
     @Query("SELECT COALESCE(SUM(amount), 0.0) FROM Expense WHERE spenderID = :userId and groupID = :groupId")
     LiveData<Double> getTotalAmountPaidByUserInGroup(int userId, int groupId);
 
-    @Query("SELECT SUM(ep.amount) FROM ExpensePersonCrossRef ep WHERE ep.personID = :userId and ep.expenseID IN (SELECT e.id FROM Expense e WHERE e.groupID = :groupId)")
+    /**
+     * Returns the total amount of money owed by a user in a group
+     *
+     * @param userId   the ID of the user
+     * @param groupId  the ID of the group
+     * @return the total amount of money owed by the user in the group
+     * @author Arpad Horvath
+     */
+    @Query("SELECT SUM(ep.amount) FROM ExpensePersonCrossRef ep WHERE ep.personID = :userId and ep.expenseID IN (SELECT e.id FROM Expense e WHERE e.groupID = :groupId)") //TODO: not working as intended
     LiveData<Double> getTotalAmountOwedByUserInGroup(int userId, int groupId);
 }

@@ -9,12 +9,17 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+/**
+ * This class represents a group of friends that share expenses.
+ *
+ * @Author Dennis Brockmeyer, Arpad Horvath
+ */
 @Entity
 public class Group implements Serializable, Parcelable {
     @PrimaryKey(autoGenerate = true)
     private int groupID = 0;
     private String name;
-    private String date; //TODO: eventuell als Date Object mit Converter?
+    private String date; //TODO:as a date object
     private int duration;
     private Currency currency;
     private String imageUri;
@@ -78,7 +83,11 @@ public class Group implements Serializable, Parcelable {
         this.currency = builder.currency;
     }
 
-
+    /**
+     * Constructor for the Parcelable interface
+     *
+     * @param in the parcel to read from
+     */
     protected Group(Parcel in) {
         groupID = in.readInt();
         name = in.readString();
@@ -99,7 +108,14 @@ public class Group implements Serializable, Parcelable {
         return imageUri;
     }
 
-
+    /**
+     * Writes the object to a parcel
+     *
+     * @param dest  The Parcel in which the object should be written.
+     * @param flags Additional flags about how the object should be written.
+     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
+     * @author Arpad Horvath
+     */
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(groupID);
@@ -108,6 +124,10 @@ public class Group implements Serializable, Parcelable {
         dest.writeDouble(currency.getValueInEur());
     }
 
+    /**
+     * Parcelable creator
+     * @author Arpad Horvath
+     */
     public static final Creator<Group> CREATOR = new Creator<Group>() {
         @Override
         public Group createFromParcel(Parcel in) {

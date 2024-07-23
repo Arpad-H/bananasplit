@@ -4,13 +4,20 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Enum for the different currencies
+ * Each currency has a value in EUR for conversion and a symbol
+ *
+ * @author Arpad Horvath, Dennis Brockmeyer (where specified)
+ */
+
 public enum Currency implements Serializable {
     EUR(1, "€"),
     USD(0.9153, "$"), // USA
     CNY(0.126, "CN¥"), // China
-    CHF(1.035, "CHF" ), // Schweiz
-    GBP(1.190, "£" ), // Großbrittanien
-    TRY(0.02765, "₺" ), // Türkey
+    CHF(1.035, "CHF"), // Schweiz
+    GBP(1.190, "£"), // Großbrittanien
+    TRY(0.02765, "₺"), // Türkey
     JPY(0.0058, "¥"); // Japan
 
     private final double valueInEur;
@@ -21,18 +28,27 @@ public enum Currency implements Serializable {
         this.currencySymbol = currencySymbol;
     }
 
+    /**
+     * @author Dennis Brockmeyer
+     */
     public double getValueInEur() {
         return valueInEur;
     }
 
+    /**
+     * @author Dennis Brockmeyer
+     */
     // idea from https://stackoverflow.com/a/49179205
     private static final Map<Double, Currency> _map = new HashMap<>();
-    static
-    {
+
+    static {
         for (Currency currency : Currency.values())
             _map.put(currency.valueInEur, currency);
     }
 
+    /**
+     * @author Dennis Brockmeyer
+     */
     public static Currency from(Double value) {
         return _map.get(value);
     }
@@ -40,6 +56,7 @@ public enum Currency implements Serializable {
     public String getCurrencySymbol() {
         return currencySymbol;
     }
+
     public static Currency fromString(String text) {
         for (Currency c : Currency.values()) {
             if (c.currencySymbol.equalsIgnoreCase(text)) {

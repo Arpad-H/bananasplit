@@ -1,6 +1,6 @@
 package com.example.bananasplit.util.Logging;
 
-import com.example.bananasplit.dataModel.AppActivityTracker;
+import com.example.bananasplit.dataModel.AppActivityTrackerFootprint;
 import com.example.bananasplit.dataModel.AppActivityTrackerInDao;
 import com.example.bananasplit.dataModel.AppDatabase;
 
@@ -22,7 +22,7 @@ public class AppActivityLogger implements ActivityLogger {
     }
     @Override
     public void logActivity(String initiator, String activityDetails, String activityLocation) {
-        AppActivityTracker activityTracker = new AppActivityTracker.Builder()
+        AppActivityTrackerFootprint activityTracker = new AppActivityTrackerFootprint.Builder()
                 .setInitiator(initiator)
                 .setActivityDetails(activityDetails)
                 .setActivityLocation(activityLocation)
@@ -35,7 +35,7 @@ public class AppActivityLogger implements ActivityLogger {
      * Inserts the activity into the database
      * @param activityTracker The activity to be inserted
      */
-    private void insertActivity(AppActivityTracker activityTracker) {
+    private void insertActivity(AppActivityTrackerFootprint activityTracker) {
         new Thread(() -> {
             appActivityTrackerInDao.insert(activityTracker);
         }).start();

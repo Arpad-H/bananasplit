@@ -9,6 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Represents an expense in a group.
+ * @autor Arpad Horvath, Dennis Brockemeyer
+ */
 @Entity(foreignKeys =   {
         @ForeignKey(entity = Person.class,
             parentColumns = "personID",
@@ -42,6 +46,18 @@ public class Expense implements Serializable {
         this.category = category;
         date = new Date();
 
+    }
+
+    public boolean equals(Expense expense) {
+        return this.id == expense.id &&
+                this.spenderID == expense.spenderID &&
+                this.groupID == expense.groupID &&
+                this.amount == expense.amount &&
+                this.currency.equals(expense.currency) &&
+                this.description.equals(expense.description) &&
+                this.personWhoPaid.equals(expense.personWhoPaid) &&
+                this.category.equals(expense.category) &&
+                this.date.equals(expense.date);
     }
     public float getAmount() {
         return this.amount;
@@ -109,7 +125,7 @@ public class Expense implements Serializable {
         return date;
     }
     public String getDateString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("M. dd. yyyy", Locale.GERMANY); //TODO change to user's locale
+        SimpleDateFormat sdf = new SimpleDateFormat("M. dd. yyyy", Locale.GERMANY); //TODO maybe change dependent on locale like us format
         return sdf.format(date);
     }
     public void setDate(Date date) {

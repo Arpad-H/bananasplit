@@ -2,6 +2,10 @@ package com.example.bananasplit.dataModel;
 
 import androidx.room.Entity;
 
+/**
+ * This class represents the cross-reference table between persons and groups.
+ * @author Arpad Horvath, Dennis Brockmeyer
+ */
 @Entity(primaryKeys = {"personID", "groupID"})
 public class PersonGroupCrossRef {
     private int personID;
@@ -29,5 +33,3 @@ public class PersonGroupCrossRef {
         this.groupID = groupID;
     }
 }
-
-// Wird benötigt, um die Many-to-Many-Relation von Personen und Reisen darzustellen
