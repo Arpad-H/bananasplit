@@ -11,12 +11,19 @@ import javax.inject.Singleton;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
+/**
+ * This class is responsible for logging activities.
+ * Logged Activities are stored in the database and displayed in the activity screen to the user
+ * It implements the ActivityLogger interface.
+ * @author Arpad Horvath
+ */
 public class AppActivityLogger implements ActivityLogger {
     private final AppActivityTrackerInDao appActivityTrackerInDao;
 
-
-
-
+    /**
+     * Constructor for the AppActivityLogger class
+     * @param database The database object
+     */
     public AppActivityLogger(AppDatabase database) {
         appActivityTrackerInDao = database.appActivityTrackerInDao();
     }
@@ -31,6 +38,10 @@ public class AppActivityLogger implements ActivityLogger {
         insertActivity(activityTracker);
     }
 
+    /**
+     * Inserts the activity into the database
+     * @param activityTracker The activity to be inserted
+     */
     private void insertActivity(AppActivityTracker activityTracker) {
         new Thread(() -> {
             appActivityTrackerInDao.insert(activityTracker);

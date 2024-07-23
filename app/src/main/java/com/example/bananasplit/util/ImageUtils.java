@@ -13,38 +13,48 @@ import android.widget.ImageView;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Random;
-
+/**
+ * Utility class for image-related operations.
+ * Provides methods to generate profile images in the Style of Googles Circle and initial.
+ * Retrieves drawable resources from URIs.
+ * @author Arpad Horvath
+ */
 public class ImageUtils {
 
     public static void setProfileImage(ImageView imageView, String name) {
-        int size = 100; // size of the image
+        final int size = 100;
         Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
 
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
+        Paint circlePaint = new Paint();
+        circlePaint.setAntiAlias(true);
+        circlePaint.setColor(generateRandomColor());
 
-        // Generate random color
-        Random random = new Random();
-        paint.setColor(Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
-        canvas.drawCircle(size / 2f, size / 2f, size / 2f, paint);
+        // Draw the circular background
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f, circlePaint);
 
-        // Draw initials
+        // Draw the initials
         Paint textPaint = new Paint();
         textPaint.setColor(Color.WHITE);
         textPaint.setTextSize(40);
         textPaint.setAntiAlias(true);
         textPaint.setTextAlign(Paint.Align.CENTER);
 
-        String initial = name != null && !name.isEmpty() ? String.valueOf(name.charAt(0)).toUpperCase() : "A";
+        String initial = getInitial(name);
         float xPos = size / 2f;
         float yPos = (size / 2f) - ((textPaint.descent() + textPaint.ascent()) / 2f);
         canvas.drawText(initial, xPos, yPos, textPaint);
 
         imageView.setImageDrawable(new BitmapDrawable(imageView.getResources(), bitmap));
     }
+    /**
+     * Retrieves a Drawable from the given URI.
+     * <a href="https://stackoverflow.com/questions/74832184/how-to-transform-uri-to-integer-for-drawable">...</a>
+     * @param activity The activity context used to access the content resolver.
+     * @param uri      The URI of the drawable resource.
+     * @return A Drawable object corresponding to the URI, or null if the URI is not found.
+     */
 
-    //https://stackoverflow.com/questions/74832184/how-to-transform-uri-to-integer-for-drawable
     public static Drawable getDrawableFromUri(Activity activity, Uri uri) {
         try {
             InputStream inputStream = activity.getContentResolver().openInputStream(uri);
@@ -53,5 +63,25 @@ public class ImageUtils {
             e.printStackTrace();
             return null;
         }
+    }
+    /**
+     * Generates a random color.
+     *
+     * @return The generated random color.
+     */
+    private static int generateRandomColor() {
+        Random random = new Random();
+        return Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
+
+    /**
+     * Retrieves the initial character from the provided name.
+     * Defaults to "A" if the name is null or empty.
+     *
+     * @param name The name from which to derive the initial.
+     * @return The initial character of the name, or "A" if the name is null or empty.
+     */
+    private static String getInitial(String name) {
+        return (name != null && !name.isEmpty()) ? String.valueOf(name.charAt(0)).toUpperCase() : "A";
     }
 }

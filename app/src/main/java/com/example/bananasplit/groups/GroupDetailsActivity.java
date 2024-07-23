@@ -156,7 +156,7 @@ public class GroupDetailsActivity extends BaseActivity {
             updateTextView(youOweTextView, youOwe.floatValue());
         });
 
-        expenseCalculator.getTotalAmountPaidByCurrentInGroup(groupId).observe(this, owedAmount -> {
+        expenseCalculator.getTotalAmountPaidByCurrentUserInGroup(groupId).observe(this, owedAmount -> {
             updateTextView(owedAmountTextView, owedAmount.floatValue());
         });
     }
