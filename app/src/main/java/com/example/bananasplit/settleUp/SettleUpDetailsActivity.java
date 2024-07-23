@@ -46,7 +46,8 @@ import java.util.List;
 /**
  * Activity to handle settling up details.
  * Provides options for different payment methods including PayPal.
- * @author Arpad Horvath
+ *
+ * @author Arpad Horvath, Dennis Brockmeyer(where specified)
  */
 public class SettleUpDetailsActivity extends BaseActivity {
     SettleUpAdapter adapter;
@@ -76,6 +77,14 @@ public class SettleUpDetailsActivity extends BaseActivity {
     }
 
     /**
+     * Extracts data from the intent that started this activity.
+     * @author Dennis Brockmeyer
+     */
+    private void extractDataFromIntent() {
+        //TODO: extract data from intent
+    }
+
+    /**
      * Sets up the back button and its click listener.
      */
     private void setupBackButton() {
@@ -91,6 +100,8 @@ public class SettleUpDetailsActivity extends BaseActivity {
 
     /**
      * Sets up the transfer money button click listener.
+     *
+     * @author Dennis Brockmeyer
      */
     private void setupTransferMoneyButton() {
         binding.btnTransfer.setOnClickListener(v -> {

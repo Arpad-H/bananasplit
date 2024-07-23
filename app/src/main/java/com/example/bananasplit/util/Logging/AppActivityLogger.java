@@ -1,15 +1,8 @@
-package com.example.bananasplit.util;
+package com.example.bananasplit.util.Logging;
 
 import com.example.bananasplit.dataModel.AppActivityTracker;
 import com.example.bananasplit.dataModel.AppActivityTrackerInDao;
 import com.example.bananasplit.dataModel.AppDatabase;
-import com.example.bananasplit.dataModel.DatabaseModule;
-import com.example.bananasplit.dataModel.Person;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * This class is responsible for logging activities.

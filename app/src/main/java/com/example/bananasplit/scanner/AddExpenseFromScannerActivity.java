@@ -16,18 +16,21 @@ import com.example.bananasplit.groups.GroupViewModel;
 
 import java.util.List;
 
-public class AddExpenseFromScannerActivity extends BaseActivity{
-    private ActivityAddExpenseFromScannerBinding    binding;
+/**
+ * This activity is used to add expenses from the scanner
+ * It will display the scanned entries and allow the user to create a new expense
+ *
+ * @author Arpad Horvath, Dennis Brockmeyer
+ */
+public class AddExpenseFromScannerActivity extends BaseActivity {
+    private ActivityAddExpenseFromScannerBinding binding;
     private List<ScanEntry> scanEntries;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View contentView = inflater.inflate(R.layout.activity_add_expense_from_scanner, getContentContainer(), false);
-        getContentContainer().addView(contentView);
-
-        binding = ActivityAddExpenseFromScannerBinding.bind(contentView);
+        initBinding();
         scanEntries = getIntent().getParcelableArrayListExtra("scanEntries");
 
 
@@ -35,6 +38,27 @@ public class AddExpenseFromScannerActivity extends BaseActivity{
         //TODO implement the rest of the activity like database operations
     }
 
+    /**
+     * Initializes the binding for the activity
+     *
+     * @author Arpad Horvath
+     */
+    private void initBinding() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_add_expense_from_scanner, getContentContainer(), false);
+        getContentContainer().addView(contentView);
+
+        binding = ActivityAddExpenseFromScannerBinding.bind(contentView);
+    }
+
+    /**
+     * Sets up the recycler view for the scanned entries
+     * It will display the scanned entries in a list
+     *
+     * @author Arpad Horvath
+     * @see ScanEntryAdapter
+     * @see ScanEntry
+     */
     private void setupRecyclerView() {
 
         binding.ScannedEntriesRV.setLayoutManager(new LinearLayoutManager(this));

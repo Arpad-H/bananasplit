@@ -1,11 +1,12 @@
-package com.example.bananasplit.util;
+package com.example.bananasplit.util.Logging;
 
 
 
 import android.content.Context;
 
 import com.example.bananasplit.dataModel.AppDatabase;
-import com.example.bananasplit.dataModel.DatabaseModule;
+import com.example.bananasplit.util.Logging.ActivityLogger;
+import com.example.bananasplit.util.Logging.AppActivityLogger;
 
 import javax.inject.Inject;
 

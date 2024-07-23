@@ -1,7 +1,5 @@
 package com.example.bananasplit.dataModel.repository;
 
-import static dagger.hilt.android.internal.Contexts.getApplication;
-
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
@@ -11,14 +9,11 @@ import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Group;
 import com.example.bananasplit.dataModel.GroupInDao;
 import com.example.bananasplit.dataModel.Person;
-import com.example.bananasplit.util.ActivityLogger;
-import com.example.bananasplit.util.AppActivityLogger;
+import com.example.bananasplit.util.Logging.ActivityLogger;
+import com.example.bananasplit.util.Logging.AppActivityLogger;
 import com.example.bananasplit.util.UserSessionManager;
-import com.paypal.pyplcheckout.data.model.pojo.User;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class GroupRepository {
     private final GroupInDao groupInDao;

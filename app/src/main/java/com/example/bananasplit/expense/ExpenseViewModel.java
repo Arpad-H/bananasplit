@@ -6,15 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.bananasplit.dataModel.AppActivityTracker;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Expense;
 import com.example.bananasplit.dataModel.ExpenseInDao;
 import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.GroupInDao;
 import com.example.bananasplit.dataModel.Person;
-import com.example.bananasplit.util.ActivityLogger;
-import com.example.bananasplit.util.AppActivityLogger;
+import com.example.bananasplit.util.Logging.ActivityLogger;
+import com.example.bananasplit.util.Logging.AppActivityLogger;
 import com.example.bananasplit.util.UserSessionManager;
 
 import java.util.List;

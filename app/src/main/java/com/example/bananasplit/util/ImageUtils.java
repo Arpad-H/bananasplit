@@ -2,6 +2,7 @@ package com.example.bananasplit.util;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,8 +11,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.widget.ImageView;
 
+import androidx.camera.core.ImageProxy;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Random;
 /**
  * Utility class for image-related operations.
@@ -83,5 +87,20 @@ public class ImageUtils {
      */
     private static String getInitial(String name) {
         return (name != null && !name.isEmpty()) ? String.valueOf(name.charAt(0)).toUpperCase() : "A";
+    }
+
+    /**
+     * Converts an ImageProxy object from CameraX to a Bitmap.
+     * @param image The ImageProxy object to convert.
+     * @return The converted Bitmap object.
+     */
+    public static Bitmap imageProxyToBitmap(ImageProxy image) {
+        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+        buffer.rewind();
+        byte[] bytes = new byte[buffer.remaining()];
+        buffer.get(bytes);
+
+        // Convert bytes to bitmap (NV21 format)
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 }
