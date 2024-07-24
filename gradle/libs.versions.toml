@@ -1,5 +1,5 @@
 [versions]
-agp = "8.4.1"
+agp = "8.0.2"
 androidSdkVersion = "1.3.2"
 googleAuthLibraryOauth2Http = "1.13.0"
 googleCloudLanguage = "2.3.0"
