@@ -35,6 +35,10 @@ public interface PersonInDao {
     @Query("SELECT * FROM Person WHERE personID = :personID")
     LiveData<Person> getPersonForID(int personID);
 
+    @Query("SELECT * FROM Person WHERE personID = :personID")
+    Person getCurrentUser(int personID);
+
+
     @Query("SELECT * FROM Person")
     LiveData<List<Person>> getFriends();
 }

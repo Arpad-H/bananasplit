@@ -57,7 +57,8 @@ public class EditProfileActivity extends AppCompatActivity {
             UserSessionManager userSessionManager = new UserSessionManager(getApplication());
             AppDatabase database = DatabaseModule.getInstance(this);
             PersonInDao personInDao = database.personInDao();
-            if (personInDao.getPersonForID(userSessionManager.getCurrentUserId()).getValue() != null) {
+            Person currentUser = personInDao.getCurrentUser(userSessionManager.getCurrentUserId());
+            if (currentUser == null) {
             new Thread(() -> {
                 int id = (int) personInDao.insert(new Person.PersonBuilder().name(nameEditText.getText().toString()).imageURI(imageUri.toString()).build());
                 userSessionManager.setCurrentUserId(id);
