@@ -48,6 +48,8 @@ public class TextAnalysisProvider {
      * Analyzes the given text and returns a list of entities found in the text.
      * based on the Google Cloud Natural Language API documentation.
      * <a href="https://cloud.google.com/natural-language/docs/reference/libraries#client-libraries-install-java">...</a>
+     * <a href="https://cloud.google.com/docs/authentication/application-default-credentials#GAC">...</a>
+     * <a href="https://stackoverflow.com/questions/6343166/how-can-i-fix-android-os-networkonmainthreadexception">...</a>
      * @param text The text to analyze.
      * @param callback The callback to receive the analysis results.
      */

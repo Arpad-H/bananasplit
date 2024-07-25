@@ -12,6 +12,7 @@ android {
         resources {
             excludes += "META-INF/INDEX.LIST"
             excludes += "META-INF/DEPENDENCIES"
+//            https://stackoverflow.com/questions/75150167/instrumented-tests-will-not-run-6-files-found-with-path-meta-inf-license-md
         }
     }
     defaultConfig {
