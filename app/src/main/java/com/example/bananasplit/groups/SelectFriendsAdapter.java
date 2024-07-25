@@ -43,7 +43,6 @@ public class SelectFriendsAdapter extends RecyclerView.Adapter<SelectFriendsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Person friend = friends.get(position);
-
         viewHolder.bind(friend);
     }
 
@@ -59,7 +58,7 @@ public class SelectFriendsAdapter extends RecyclerView.Adapter<SelectFriendsAdap
      */
     public void updateFriends(List<Person> friends) {
         this.friends = friends;
-        notifyDataSetChanged();
+        notifyDataSetChanged(); //small lists so hopefully fine
     }
 
     /**

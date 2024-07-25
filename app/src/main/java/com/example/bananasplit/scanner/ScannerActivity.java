@@ -72,14 +72,14 @@ public class ScannerActivity extends AppCompatActivity {
         cameraProvider = new CameraProvider(previewView, new ImageCapture.OnImageCapturedCallback() {
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
-                Toast.makeText(getApplicationContext(), "Capture successful, Processing receipt", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.capture_successful), Toast.LENGTH_LONG).show();
                 processImage(image);
                 image.close();
             }
 
             @Override
             public void onError(@NonNull ImageCaptureException exception) {
-                Toast.makeText(getApplicationContext(), "Capture failed: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.capture_failed) + exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         Button captureButton = findViewById(R.id.captureButton);
@@ -98,7 +98,7 @@ public class ScannerActivity extends AppCompatActivity {
 
             @Override
             public void onTextRecognitionFailed(Exception e) {
-                Log.e("MLKit", "Text recognition failed", e);
+                Toast.makeText(ScannerActivity.this, getString(R.string.failed_to_recognize_text), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -129,7 +129,7 @@ public class ScannerActivity extends AppCompatActivity {
      * @param text The text to analyze.
      */
     private void analyzeTextWithGoogleCloud(String text) {
-        String cleanedText = text.replaceAll("\\r\\n|\\r|\\n", " ").trim(); //apparently it performs better on single line text
+        String cleanedText = text.replaceAll("\\r\\n|\\r|\\n", " ").trim(); //apparently it performs better on single line text. yet to find out why
         textAnalysisProvider.analyzeText(cleanedText, new TextAnalysisProvider.TextAnalysisCallback() {
             @Override
             public void onAnalysisSuccess(List<Entity> entities) {
@@ -140,7 +140,7 @@ public class ScannerActivity extends AppCompatActivity {
             @Override
             public void onAnalysisFailure(Exception e) {
                 Log.e("ScannerActivity", "Failed to analyze text", e);
-                mainHandler.post(() -> Toast.makeText(ScannerActivity.this, "Failed to analyze text", Toast.LENGTH_SHORT).show());
+                mainHandler.post(() -> Toast.makeText(ScannerActivity.this,getString(R.string.failed_to_analyze_text) , Toast.LENGTH_SHORT).show());
             }
         });
     }
@@ -185,8 +185,8 @@ public class ScannerActivity extends AppCompatActivity {
         for (Entity entity : consumerGoodsEntries) {
 
             String name = entity.getName();
-            int quantity = 1; // Placeholder
-            float unitPrice = 1.0f; // Placeholder TODO: refine entity processing to allow quantity and unit price extraction
+            int quantity = 1;
+            float unitPrice = 1.0f; // TODO: refine entity processing to allow quantity and unit price extraction
             double totalPrice = TextUtils.extractNumberValue(numberEntries.removeFirst());
             entries.add(new ScanEntry(name, quantity, unitPrice, totalPrice));
         }

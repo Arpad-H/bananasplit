@@ -37,6 +37,7 @@ public class CameraProvider {
 
     /**
      * Starts the camera and binds it to the given PreviewView.
+     * <a href="https://github.com/android/camera-samples">...</a>
      */
     private void startCamera() {
         ProcessCameraProvider.getInstance(previewView.getContext())

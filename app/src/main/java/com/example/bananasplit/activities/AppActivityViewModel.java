@@ -13,6 +13,11 @@ import com.example.bananasplit.dataModel.DatabaseModule;
 
 import java.util.List;
 
+/**
+ * This class is a ViewModel for the AppActivityTrackerFootprint entity.
+ * @author Arpad Horvath
+ */
+
 public class AppActivityViewModel extends AndroidViewModel {
 
     private final LiveData<List<AppActivityTrackerFootprint>> allActivityTrackers;
@@ -24,6 +29,10 @@ public class AppActivityViewModel extends AndroidViewModel {
         allActivityTrackers = dao.getAllActivityTrackers();
     }
 
+    /**
+     * returns all the activity trackers.
+     * @return allActivityTrackers
+     */
     public LiveData<List<AppActivityTrackerFootprint>> getAllActivityTrackers() {
         return allActivityTrackers;
     }

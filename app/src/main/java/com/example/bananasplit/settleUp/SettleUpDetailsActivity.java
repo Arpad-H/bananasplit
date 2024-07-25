@@ -115,6 +115,7 @@ public class SettleUpDetailsActivity extends BaseActivity {
     /**
      * Sets up the PayPal payment button container and its actions.
      * capture is deprecated but no alternative is provided in the documentation.
+     * <a href="https://stackoverflow.com/questions/77989686/android-paypal-checkout-options">...</a>
      */
     private void setupPayPalPayment() {
         binding.paypalPaymentButton.setup(

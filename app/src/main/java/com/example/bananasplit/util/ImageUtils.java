@@ -20,6 +20,7 @@ import java.util.Random;
 /**
  * Utility class for image-related operations.
  * Provides methods to generate profile images in the Style of Googles Circle and initial.
+ * currently regenerates them on every call with no consistent colors
  * Retrieves drawable resources from URIs.
  * @author Arpad Horvath
  */
@@ -46,7 +47,7 @@ public class ImageUtils {
 
         String initial = getInitial(name);
         float xPos = size / 2f;
-        float yPos = (size / 2f) - ((textPaint.descent() + textPaint.ascent()) / 2f);
+        float yPos = (size / 2f) - ((textPaint.descent() + textPaint.ascent()) / 2f); //chatgpt prompt: "how to center a letter in a circle when painting in android"
         canvas.drawText(initial, xPos, yPos, textPaint);
 
         imageView.setImageDrawable(new BitmapDrawable(imageView.getResources(), bitmap));
@@ -91,6 +92,7 @@ public class ImageUtils {
 
     /**
      * Converts an ImageProxy object from CameraX to a Bitmap.
+     * chatgpt prompt: "Converts an ImageProxy object from CameraX to a Bitmap."
      * @param image The ImageProxy object to convert.
      * @return The converted Bitmap object.
      */

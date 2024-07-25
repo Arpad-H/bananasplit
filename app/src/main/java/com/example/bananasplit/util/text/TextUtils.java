@@ -10,7 +10,8 @@ import com.google.cloud.language.v1.Entity;
 public class TextUtils {
 
     /**
-     * Checks if the given text is a valid decimal number.
+     * Checks if the given text is a valid posititve decimal number.
+     * Chatgpt prompt: "how do I check if a string is a valid positiv decimal number in Java?"
      * @param text The text to check.
      * @return True if the text is a valid decimal number, false otherwise.
      */

@@ -15,6 +15,10 @@ import com.example.bananasplit.databinding.ActivityActivitiesBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This activity displays a list of all activities that have been noted. It represents a kind of news feed on the latest Activities.
+ * @author Arpad Horvath
+ */
 public class ActivitiesActivity extends BaseActivity {
     private ActivityActivitiesBinding binding;
     private AppActivityViewModel viewModel;
@@ -38,17 +42,26 @@ public class ActivitiesActivity extends BaseActivity {
         return R.layout.activity_activities;
     }
 
+    /**
+     * Sets up the recycler view for the activity list.
+     */
     private void setupRecyclerView() {
         binding.recyclerViewActivity.setLayoutManager(new LinearLayoutManager(this));
         adapter = new AppActivityAdapter(new ArrayList<>());
         binding.recyclerViewActivity.setAdapter(adapter);
     }
-
+    /**
+     * Sets up the view model for the activity list.
+     */
     private void setupViewModel() {
         viewModel = new ViewModelProvider(this).get(AppActivityViewModel.class);
         viewModel.getAllActivityTrackers().observe(this, this::updateUI);
     }
 
+    /**
+     * Updates the UI with the given list of activity trackers.
+     * @param activityTrackers the list of activity trackers to display
+     */
     private void updateUI(List<AppActivityTrackerFootprint> activityTrackers) {
         adapter.updateEntries(activityTrackers);
     }

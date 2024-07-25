@@ -34,7 +34,7 @@
 
                 <data
                     android:host="paypalpay"
-                    android:scheme="com.your.package.name" />
+                    android:scheme="nativexo://paypalpay" />
             </intent-filter>
         </activity>
 

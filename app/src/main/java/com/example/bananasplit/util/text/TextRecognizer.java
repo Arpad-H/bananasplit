@@ -34,6 +34,7 @@ public class TextRecognizer {
 
     /**
      * Processes the given image and recognizes text.
+     * <a href="https://developers.google.com/ml-kit/vision/text-recognition/v2/android">...</a>
      * @param bitmap The image to be processed.
      * @param rotationDegrees The rotation of the image in degrees.
      */

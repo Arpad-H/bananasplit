@@ -46,12 +46,14 @@ public class TextAnalysisProvider {
 
     /**
      * Analyzes the given text and returns a list of entities found in the text.
+     * based on the Google Cloud Natural Language API documentation.
+     * <a href="https://cloud.google.com/natural-language/docs/reference/libraries#client-libraries-install-java">...</a>
      * @param text The text to analyze.
      * @param callback The callback to receive the analysis results.
      */
     public void analyzeText(String text, TextAnalysisCallback callback) {
         executorService.execute(() -> {
-            try (InputStream credentialsStream = context.getAssets().open("civil-oarlock-430219-t8-1dd96ae6ae58.json")) {
+            try (InputStream credentialsStream = context.getAssets().open("civil-oarlock-430219-t8-1dd96ae6ae58.json")) { //ChatGP prompt: where to get the download version of the credentials file and where ist it used for authentication
                 GoogleCredentials credentials = GoogleCredentials.fromStream(credentialsStream);
                 LanguageServiceSettings settings = LanguageServiceSettings.newBuilder()
                         .setCredentialsProvider(FixedCredentialsProvider.create(credentials))

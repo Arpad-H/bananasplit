@@ -232,6 +232,7 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
 
     /**
      * Result handler for the image picker.
+     * <a href="https://github.com/Dhaval2404/ImagePicker">...</a>
      *
      * @param requestCode The integer request code originally supplied to
      *                    startActivityForResult(), allowing you to identify who this

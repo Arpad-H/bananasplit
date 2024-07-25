@@ -103,6 +103,10 @@
     <string name="addgroup">Add Group</string>
     <string name="camera_permission_denied">Camera Permissions have been denied</string>
     <string name="storage_permission_denied">Storage permissions have been denied</string>
+    <string name="capture_successful">Capture successful, Processing receipt</string>
+    <string name="capture_failed">Capture failed:</string>
+    <string name="failed_to_recognize_text">Failed to recognize text</string>
+    <string name="failed_to_analyze_text">Failed to analyze text</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

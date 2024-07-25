@@ -29,6 +29,7 @@ public class ExpenseAdapter extends ListAdapter<Expense, ExpenseAdapter.ExpenseV
 
     /**
      * DiffUtil.ItemCallback for the ExpenseAdapter.
+     * Idde für DiffUtil von https://stackoverflow.com/questions/64906672/recyclerview-list-item-view-not-updating-using-diffutil-itemcallback
      */
     private static final DiffUtil.ItemCallback<Expense> DIFF_CALLBACK = new DiffUtil.ItemCallback<Expense>() {
         @Override
@@ -85,7 +86,6 @@ public class ExpenseAdapter extends ListAdapter<Expense, ExpenseAdapter.ExpenseV
          */
         public void bind(Expense expense) {
             binding.txtExpense.setText(expense.getDescription());
-
             String amount = expense.getAmount() + expense.getCurrency().getCurrencySymbol();
             binding.txtExpenseAmount.setText(amount);
             binding.txtByPerson.setText(expense.getPersonWhoPaid().getName());
