@@ -12,7 +12,7 @@ import java.io.Serializable;
 /**
  * This class represents a group of friends that share expenses.
  *
- * @Author Dennis Brockmeyer, Arpad Horvath
+ * @author Dennis Brockmeyer, Arpad Horvath
  */
 @Entity
 public class Group implements Serializable, Parcelable {
@@ -140,6 +140,10 @@ public class Group implements Serializable, Parcelable {
         }
     };
 
+    /**
+     * Inner Class to be used as a Builder Pattern
+     * @author Dennis Brockmeyer
+     */
     public static class GroupBuilder {
         private String name;
         private String date;

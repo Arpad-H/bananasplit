@@ -10,6 +10,10 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * represents a Person
+ * @author Dennis Brockmeyer
+ */
 @Entity
 public class Person implements Serializable, Parcelable {
     @PrimaryKey(autoGenerate = true)
@@ -64,6 +68,11 @@ public class Person implements Serializable, Parcelable {
         return email;
     }
 
+    /**
+     * Constructor for the Parcelable interface
+     *
+     * @param in the parcel to read from
+     */
     protected Person(Parcel in) {
         personID = in.readInt();
         name = in.readString();
@@ -71,6 +80,9 @@ public class Person implements Serializable, Parcelable {
         friends = in.createTypedArrayList(Person.CREATOR);
     }
 
+    /**
+     * Parcelable Creator
+     */
     public static final Creator<Person> CREATOR = new Creator<Person>() {
         @Override
         public Person createFromParcel(Parcel in) {
@@ -88,6 +100,14 @@ public class Person implements Serializable, Parcelable {
         return 0;
     }
 
+
+    /**
+     * Writes the object to a parcel
+     *
+     * @param dest  The Parcel in which the object should be written.
+     * @param flags Additional flags about how the object should be written.
+     *              May be 0 or {@link #PARCELABLE_WRITE_RETURN_VALUE}.
+     */
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(personID);
@@ -96,6 +116,9 @@ public class Person implements Serializable, Parcelable {
         dest.writeTypedList(friends);
     }
 
+    /**
+     * Inner Class to be used as a Builder Pattern
+     */
     public static class PersonBuilder {
         private int personID;
         private String name;

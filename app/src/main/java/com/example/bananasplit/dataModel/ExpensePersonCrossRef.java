@@ -2,6 +2,10 @@ package com.example.bananasplit.dataModel;
 
 import androidx.room.Entity;
 
+/**
+ * CrossReference Class for the Many-to-many Relation of Expense and Person
+ * @author Dennis Brockmeyer
+ */
 @Entity(primaryKeys = {"expenseID", "personID"})
 public class ExpensePersonCrossRef {
     private int personID;
@@ -38,5 +42,3 @@ public class ExpensePersonCrossRef {
         this.amount = amount;
     }
 }
-
-// Wird benötigt, um die Many-to-Many-Relation von Personen und Ausgaben darzustellen

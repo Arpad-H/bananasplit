@@ -27,7 +27,6 @@ public class SettleUpAdapter extends RecyclerView.Adapter<SettleUpAdapter.Settle
     @NonNull
     @Override
     public SettleUpViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.settle_up_list_item, parent, false);
 

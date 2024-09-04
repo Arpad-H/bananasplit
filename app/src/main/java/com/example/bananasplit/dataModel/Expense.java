@@ -11,7 +11,7 @@ import java.util.Locale;
 
 /**
  * Represents an expense in a group.
- * @autor Arpad Horvath, Dennis Brockemeyer
+ * @author Arpad Horvath, Dennis Brockemeyer
  */
 @Entity(foreignKeys =   {
         @ForeignKey(entity = Person.class,

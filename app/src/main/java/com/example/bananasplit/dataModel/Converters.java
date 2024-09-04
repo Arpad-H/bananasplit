@@ -18,6 +18,13 @@ import java.util.List;
 public class Converters {
     private static final Gson gson = new Gson();
 
+    /**
+     * Converts a string to a Person List.
+     *
+     * @param data The string to convert.
+     * @return The Person List.
+     * @author Dennis Brockmeyer
+     */
     @TypeConverter
     public static List<Person> stringToPersonList(String data) {
         if (data == null) {
@@ -29,16 +36,38 @@ public class Converters {
         return gson.fromJson(data, listType);
     }
 
+    /**
+     * Converts a Person List to a string.
+     *
+     * @param someObjects The Person List to convert.
+     * @return The string.
+     * @author Dennis Brockmeyer
+     */
     @TypeConverter
     public static String personListToString(List<Person> someObjects) {
         return gson.toJson(someObjects);
     }
 
+
+    /**
+     * Converts a double Value to a Currency object.
+     *
+     * @param value The double Value to convert.
+     * @return The Currency Object.
+     * @author Dennis Brockmeyer
+     */
     @TypeConverter
     public static Currency fromDouble(Double value) {
         return value == null ? null : Currency.from(value);
     }
 
+    /**
+     * Converts a Currency Object to a double Value.
+     *
+     * @param currency The Currency Object to convert.
+     * @return The double Value.
+     * @author Dennis Brockmeyer
+     */
     @TypeConverter
     public static Double currencyToDouble(Currency currency) {
         return currency == null ? null : currency.getValueInEur();
@@ -75,7 +104,7 @@ public class Converters {
     }
 
     /**
-     * Converts a Long int  to a Date object.
+     * Converts a Long int to a Date object.
      *
      * @param value The Long to be converted.
      * @return The Date object.

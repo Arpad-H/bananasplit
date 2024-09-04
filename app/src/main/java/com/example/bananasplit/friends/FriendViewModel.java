@@ -10,59 +10,67 @@ import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.dataModel.PersonInDao;
+import com.example.bananasplit.dataModel.repository.PersonRepository;
 import com.example.bananasplit.util.Logging.ActivityLogger;
 import com.example.bananasplit.util.Logging.AppActivityLogger;
 import com.example.bananasplit.util.UserSessionManager;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * The ViewModel for the FriendsFragment
 * @author Dennis Brockmeyer, Arpad Horvath(where specified)
  */
 public class FriendViewModel extends AndroidViewModel {
+    private final PersonRepository repository;
     private final LiveData<List<Person>> allFriends;
-    private final PersonInDao personInDao;
-    private final ActivityLogger logger;
+    private final ExecutorService executorService;
+
     public FriendViewModel(@NonNull Application application) {
         super(application);
-        AppDatabase appDatabase = DatabaseModule.getInstance(application);
-        logger = new AppActivityLogger(appDatabase);
-        personInDao = appDatabase.personInDao();
-        allFriends = personInDao.getFriends();
-    }
-
-    public void insert(Person person) {
-        new Thread(() -> {
-            personInDao.insert(person);
-        }).start();
-        logFriendCreated(person);
-    }
-
-    public void delete(Person person) {
-        new Thread(() -> {
-            personInDao.delete(person);
-        }).start();
-    }
-
-    public void update(Person person) {
-        new Thread(() -> {
-            personInDao.update(person);
-        }).start();
+        repository = new PersonRepository(application);
+        allFriends = repository.getFriends();
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     /**
-     * Logs the creation of a friend
-     * @param friend the friend that was created
-     * @author Arpad Horvath
+     * Inserts a new Person into the database
+     * @param person the new person to be inserted
      */
-    private void logFriendCreated(Person friend) {
-        UserSessionManager userSessionManager = new UserSessionManager(this.getApplication());
-        String name = userSessionManager.getCurrentUserName();
-        logger.logActivity(name, "added " + friend.getName() + " as a friend", "Friends");
-
+    public void insert(Person person) {
+        executorService.execute(() -> repository.insert(person));
     }
+
+    /**
+     * Deletes a Person from the database
+     * @param person the person to be deleted
+     */
+    public void delete(Person person) {
+        executorService.execute(() -> repository.delete(person));
+    }
+
+    /**
+     * Updates a Person from the database
+     * @param person the person to be updated
+     */
+    public void update(Person person) {
+        executorService.execute(() -> repository.update(person));
+    }
+
     public LiveData<List<Person>> getAllFriends() {
         return allFriends;
+    }
+
+    /**
+     * Called when the ViewModel is destroyed.
+     * Ensures the ExecutorService is properly shut down.
+     * @author Arpad Horvath
+     */
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        executorService.shutdown();
     }
 }

@@ -20,19 +20,50 @@ import java.util.Map;
 
 @Dao
 public interface ExpenseInDao {
+    /**
+     * Inserts a new expense into the database.
+     *
+     * @param expense The expense to be inserted.
+     * @return The ID of the inserted expense.
+     * @author Dennis Brockmeyer
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Expense expense);
 
+    /**
+     * Inserts a new ExpensePersonCrossRef into the database.
+     *
+     * @param crossRef The ExpensePersonCrossRef to be inserted.
+     * @author Dennis Brockmeyer
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertExpensePersonCrossRef(ExpensePersonCrossRef crossRef);
 
+    /**
+     * Updates an expense in the database.
+     *
+     * @param expense The expense to be updated.
+     * @author Dennis Brockmeyer
+     */
     @Update
     void update(Expense expense);
 
+    /**
+     * Deletes an expense in the database.
+     *
+     * @param expense The expense to be deleted.
+     * @author Dennis Brockmeyer
+     */
     @Delete
     void delete(Expense expense);
 
 
+    /**
+     * Returns a single Expense by its ID
+     * @param id the ID for the Expense
+     * @return the expense of that ID
+     * @author Dennis Brockmeyer
+     */
     @Transaction
     @Query("SELECT * FROM Expense WHERE id = :id")
     LiveData<Expense> getExpenseByID(int id);

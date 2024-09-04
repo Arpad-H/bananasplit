@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 //import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -28,29 +29,41 @@ import java.util.ArrayList;
 
 public class SettleUpActivity extends BaseActivity implements ListItemHolder {
     private SettleUpAdapter adapter;
-private ActivitySettleUpBinding binding;
+    private ActivitySettleUpBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupBinding();
+        setupRecyclerView();
+        setupBackButton();
+        setupViewModel();
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View contentView = inflater.inflate(R.layout.activity_settle_up, getContentContainer(), false);
-        getContentContainer().addView(contentView);
+    }
 
-        binding = ActivitySettleUpBinding.bind(contentView);
-
-        ImageButton back = findViewById(R.id.backButton);
-        back.setOnClickListener(v-> finish());
-        RecyclerView recyclerView = findViewById(R.id.recyclerSettleUp);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SettleUpAdapter(new ArrayList<>(), this);
-        recyclerView.setAdapter(adapter);
-
+    private void setupViewModel() {
         SettleUpViewModel settleUpViewModel = new ViewModelProvider(this).get(SettleUpViewModel.class);
         settleUpViewModel.getAllFriends().observe(this, friends -> {
             adapter.updateFriends(friends);
         });
+    }
 
+    private void setupBackButton() {
+        ImageButton back = binding.backButton;
+        back.setOnClickListener(v-> finish());
+    }
+
+    private void setupRecyclerView() {
+        //        RecyclerView recyclerView = findViewById(R.id.recyclerSettleUp);
+        adapter = new SettleUpAdapter(new ArrayList<>(), this);
+        binding.recyclerSettleUp.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerSettleUp.setAdapter(adapter);
+    }
+
+    private void setupBinding() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_settle_up, getContentContainer(), false);
+        getContentContainer().addView(contentView);
+        binding = ActivitySettleUpBinding.bind(contentView);
     }
 
     @Override
@@ -60,7 +73,6 @@ private ActivitySettleUpBinding binding;
 
     @Override
     public void onItemClicked(int position) {
-        // TODO: handle onItemClicked
         Person personDetails = adapter.getPersonAt(position);
         Intent intent = new Intent(SettleUpActivity.this, SettleUpDetailsActivity.class);
         intent.putExtra("friend", (Parcelable) personDetails);

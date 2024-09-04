@@ -4,6 +4,10 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+/**
+ * Represents the Room database
+ * @author Dennis Brockmeyer
+ */
 public class DatabaseModule {
     static AppDatabase appDatabase;
     private static AppDatabase instance;

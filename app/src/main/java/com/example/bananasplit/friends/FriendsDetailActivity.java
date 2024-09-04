@@ -4,22 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.bananasplit.BaseActivity;
+import com.example.bananasplit.databinding.ActivityFriendsDetailBinding;
 import com.example.bananasplit.expense.ExpenseAdapter;
 import com.example.bananasplit.expense.ExpenseViewModel;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.settleUp.SettleUpDetailsActivity;
 
-import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 
 
 public class FriendsDetailActivity extends BaseActivity {
@@ -29,18 +30,20 @@ public class FriendsDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TextView friendNameTV = findViewById(R.id.person_name);
-        TextView friendOwedTV = findViewById(R.id.friendOwedTV);
-        TextView friendOweTV = findViewById(R.id.friendOweTV);
-        TextView balance = findViewById(R.id.friendBalanceTV);
-        Button settleUp = findViewById(R.id.friends_detail_btn_settle);
+        ActivityFriendsDetailBinding binding = createBinding();
+
+        TextView friendNameTV = binding.personName;
+        TextView friendOwedTV = binding.friendOwedTV;
+        TextView friendOweTV = binding.friendOweTV;
+        TextView balance = binding.friendBalanceTV;
+        Button settleUp = binding.friendsDetailBtnSettle;
 
         Person friend = getIntent().getParcelableExtra("friend");
 
         if (friend != null) {
             friendNameTV.setText(friend.getName());
 
-            RecyclerView recyclerView = findViewById(R.id.recyclerViewExpensesFriend);
+            RecyclerView recyclerView = binding.recyclerViewExpensesFriend;
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new ExpenseAdapter();
             recyclerView.setAdapter(adapter);
@@ -55,8 +58,18 @@ public class FriendsDetailActivity extends BaseActivity {
         }
     }
 
+    private @NonNull ActivityFriendsDetailBinding createBinding() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_friends_detail, getContentContainer(), false);
+        getContentContainer().addView(contentView);
+        return ActivityFriendsDetailBinding.bind(contentView);
+    }
 
-
+    /**
+     * Returns the layout resource ID for this activity. Used by the BaseActivity.
+     *
+     * @return The layout resource ID.
+     */
     @Override
     protected int getLayoutResourceId() {
         return R.layout.activity_friends_detail;

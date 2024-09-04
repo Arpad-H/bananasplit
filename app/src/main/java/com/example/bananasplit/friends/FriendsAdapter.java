@@ -3,7 +3,6 @@ package com.example.bananasplit.friends;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,33 +13,34 @@ import com.example.bananasplit.ListItemHolder;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.util.ImageUtils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter for displaying Friends in a RecyclerView
+ * @author Dennis Brockmeyer
+ */
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendViewHolder> {
     private List<Person> friends;
-    private final ListItemHolder listener;
+    private final ListItemHolder itemHolder;
     private final List<Person> selectedFriends = new ArrayList<>();
     private boolean buttonVisibility = false;
-    public FriendsAdapter(List<Person> friends, ListItemHolder listener) {
+
+    public FriendsAdapter(List<Person> friends, ListItemHolder itemHolder) {
         this.friends = friends;
-        this.listener = listener;
+        this.itemHolder = itemHolder;
     }
 
-    // Create new views (invoked by the layout manager)
     @NonNull
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.friend_list_item, parent, false);
 
         return new FriendViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(FriendViewHolder viewHolder, final int position) {
 
@@ -50,27 +50,25 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
         viewHolder.editButton.setVisibility(this.buttonVisibility ? View.VISIBLE : View.INVISIBLE);
         viewHolder.deleteButton.setVisibility(this.buttonVisibility ? View.VISIBLE : View.INVISIBLE);
         ImageUtils.setProfileImage(viewHolder.itemView.findViewById(R.id.profilePicture), friend.getName());
-//        viewHolder.itemView.setOnClickListener(v -> {
-//            if (selectedFriends.contains(friend)) {
-//                selectedFriends.remove(friend);
-//            } else {
-//                selectedFriends.add(friend);
-//            }
-//            notifyDataSetChanged();
-//        });
     }
 
+    /**
+     * Toggles the visibility of the edit/delete buttons
+     */
     public void toggleButtonVisibility() {
         this.buttonVisibility = !this.buttonVisibility;
         notifyDataSetChanged();
     }
 
-
-    // Return the size of your dataset (invoked by the layout manager)
+    /**
+     * Returns the size of the dataset (invoked by the layout manager)
+     * @return size
+     */
     @Override
     public int getItemCount() {
         return friends.size();
     }
+
 
     public void updateFriends(List<Person> friends) {
         this.friends = friends;
@@ -115,11 +113,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendVi
             if (pos != RecyclerView.NO_POSITION) {
                 int id = view.getId();
                 if (id == R.id.friendEdit) {
-                    listener.onEdit(pos);
+                    itemHolder.onEdit(pos);
                 } else if (id == R.id.friendDelete) {
-                    listener.onDelete(pos);
+                    itemHolder.onDelete(pos);
                 } else {
-                    listener.onItemClicked(pos);
+                    itemHolder.onItemClicked(pos);
                 }
             }
         }

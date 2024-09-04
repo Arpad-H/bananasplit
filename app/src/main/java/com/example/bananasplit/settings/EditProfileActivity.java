@@ -23,10 +23,10 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 
 public class EditProfileActivity extends AppCompatActivity {
     private Button pickImageButton;
-//    private Uri imageUri = Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
     private ImageView profilePictureView;
     private Uri imageUri= Uri.parse("android.resource://com.example.bananasplit/drawable/logo");
     private EditText nameEditText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

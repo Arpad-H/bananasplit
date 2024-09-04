@@ -72,7 +72,7 @@ public class UserSessionManager {
      * Checks if dark mode is enabled.
      *
      * @return True if dark mode is enabled, otherwise false.
-     * @Author Dennis Brockmeyer
+     * @author Dennis Brockmeyer
      */
     public boolean getDarkMode() {
         return prefs.getBoolean(KEY_DARK_MODE, false);
@@ -81,7 +81,7 @@ public class UserSessionManager {
      * Sets the dark mode preference.
      *
      * @param darkMode True to enable dark mode, otherwise false.
-     *                 @Author Dennis Brockmeyer
+     *                 @author Dennis Brockmeyer
      */
     public void setDarkMode(boolean darkMode) {
         editor.putBoolean(KEY_DARK_MODE, darkMode);
@@ -90,7 +90,7 @@ public class UserSessionManager {
      * Retrieves the default currency.
      *
      * @return The default currency, or "€" if not set.
-     * @Author Dennis Brockmeyer
+     * @author Dennis Brockmeyer
      */
     public String getCurrency() {
         return prefs.getString(KEY_CURRENCY, "€");
@@ -99,8 +99,7 @@ public class UserSessionManager {
      * Sets the default currency.
      *
      * @param currency The currency to set.
-     *                 @Author Dennis Brockmeyer
-
+     * @author Dennis Brockmeyer
      */
     public void setCurrency(String currency) {
         editor.putString(KEY_CURRENCY, currency);
@@ -108,7 +107,7 @@ public class UserSessionManager {
 
     /**
      * Clears all preferences.
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     public void clearAllPreferences() {
         SharedPreferences.Editor editor = prefs.edit();

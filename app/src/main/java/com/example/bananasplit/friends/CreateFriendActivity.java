@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,24 +20,15 @@ import java.util.Objects;
 
 public class CreateFriendActivity extends BaseActivity {
 
-    private ActivityCreateFriendBinding binding;
     private FriendViewModel friendViewModel;
-
-
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View contentView = inflater.inflate(R.layout.activity_create_friend, getContentContainer(), false);
-        getContentContainer().addView(contentView);
-
-        binding = ActivityCreateFriendBinding.bind(contentView);
+        ActivityCreateFriendBinding binding = createBinding();
 
         friendViewModel = new ViewModelProvider(this).get(FriendViewModel.class);
-
 
         TextView friendName = binding.nameFriendEdit;
         TextView friendEmail = binding.emailFriendEdit;
@@ -55,8 +47,8 @@ public class CreateFriendActivity extends BaseActivity {
         }
 
         createFriend.setOnClickListener(v -> {
-            String name = friendName.getText().toString();
-            String email = friendEmail.getText().toString();
+            String name = Objects.requireNonNull(friendName.getText()).toString();
+            String email = Objects.requireNonNull(friendEmail.getText()).toString();
             Person friend = new Person.PersonBuilder()
                     .name(name)
                     .email(email)
@@ -73,6 +65,13 @@ public class CreateFriendActivity extends BaseActivity {
         });
     }
 
+    private @NonNull ActivityCreateFriendBinding createBinding() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View contentView = inflater.inflate(R.layout.activity_create_friend, getContentContainer(), false);
+        getContentContainer().addView(contentView);
+
+        return ActivityCreateFriendBinding.bind(contentView);
+    }
 
 
     @Override
