@@ -8,19 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.os.LocaleListCompat;
 
 import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.R;
-import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.Currency;
-import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Language;
 import com.example.bananasplit.dataModel.Person;
-import com.example.bananasplit.dataModel.PersonInDao;
 import com.example.bananasplit.dataModel.repository.PersonRepository;
 import com.example.bananasplit.databinding.ActivitySettingsBinding;
 import com.example.bananasplit.util.UserSessionManager;
@@ -41,17 +41,27 @@ public class SettingsActivity extends BaseActivity {
 
         UserSessionManager userSessionManager = new UserSessionManager(getApplication());
         SwitchCompat darkMode = binding.switchDarkmode;
-        darkMode.setChecked((userSessionManager.getDarkMode()));
-        darkMode.setOnClickListener(v->{
-            userSessionManager.setDarkMode(darkMode.isChecked());
-        });
 
         Spinner language = binding.settingsSpinnerLanguage;
-        setupLanguageSpinner(language);
+        setupSpinner(language, Language.getLanguageNames());
 
         Spinner defaultCurrency = binding.settingsSpinnerCurrency;
-        setupCurrencySpinner(defaultCurrency);
+        setupSpinner(defaultCurrency, Currency.getCurrencySymbols());
 
+        setupUserEditBtn(repository, userSessionManager, binding);
+
+        ImageButton saveSettings = binding.settingsSave;
+        saveSettings.setOnClickListener(v -> {
+            userSessionManager.setDarkMode(darkMode.isChecked());
+            if (!language.getSelectedItem().toString().equals(userSessionManager.getLanguage())) {
+                userSessionManager.setLanguage(language.getSelectedItem().toString());
+                super.setLanguage(Language.from(userSessionManager.getLanguage()).getLanguageCode());
+            }
+            Toast.makeText(this, "Settings saved", Toast.LENGTH_LONG).show();
+        });
+    }
+
+    private void setupUserEditBtn(PersonRepository repository, UserSessionManager userSessionManager, ActivitySettingsBinding binding) {
         Person currentUser = repository.getPersonForID(userSessionManager.getCurrentUserId()).getValue();
         Button setupUser = binding.btnSetupUser;
         setupUser.setOnClickListener(v->{
@@ -85,55 +95,13 @@ public class SettingsActivity extends BaseActivity {
     }
 
     /**
-     * Sets up the spinner for selecting the default Currency
-     * @author Arpad Horvath
+     * Sets up the spinner with the options in the StringArray
+     * @author Dennis Brockmeyer
      */
-    private void setupCurrencySpinner(Spinner spinner) {
-        Currency[] currencies = Currency.values();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getCurrencySymbols(currencies));
+    private void setupSpinner(Spinner spinner, String[] stringArray) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, stringArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
-    /**
-     * Gets the currency symbols
-     *
-     * @param currencies Array of currencies
-     * @return Array of currency symbols
-     * @author Arpad Horvath
-     */
-    private String[] getCurrencySymbols(Currency[] currencies) {
-        String[] currencySymbols = new String[currencies.length];
-        for (int i = 0; i < currencies.length; i++) {
-            currencySymbols[i] = currencies[i].getCurrencySymbol();
-        }
-        return currencySymbols;
-    }
-
-    /**
-     * Sets up the spinner for selecting the default Language
-     * @author Arpad Horvath, Dennis Brockmeyer
-     */
-    private void setupLanguageSpinner(Spinner spinner) {
-        Language[] languages = Language.values();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getLanguageNames(languages));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-    }
-
-    /**
-     * Gets the Languages as strings
-     *
-     * @param languages Array of languages
-     * @return Array of language strings
-     * @author Arpad Horvath, Dennis Brockmeyer
-     */
-    private String[] getLanguageNames(Language[] languages) {
-        String[] languageNames = new String[languages.length];
-        for (int i = 0; i < languages.length; i++) {
-            languageNames[i] = languages[i].getName();
-        }
-        return languageNames;
-
-    }
 }

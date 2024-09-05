@@ -38,12 +38,28 @@ public enum Language {
      * @param string the language String
      * @return the language object or null
      */
-    public Language from(String string) {
+    public static Language from(String string) {
         for (Language l : Language.values()) {
             if (l.name.equalsIgnoreCase(string)) {
                 return l;
             }
         }
         return null;
+    }
+
+    /**
+     * Gets the Languages as strings
+     *
+     * @return Array of language strings
+     * @author Arpad Horvath, Dennis Brockmeyer
+     */
+    public static String[] getLanguageNames() {
+        Language[] languages = Language.values();
+        String[] languageNames = new String[languages.length];
+        for (int i = 0; i < languages.length; i++) {
+            languageNames[i] = languages[i].getName();
+        }
+        return languageNames;
+
     }
 }

@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
+import com.example.bananasplit.dataModel.Language;
 import com.example.bananasplit.databinding.ActivityMainBinding;
 import com.example.bananasplit.groups.GroupsActivity;
 import com.example.bananasplit.scanner.ScannerActivity;
@@ -130,6 +131,7 @@ public class MainActivity extends BaseActivity {
      * Launches the GroupsActivity.
      */
     private void launchGroupsActivity() {
+        super.setLanguage(Language.from(userSessionManager.getLanguage()).getLanguageCode());
         Intent intent = new Intent(this, GroupsActivity.class);
         startActivity(intent);
         finish(); // We don't want MainActivity in the back stack

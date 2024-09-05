@@ -2,11 +2,14 @@ package com.example.bananasplit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.util.Log;
 import android.widget.FrameLayout;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 
 import com.example.bananasplit.activities.ActivitiesActivity;
 import com.example.bananasplit.settings.SettingsActivity;
@@ -116,5 +119,13 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public FrameLayout getContentContainer() {
         return contentContainer;
+    }
+
+    /**
+     * changes the Language for all Activities
+     * @param languageCode LanguageCode to change to
+     */
+    public void setLanguage(String languageCode) {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
     }
 }

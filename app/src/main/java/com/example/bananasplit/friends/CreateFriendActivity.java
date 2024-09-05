@@ -40,7 +40,7 @@ public class CreateFriendActivity extends BaseActivity {
         if (update) {
             Person friend = intent.getParcelableExtra("friend");
             if (friend != null) {
-                friendHeadline.setText("Update " + friend.getName());
+                friendHeadline.setText(String.format("Update %s", friend.getName()));
                 friendName.setText(friend.getName());
                 friendEmail.setText(friend.getEmail());
             }

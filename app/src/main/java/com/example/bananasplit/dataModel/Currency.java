@@ -81,4 +81,20 @@ public enum Currency implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Gets the currency symbols
+     *
+     * @return Array of currency symbols
+     * @author Arpad Horvath, Dennis Brockmeyer
+     */
+    public static String[] getCurrencySymbols() {
+        Currency[] currencies = Currency.values();
+        String[] currencySymbols = new String[currencies.length];
+        for (int i = 0; i < currencies.length; i++) {
+            currencySymbols[i] = currencies[i].getCurrencySymbol();
+        }
+        return currencySymbols;
+    }
+
 }

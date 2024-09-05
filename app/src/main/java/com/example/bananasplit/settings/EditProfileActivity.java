@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
+import com.example.bananasplit.dataModel.Language;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.dataModel.PersonInDao;
-import com.example.bananasplit.groups.GroupsActivity;
+import com.example.bananasplit.dataModel.repository.PersonRepository;
 import com.example.bananasplit.util.UserSessionManager;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -30,6 +35,7 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserSessionManager userSessionManager = new UserSessionManager(getApplication());
         setContentView(R.layout.activity_edit_user_profile);
 
         Person edit = getIntent().hasExtra("editUser") ? getIntent().getParcelableExtra("editUser") : null;
@@ -42,7 +48,8 @@ public class EditProfileActivity extends AppCompatActivity {
         Button confirmButton = findViewById(R.id.btn_confirm_profile);
         pickImageButton = findViewById(R.id.pickImageButton);
         profilePictureView = findViewById(R.id.profile_picture_image_view);
-
+        Spinner languageSpinner = findViewById(R.id.language_spinner);
+        setupSpinner(languageSpinner, Language.getLanguageNames());
 
 
         pickImageButton.setOnClickListener(v -> {
@@ -54,19 +61,19 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         confirmButton.setOnClickListener(v -> {
-            UserSessionManager userSessionManager = new UserSessionManager(getApplication());
-            AppDatabase database = DatabaseModule.getInstance(this);
-            PersonInDao personInDao = database.personInDao();
-            Person currentUser = personInDao.getCurrentUser(userSessionManager.getCurrentUserId());
+            PersonRepository repository = new PersonRepository(getApplication());
+            Person currentUser = repository.getCurrentUser(userSessionManager.getCurrentUserId());
+            String language = languageSpinner.getSelectedItem().toString();
             if (currentUser == null) {
             new Thread(() -> {
-                int id = (int) personInDao.insert(new Person.PersonBuilder().name(nameEditText.getText().toString()).imageURI(imageUri.toString()).build());
+                int id = (int) repository.insert(new Person.PersonBuilder().name(nameEditText.getText().toString()).imageURI(imageUri.toString()).build());
                 userSessionManager.setCurrentUserId(id);
                 userSessionManager.setCurrentUserName(nameEditText.getText().toString());
+                userSessionManager.setLanguage(language);
             }).start();
             } else {
                 new Thread(() -> {
-                    personInDao.update(new Person.PersonBuilder().personID(userSessionManager.getCurrentUserId()).name(nameEditText.getText().toString()).imageURI(imageUri.toString()).build());
+                    repository.update(new Person.PersonBuilder().personID(userSessionManager.getCurrentUserId()).name(nameEditText.getText().toString()).imageURI(imageUri.toString()).build());
                 }).start();
             }
             setResult(RESULT_OK);
@@ -83,5 +90,13 @@ public class EditProfileActivity extends AppCompatActivity {
             profilePictureView.setImageURI(imageUri);
         }
     }
-
+    /**
+     * Sets up the spinner with the options in the StringArray
+     * @author Dennis Brockmeyer
+     */
+    private void setupSpinner(Spinner spinner, String[] stringArray) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, stringArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
 }

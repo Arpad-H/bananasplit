@@ -105,6 +105,8 @@
     <string name="capture_failed">Capture failed:</string>
     <string name="failed_to_recognize_text">Failed to recognize text</string>
     <string name="failed_to_analyze_text">Failed to analyze text</string>
+    <string name="first_fragment_label" />
+    <string name="second_fragment_label" />
     <!-- Strings used for fragments for navigation -->
 
 </resources>

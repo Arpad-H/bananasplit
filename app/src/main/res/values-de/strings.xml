@@ -68,4 +68,6 @@
     <string name="capture_failed">Aufnahme fehlgeschlagen:</string>
     <string name="failed_to_recognize_text">Text konnte nicht erkannt werden</string>
     <string name="failed_to_analyze_text">Text konnte nicht analysiert werden</string>
+    <string name="first_fragment_label" />
+    <string name="second_fragment_label" />
 </resources>

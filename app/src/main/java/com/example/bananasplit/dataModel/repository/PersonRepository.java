@@ -15,7 +15,7 @@ import com.example.bananasplit.util.UserSessionManager;
 import java.util.List;
 
 /**
- * Repository for the Friend entity. This class is responsible for handling data operations for the Person entity.
+ * Repository for the Person entity. This class is responsible for handling data operations for the Person entity.
  * @author Dennis Brockmeyer
  */
 public class PersonRepository {
@@ -32,17 +32,18 @@ public class PersonRepository {
     public PersonRepository(Application application) {
         AppDatabase database = DatabaseModule.getInstance(application);
         this.personInDao = database.personInDao();
-        userSessionManager = new UserSessionManager(application);
-        activityLogger = new AppActivityLogger(database);
+        this.userSessionManager = new UserSessionManager(application);
+        this.activityLogger = new AppActivityLogger(database);
     }
 
     /**
      * Inserts a new Friend into the database
      * @param friend The friend that is created.
      */
-    public void insert(Person friend) {
-        personInDao.insert(friend);
+    public long insert(Person friend) {
+        long id = personInDao.insert(friend);
         logFriendCreated(friend);
+        return id;
     }
 
     /**
@@ -62,10 +63,19 @@ public class PersonRepository {
         personInDao.update(friend);
     }
 
+    /**
+     * returns the Livedata of all friends as a List from the database
+     * @return all friends
+     */
     public LiveData<List<Person>> getFriends() {
         return personInDao.getFriends();
     }
 
+    /**
+     * returns the Livedata of the Person for the personID from the Database
+     * @param personID personID to be queried
+     * @return the Livedata for the Person
+     */
     public LiveData<Person> getPersonForID(int personID) {
         return personInDao.getPersonForID(personID);
     }
@@ -88,4 +98,7 @@ public class PersonRepository {
         activityLogger.logActivity(userSessionManager.getCurrentUserName(), "deleted friend " + friend.getName(), "Friends");
     }
 
+    public Person getCurrentUser(int currentUserId) {
+        return personInDao.getCurrentUser(currentUserId);
+    }
 }
