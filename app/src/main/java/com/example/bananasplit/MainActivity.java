@@ -34,7 +34,7 @@ import javax.inject.Inject;
 /**
  * The MainActivity class handles the intitial Setup of the Application on launch. Managing user sessions,
  * initializing necessary components, and handling permissions.
- * @author Arpad Horvath
+ * @author Arpad Horvath, Dennis Brockmeyer (where specified)
  */
 public class MainActivity extends BaseActivity {
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 1;
@@ -71,6 +71,7 @@ public class MainActivity extends BaseActivity {
     private void initializeComponents() {
         requestCameraPermission();
         initializeUserSessionManager();
+        setLanguageAndDarkMode();
         initializeSecurePreferences();
         setupEditProfileLauncher();
     }
@@ -131,11 +132,20 @@ public class MainActivity extends BaseActivity {
      * Launches the GroupsActivity.
      */
     private void launchGroupsActivity() {
-        super.setLanguage(Language.from(userSessionManager.getLanguage()).getLanguageCode());
         Intent intent = new Intent(this, GroupsActivity.class);
         startActivity(intent);
         finish(); // We don't want MainActivity in the back stack
     }
+
+    /**
+     * fetches stored preferences for Language and Dark Mode and applies them
+     * @author Dennis Brockmeyer
+     */
+    private void setLanguageAndDarkMode() {
+        super.setLanguage(Language.from(userSessionManager.getLanguage()).getLanguageCode());
+        super.setDarkMode(userSessionManager.getDarkMode());
+    }
+
     /**
      * Sets up the PayPal checkout configuration.
      *

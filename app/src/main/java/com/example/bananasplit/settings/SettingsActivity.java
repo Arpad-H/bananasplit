@@ -41,6 +41,7 @@ public class SettingsActivity extends BaseActivity {
 
         UserSessionManager userSessionManager = new UserSessionManager(getApplication());
         SwitchCompat darkMode = binding.switchDarkmode;
+        darkMode.setChecked(userSessionManager.getDarkMode());
 
         Spinner language = binding.settingsSpinnerLanguage;
         setupSpinner(language, Language.getLanguageNames());
@@ -52,17 +53,20 @@ public class SettingsActivity extends BaseActivity {
 
         ImageButton saveSettings = binding.settingsSave;
         saveSettings.setOnClickListener(v -> {
-            userSessionManager.setDarkMode(darkMode.isChecked());
             if (!language.getSelectedItem().toString().equals(userSessionManager.getLanguage())) {
                 userSessionManager.setLanguage(language.getSelectedItem().toString());
                 super.setLanguage(Language.from(userSessionManager.getLanguage()).getLanguageCode());
+            }
+            if (darkMode.isChecked() != userSessionManager.getDarkMode()) {
+                userSessionManager.setDarkMode(darkMode.isChecked());
+                super.setDarkMode(darkMode.isChecked());
             }
             Toast.makeText(this, "Settings saved", Toast.LENGTH_LONG).show();
         });
     }
 
     private void setupUserEditBtn(PersonRepository repository, UserSessionManager userSessionManager, ActivitySettingsBinding binding) {
-        Person currentUser = repository.getPersonForID(userSessionManager.getCurrentUserId()).getValue();
+        Person currentUser = repository.getCurrentUser(userSessionManager.getCurrentUserId());
         Button setupUser = binding.btnSetupUser;
         setupUser.setOnClickListener(v->{
             Intent intent = new Intent(SettingsActivity.this, EditProfileActivity.class);

@@ -21,7 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * Base activity class providing common functionality for all activities in the app.
  * This includes the bottom navigation bar and the content container.
  *
- * @author Arpad Horvath
+ * @author Arpad Horvath, Dennis Brockmeyer (where specified)
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private FrameLayout contentContainer;
@@ -124,8 +124,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * changes the Language for all Activities
      * @param languageCode LanguageCode to change to
+     * @author Dennis Brockmeyer
      */
     public void setLanguage(String languageCode) {
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(languageCode));
+    }
+
+    /**
+     * Method to enable/disable the DarkMode
+     * @param isDarkMode boolean Variable to enable/disable
+     * @author Dennis Brockmeyer
+     */
+    public void setDarkMode(boolean isDarkMode) {
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

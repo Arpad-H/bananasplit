@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -89,11 +90,10 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
      * Initializes the view binding for this activity.
      * @return the view binding
      */
-    private ActivityFriendsBinding createBinding() {
+    private @NonNull ActivityFriendsBinding createBinding() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View contentView = inflater.inflate(R.layout.activity_friends, getContentContainer(), false);
         getContentContainer().addView(contentView);
-
         return ActivityFriendsBinding.bind(contentView);
     }
 
@@ -115,7 +115,7 @@ public class FriendsActivity extends BaseActivity implements ListItemHolder {
     @Override
     public void onItemClicked(int position) {
         Person personDetails = adapter.getPersonAt(position);
-        Intent intent = new Intent(this, FriendsDetailActivity.class);
+        Intent intent = new Intent(FriendsActivity.this, FriendsDetailActivity.class);
         intent.putExtra("friend", (Parcelable) personDetails);
         startActivity(intent);
     }
