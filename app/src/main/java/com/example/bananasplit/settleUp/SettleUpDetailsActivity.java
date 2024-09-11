@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import com.example.bananasplit.BaseActivity;
 import com.example.bananasplit.MainActivity;
 import com.example.bananasplit.R;
+import com.example.bananasplit.dataModel.Currency;
 import com.example.bananasplit.databinding.ActivityGroupsBinding;
 import com.example.bananasplit.databinding.ActivitySettleUpDetailsBinding;
 import com.paypal.checkout.PayPalCheckout;
@@ -69,9 +72,11 @@ public class SettleUpDetailsActivity extends BaseActivity {
 
         binding = ActivitySettleUpDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Spinner currency = binding.spinnerChangeCurrency2;
+
+        setupSpinner(currency, Currency.getCurrencySymbols());
 
         setupBackButton();
-        setupRadioGroup();
         setupPayPalPayment();
         setupTransferMoneyButton();
     }
@@ -89,13 +94,6 @@ public class SettleUpDetailsActivity extends BaseActivity {
      */
     private void setupBackButton() {
         binding.backButton.setOnClickListener(v -> finish());
-    }
-
-    /**
-     * Sets up the radio group and enables the transfer money button based on selection.
-     */
-    private void setupRadioGroup() {
-        binding.paymentRadios.setOnCheckedChangeListener((group, checkedId) -> binding.btnTransfer.setEnabled(group.getCheckedRadioButtonId() != -1));
     }
 
     /**
@@ -148,6 +146,16 @@ public class SettleUpDetailsActivity extends BaseActivity {
                 })
         );
 
+    }
+
+    /**
+     * Sets up the spinner with the options in the StringArray
+     * @author Dennis Brockmeyer
+     */
+    private void setupSpinner(Spinner spinner, String[] stringArray) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, stringArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     /**
