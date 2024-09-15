@@ -115,9 +115,20 @@ public interface ExpenseInDao {
      * @param userId   the ID of the user
      * @param groupId  the ID of the group
      * @return the total amount of money owed by the user in the group
-     * @author Arpad Horvath
+     * @author Arpad Horvath, Dennis Brockmeyer
      */
 //    @Query("SELECT SUM(ep.amount) FROM ExpensePersonCrossRef ep WHERE ep.personID = :userId and ep.expenseID IN (SELECT e.id FROM Expense e WHERE e.groupID = :groupId)") //TODO: not working as intended
-    @Query("SELECT SUM(ep.amount) FROM Expense e JOIN ExpensePersonCrossRef ep ON e.id = ep.expenseID JOIN Person p ON ep.personID = p.personID JOIN `Group` g ON e.groupID = g.groupID WHERE p.personID = :userId AND g.groupID = :groupId")
+    @Query("SELECT COALESCE(SUM(amount), 0.0) FROM Expense WHERE spenderID <> :userId AND groupID = :groupId")
     LiveData<Double> getTotalAmountOwedByUserInGroup(int userId, int groupId);
+
+
+    /**
+     * Returns the balance of a user in a group
+     * @param userId the ID of the user
+     * @param groupId the ID of the group
+     * @return the balance
+     * @author Dennis Brockmeyer
+     */
+    @Query("SELECT COALESCE(SUM(CASE WHEN spenderID = :userId THEN amount ELSE -amount END), 0.0) FROM Expense WHERE groupID = :groupId")
+    LiveData<Double> getBalanceForUserInGroup(int userId, int groupId);
 }

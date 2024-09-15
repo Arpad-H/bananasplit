@@ -5,7 +5,7 @@
     <string name="groups">Groups</string>
     <string name="Friends">Friends</string>
     <string name="Activity">Activity</string>
-    <string name="you_are_owed">You are owed</string>
+    <string name="you_are_owed">You paid</string>
     <string name="you_owe">You owe</string>
     <string name="total_balance">Total Balance</string>
     <string name="settle_up">Settle Up</string>
@@ -108,6 +108,7 @@
     <string name="first_fragment_label" />
     <string name="second_fragment_label" />
     <string name="logPersonsAdded">added %s to %s</string>
+    <string name="custom">Custom</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

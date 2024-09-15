@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import com.example.bananasplit.dataModel.Currency;
 import com.example.bananasplit.dataModel.Language;
 
+import java.util.Locale;
+
 /**
  * Manages user session data, including user ID, name, dark mode preference, and default currency.
  * Stores data in SharedPreferences.
@@ -116,6 +118,7 @@ public class UserSessionManager {
      * Sets the Language
      *
      * @param language the LanguageCode to be set
+     * @author Dennis Brockmeyer
      */
     public void setLanguage(String language) {
         editor.putString(KEY_LANGUAGE, language);
@@ -125,10 +128,21 @@ public class UserSessionManager {
     /**
      * Returns the Name of the current Language
      * @return Name of the current Language
+     * @author Dennis Brockmeyer
      */
     public String getLanguage() {
         return prefs.getString(KEY_LANGUAGE, Language.DE.name());
     }
+
+    /**
+     * Creates a Locale based on the current language setting.
+     * @return The Locale for the current language.
+     * @author Dennis Brockmeyer
+     */
+    public Locale getLocale() {
+        return Locale.forLanguageTag(Language.from(getLanguage()).getLanguageCode());
+    }
+
 
     /**
      * Clears all preferences.

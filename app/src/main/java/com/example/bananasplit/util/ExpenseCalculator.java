@@ -71,4 +71,12 @@ public class ExpenseCalculator {
         result.addSource(liveDataFromDao, value -> result.setValue(value != null ? value : 0.0));
         return result;
     }
+
+    public LiveData<Double> getBalanceForGroup(int groupId) {
+        MediatorLiveData<Double> result = new MediatorLiveData<>();
+        int currentUserId = userSessionManager.getCurrentUserId();
+        LiveData<Double> liveDataFromDao = expenseInDao.getBalanceForUserInGroup(currentUserId, groupId);
+        result.addSource(liveDataFromDao, result::setValue);
+        return result;
+    }
 }

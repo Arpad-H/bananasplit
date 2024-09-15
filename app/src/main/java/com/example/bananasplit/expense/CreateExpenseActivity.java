@@ -155,7 +155,6 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
     /**
      * Shows the split ratio dialog
      */
-    @SuppressLint("SetTextI18n")
     private void showSplitRatioDialog() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_split_ratio);
@@ -198,7 +197,7 @@ public class CreateExpenseActivity extends BaseSelectFriendsActivity {
             binding.btnChangeSplitRatio.setText(R.string.equal);
             // TODO: Handle equal split logic for database
         } else if (!selectedFriends.isEmpty()) {
-            binding.btnChangeSplitRatio.setText("Custom");
+            binding.btnChangeSplitRatio.setText(R.string.custom);
             // TODO: Handle custom split logic for database
         }
         dialog.dismiss();

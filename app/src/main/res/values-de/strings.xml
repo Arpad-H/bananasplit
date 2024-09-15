@@ -6,7 +6,7 @@
     <string name="groups">Gruppen</string>
     <string name="Friends">Freunde</string>
     <string name="Activity">Aktivitäten</string>
-    <string name="you_are_owed">Dir wird geschuldet</string>
+    <string name="you_are_owed">Du hast gezahlt</string>
     <string name="you_owe">Du schuldest</string>
     <string name="total_balance">Gesamt</string>
     <string name="settle_up">Ausgleichen</string>
@@ -71,4 +71,5 @@
     <string name="first_fragment_label" />
     <string name="second_fragment_label" />
     <string name="logPersonsAdded">hat %s zu %s hinzugefügt</string>
+    <string name="custom">Benutzerdefiniert</string>
 </resources>

@@ -18,6 +18,7 @@ import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.ExpenseInDao;
 import com.example.bananasplit.dataModel.Group;
+import com.example.bananasplit.dataModel.Language;
 import com.example.bananasplit.databinding.ActivityGroupDetailsBinding;
 import com.example.bananasplit.expense.CreateExpenseActivity;
 import com.example.bananasplit.expense.ExpenseAdapter;
@@ -29,6 +30,7 @@ import com.example.bananasplit.util.ImageUtils;
 import com.example.bananasplit.util.UserSessionManager;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Activity for displaying the details of a group, including expenses and group members.
@@ -44,11 +46,12 @@ public class GroupDetailsActivity extends BaseActivity {
     private TextView balanceTextView;
     private TextView owedAmountTextView;
     private TextView youOweTextView;
+    private UserSessionManager userSessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        userSessionManager = new UserSessionManager(getApplication());
         setupLayout();
         initializeViewModels();
         configureUI();
@@ -58,7 +61,7 @@ public class GroupDetailsActivity extends BaseActivity {
     /**
      * Sets up the layout for the activity.
      *
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void setupLayout() {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -70,7 +73,7 @@ public class GroupDetailsActivity extends BaseActivity {
     /**
      * Initializes the ViewModels used in this activity.
      *
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void initializeViewModels() {
         expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
@@ -80,7 +83,7 @@ public class GroupDetailsActivity extends BaseActivity {
     /**
      * Configures the UI elements, including setting up the group details and RecyclerView.
      *
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void configureUI() {
         group = getIntent().getParcelableExtra("group");
@@ -95,7 +98,7 @@ public class GroupDetailsActivity extends BaseActivity {
     /**
      * Sets up the group details such as name and image.
      *
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void setupGroupDetails() {
         binding.groupNameTextView.setText(group.getName());
@@ -105,7 +108,7 @@ public class GroupDetailsActivity extends BaseActivity {
     /**
      * Sets up the RecyclerView with an adapter and observes expenses.
      *
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void setupRecyclerView() {
         RecyclerView recyclerView = binding.recyclerViewExpenses;
@@ -119,7 +122,7 @@ public class GroupDetailsActivity extends BaseActivity {
     /**
      * Sets up the MemberView and observes group members.
      *
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void setupMemberView() {
         MemberView memberView = binding.memberView;
@@ -129,7 +132,7 @@ public class GroupDetailsActivity extends BaseActivity {
     /**
      * Populates the balance overview by observing expense data.
      *
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void populateBalanceOverview() {
         youOweTextView = binding.txtYouOweAmount;
@@ -147,7 +150,7 @@ public class GroupDetailsActivity extends BaseActivity {
      * Observes and updates the UI with expense data.
      *
      * @param groupId The ID of the group whose expenses are being observed.
-     * @Author Dennis Brockmeyer , Arpad Horvath
+     * @author Dennis Brockmeyer , Arpad Horvath
      */
     private void observeExpenseData(int groupId) {
         ExpenseCalculator expenseCalculator = new ExpenseCalculator(getApplication());
@@ -159,6 +162,10 @@ public class GroupDetailsActivity extends BaseActivity {
         expenseCalculator.getTotalAmountPaidByCurrentUserInGroup(groupId).observe(this, owedAmount -> {
             updateTextView(owedAmountTextView, owedAmount.floatValue());
         });
+
+        expenseCalculator.getBalanceForGroup(groupId).observe(this, balance -> {
+            updateTextView(balanceTextView, balance.floatValue());
+        });
     }
 
     /**
@@ -166,16 +173,16 @@ public class GroupDetailsActivity extends BaseActivity {
      *
      * @param textView The TextView to update.
      * @param amount   The amount to display.
-     * @Author Dennis Brockmeyer , Arpad Horvath
+     * @author Dennis Brockmeyer , Arpad Horvath
      */
     private void updateTextView(TextView textView, Float amount) {
-        String formattedAmount = String.format("%.2f", amount != null ? amount : 0.0);
-        textView.setText(formattedAmount + group.getCurrency().getCurrencySymbol());
+        String formattedAmount = String.format(userSessionManager.getLocale(),"%.2f %s", amount != null ? amount : 0.0, group.getCurrency().getCurrencySymbol());
+        textView.setText(formattedAmount);
     }
 
     /**
      * Sets up click listeners for buttons.
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void setupListeners() {
         binding.btnSettleUp.setOnClickListener(v -> navigateToSettleUp());
@@ -184,7 +191,7 @@ public class GroupDetailsActivity extends BaseActivity {
 
     /**
      * Navigates to the SettleUpActivity.
-     * @Author Dennis Brockmeyer
+     * @author Dennis Brockmeyer
      */
     private void navigateToSettleUp() {
         Intent intent = new Intent(this, SettleUpActivity.class);
@@ -194,7 +201,7 @@ public class GroupDetailsActivity extends BaseActivity {
 
     /**
      * Navigates to the CreateExpenseActivity.
-     * @Author Arpad Horvath
+     * @author Arpad Horvath
      */
     private void navigateToCreateExpense() {
         Intent intent = new Intent(this, CreateExpenseActivity.class);
