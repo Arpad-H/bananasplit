@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.AppDatabase;
 import com.example.bananasplit.dataModel.DatabaseModule;
 import com.example.bananasplit.dataModel.Group;
@@ -82,6 +83,12 @@ public class GroupRepository {
         return groupInDao.getMembersByGroupId(groupId);
     }
 
+    public void addMembers(Group group, List<Person> persons) {
+        groupInDao.addMembers(group.getGroupID(), persons);
+        //TODO: filter Members already in Group before logging
+        logPersonsAdded(group, persons);
+    }
+
     /**
      * Logs the creation of a group.
      * @param group The group that was created.
@@ -96,5 +103,23 @@ public class GroupRepository {
      */
     private void logGroupDeleted(Group group) {
         activityLogger.logActivity(userSessionManager.getCurrentUserName(), "deleted group " + group.getName(), "Groups");
+    }
+
+    /**
+     * Logs the addition of new Members to a Group
+     * @param group The modified group.
+     * @param persons List of Persons to be added
+     */
+    private void logPersonsAdded(Group group, List<Person> persons) {
+        // Idea to add Delimiter from https://stackoverflow.com/a/581464
+        String delimiter = "";
+        StringBuilder personString = new StringBuilder();
+        for (Person p: persons) {
+            personString.append(delimiter);
+            personString.append(p.getName());
+            delimiter = ", ";
+        }
+        //TODO: implement String resources
+        activityLogger.logActivity(userSessionManager.getCurrentUserName(), String.format("has added %s to %s", personString, group.getName()), "Groups");
     }
 }

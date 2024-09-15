@@ -53,7 +53,6 @@ public class SettleUpActivity extends BaseActivity implements ListItemHolder {
     }
 
     private void setupRecyclerView() {
-        //        RecyclerView recyclerView = findViewById(R.id.recyclerSettleUp);
         adapter = new SettleUpAdapter(new ArrayList<>(), this);
         binding.recyclerSettleUp.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerSettleUp.setAdapter(adapter);

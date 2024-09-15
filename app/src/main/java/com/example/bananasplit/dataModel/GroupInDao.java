@@ -102,6 +102,19 @@ public interface GroupInDao {
     }
 
     /**
+     * Adds new Members to an existing Group
+     * @param grpID the group to be update
+     * @param persons The list of persons to be inserted
+     */
+    @Transaction
+    default void addMembers(int grpID, List<Person> persons) {
+        for (Person person : persons) {
+            insertPersonGroupCrossRef(new PersonGroupCrossRef(person.getPersonID(), grpID));
+        }
+    }
+
+
+    /**
      * gets a group from the database with the given ID.
      * @param ID The ID of the group.
      * @return The group with the given ID.

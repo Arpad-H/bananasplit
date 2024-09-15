@@ -4,7 +4,7 @@ import com.example.bananasplit.R;
 
 /**
  * Enum class for ExpenseCategory
- * Categorizes expenses into 5 categories: Food, Transport, Accommodation, Activity, Other
+ * Categorizes expenses into 5 categories: Food, Transport, Accommodation, Activity, Other. Settlement is used when Users settle up
  * @author Arpad Horvath
  * */
 public enum ExpenseCategory {
@@ -12,6 +12,7 @@ public enum ExpenseCategory {
     TRANSPORT("Transport", R.drawable.bus),
     ACCOMMODATION("Accommodation", R.drawable.rockect),
     ACTIVITY("Activity" , R.drawable.bed),
+    SETTLEMENT("Settlement",R.drawable.wallet),
     OTHER("Other", R.drawable.receipt_item);
 
     private final String category;

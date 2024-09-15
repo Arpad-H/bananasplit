@@ -155,6 +155,7 @@ public class CreateGroupActivity extends BaseSelectFriendsActivity {
         if (existingGroup != null) {
             newGroup.setId(existingGroup.getGroupID());
             groupViewModel.update(newGroup);
+            groupViewModel.addMembers(newGroup, selectedFriends);
         } else {
             groupViewModel.insert(newGroup, selectedFriends);
         }

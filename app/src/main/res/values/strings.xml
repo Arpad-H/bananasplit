@@ -107,6 +107,7 @@
     <string name="failed_to_analyze_text">Failed to analyze text</string>
     <string name="first_fragment_label" />
     <string name="second_fragment_label" />
+    <string name="logPersonsAdded">added %s to %s</string>
     <!-- Strings used for fragments for navigation -->
 
 </resources>

@@ -117,6 +117,7 @@ public interface ExpenseInDao {
      * @return the total amount of money owed by the user in the group
      * @author Arpad Horvath
      */
-    @Query("SELECT SUM(ep.amount) FROM ExpensePersonCrossRef ep WHERE ep.personID = :userId and ep.expenseID IN (SELECT e.id FROM Expense e WHERE e.groupID = :groupId)") //TODO: not working as intended
+//    @Query("SELECT SUM(ep.amount) FROM ExpensePersonCrossRef ep WHERE ep.personID = :userId and ep.expenseID IN (SELECT e.id FROM Expense e WHERE e.groupID = :groupId)") //TODO: not working as intended
+    @Query("SELECT SUM(ep.amount) FROM Expense e JOIN ExpensePersonCrossRef ep ON e.id = ep.expenseID JOIN Person p ON ep.personID = p.personID JOIN `Group` g ON e.groupID = g.groupID WHERE p.personID = :userId AND g.groupID = :groupId")
     LiveData<Double> getTotalAmountOwedByUserInGroup(int userId, int groupId);
 }

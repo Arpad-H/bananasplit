@@ -5,46 +5,27 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 
 import com.example.bananasplit.BaseActivity;
-import com.example.bananasplit.MainActivity;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Currency;
-import com.example.bananasplit.databinding.ActivityGroupsBinding;
 import com.example.bananasplit.databinding.ActivitySettleUpDetailsBinding;
-import com.paypal.checkout.PayPalCheckout;
-import com.paypal.checkout.approve.Approval;
-import com.paypal.checkout.approve.OnApprove;
-import com.paypal.checkout.config.CheckoutConfig;
-import com.paypal.checkout.config.Environment;
-import com.paypal.checkout.createorder.CreateOrder;
 import com.paypal.checkout.createorder.CreateOrderActions;
 import com.paypal.checkout.createorder.CurrencyCode;
 import com.paypal.checkout.createorder.OrderIntent;
 import com.paypal.checkout.createorder.UserAction;
 import com.paypal.checkout.order.Amount;
 import com.paypal.checkout.order.AppContext;
-import com.paypal.checkout.order.CaptureOrderResult;
-import com.paypal.checkout.order.OnCaptureComplete;
 import com.paypal.checkout.order.OrderRequest;
 import com.paypal.checkout.order.PurchaseUnit;
 import com.paypal.checkout.paymentbutton.PaymentButtonContainer;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Activity to handle settling up details.

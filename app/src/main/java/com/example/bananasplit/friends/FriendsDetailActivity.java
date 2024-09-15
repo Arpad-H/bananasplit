@@ -10,6 +10,7 @@ import com.example.bananasplit.expense.ExpenseViewModel;
 import com.example.bananasplit.R;
 import com.example.bananasplit.dataModel.Person;
 import com.example.bananasplit.settleUp.SettleUpDetailsActivity;
+import com.example.bananasplit.util.UserSessionManager;
 
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -28,10 +29,12 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class FriendsDetailActivity extends BaseActivity {
     private ExpenseAdapter adapter;
+    private UserSessionManager userSessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userSessionManager = new UserSessionManager(getApplication());
 
         ActivityFriendsDetailBinding binding = createBinding();
 
@@ -71,7 +74,7 @@ public class FriendsDetailActivity extends BaseActivity {
      */
     private void setupViewModel(Person friend) {
         ExpenseViewModel expenseViewModel = new ViewModelProvider(this).get(ExpenseViewModel.class);
-        expenseViewModel.getExpensesByFriendId(1, friend.getPersonID()).observe(this, expenses -> adapter.updateExpenses(expenses));
+        expenseViewModel.getExpensesByFriendId(userSessionManager.getCurrentUserId(), friend.getPersonID()).observe(this, expenses -> adapter.updateExpenses(expenses));
     }
 
     /**

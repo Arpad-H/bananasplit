@@ -66,6 +66,16 @@ public class GroupViewModel extends AndroidViewModel {
     public void delete(Group group) {
         executorService.execute(() -> groupRepository.deleteGroup(group));
     }
+
+    /**
+     * Adds Members to a Group in the Repository
+     * @param group the modified Group
+     * @param persons the Members to be added
+     */
+    public void addMembers(Group group, List<Person> persons) {
+        executorService.execute(() -> groupRepository.addMembers(group, persons));
+    }
+
     /**
      * Returns a LiveData list of members by group ID.
      *
